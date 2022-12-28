@@ -10,13 +10,6 @@ class EventPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user)
-    {
-        if ($user->isAdministrator()) {
-            return true;
-        }
-    }
-
 
     /**
      * Determine whether the user can view any models.
@@ -26,7 +19,7 @@ class EventPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -38,7 +31,7 @@ class EventPolicy
      */
     public function view(User $user, Event $event)
     {
-        //
+        return true;
     }
 
     /**
@@ -49,7 +42,7 @@ class EventPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**

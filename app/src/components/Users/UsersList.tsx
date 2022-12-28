@@ -1,11 +1,10 @@
-import { Avatar, Box, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material'
+import { Avatar, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '../../Store'
 import Loader from '../utils/Loader'
 import { useEffect } from 'react'
 import { SetUsers } from '../../actions/user/UserActions'
 import MuiList from '@mui/material/List'
-import { User } from '../../interfaces/user'
 
 
 

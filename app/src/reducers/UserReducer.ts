@@ -34,7 +34,6 @@ const UserReducer = ( state: DefaultState = defaultState, action: UserDispatchTy
                 loading: false,
                 error: true,
             }
-
         default:
             return state
     }

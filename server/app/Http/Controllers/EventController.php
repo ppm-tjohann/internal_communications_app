@@ -10,6 +10,12 @@ use Illuminate\Http\Response;
 
 class EventController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Event::class, 'events');
+    }
+
     /**
      * Display a listing of the resource.
      */

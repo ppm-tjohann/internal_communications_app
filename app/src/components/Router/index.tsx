@@ -2,9 +2,8 @@ import { Route, Switch } from 'react-router-dom'
 import Login from '../Auth/Login'
 import AuthRouter from './components/AuthRouter'
 import Dashboard from '../../pages/Dashboard'
-import { Container } from '@mui/material'
 import Layout from '../Layout'
-import Calendar from '../Calendar'
+import Calendar from '../../pages/Calendar'
 
 
 
