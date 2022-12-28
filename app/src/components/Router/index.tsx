@@ -4,6 +4,7 @@ import AuthRouter from './components/AuthRouter'
 import Dashboard from '../../pages/Dashboard'
 import { Container } from '@mui/material'
 import Layout from '../Layout'
+import Calendar from '../Calendar'
 
 
 
@@ -16,8 +17,11 @@ const Router = () => {
           </Route>
           <AuthRouter>
               <Layout>
-                  <Route path={'/'}>
+                  <Route path={'/'} exact>
                       <Dashboard/>
+                  </Route>
+                  <Route path={'/calendar'}>
+                      <Calendar/>
                   </Route>
               </Layout>
           </AuthRouter>
