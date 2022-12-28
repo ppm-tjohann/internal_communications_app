@@ -41,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdministrator()
+    {
+        return $this->role === 'ADMIN';
+    }
+
+    public function eventsHost()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class)->as('participant');
+    }
+
 }

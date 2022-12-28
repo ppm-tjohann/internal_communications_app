@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +24,16 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('logout', [AuthController::class, 'logout']);
     });
 
-    Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::group(
+        [
+            'middleware' => 'auth:sanctum'
+        ],
+        function () {
 
-        Route::get('logout', [AuthController::class, 'logout']);
-        Route::get('users', [UserController::class, 'index']);
-    });
+            Route::get('logout', [AuthController::class, 'logout']);
+            Route::get('users', [UserController::class, 'index']);
+            Route::resource('events', EventController::class);
+        });
 
 });
 
