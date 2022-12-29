@@ -4,6 +4,8 @@ export type UserRole =
 
 export type User = {
     id: number
+    firstname: string
+    lastname: string
     username: string
     email: string
     role: UserRole
