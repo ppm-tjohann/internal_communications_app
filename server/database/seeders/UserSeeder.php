@@ -20,14 +20,18 @@ class UserSeeder extends Seeder
 
         // Dev Normal User
         User::create([
-            'username' => 'user',
+            'firstname' => 'User',
+            'lastname' => 'Root',
+            'username' => 'uroot',
             'email' => 'user@root.de',
             'password' => Hash::make('root')
         ]);
 
         // Dev Admin User
         User::create([
-            'username' => 'admin',
+            'firstname' => 'Admin',
+            'lastname' => 'Root',
+            'username' => 'aroot',
             'role' => 'ADMIN',
             'email' => 'admin@root.de',
             'password' => Hash::make('root')
