@@ -13,12 +13,16 @@ export const AddEventRequest = z.object( {
 } )
 export type AddEventRequest = z.infer<typeof AddEventRequest>
 
-export type Event = {
+export type BaseEvent = {
+    name: string
+    description?: string
+    start: string
+    end: string
+    participants?: number[]
+}
+
+export type Event = BaseEvent & {
     id: number,
-    name: string,
-    description: string,
-    start: string,
-    end: string,
     owner: User,
-    participants: User[]
+    participants: User[],
 }

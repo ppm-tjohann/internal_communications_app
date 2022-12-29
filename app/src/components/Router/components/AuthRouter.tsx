@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootStore, useAppDispatch } from '../../../Store'
 import { Redirect } from 'react-router'
 import { CalendarSetEvents } from '../../../actions/calendar/CalendarActions'
+import { SetUsers } from '../../../actions/user/UserActions'
 
 
 
@@ -21,6 +22,7 @@ const AuthProvider = ( { children }: AuthRouterProps ) => {
 
     if ( loggedIn ) {
         // fetch initial States
+        dispatch( SetUsers() )
         dispatch( CalendarSetEvents() )
     }
 
