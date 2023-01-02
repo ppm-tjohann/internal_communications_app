@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::get('logout', [AuthController::class, 'logout']);
             Route::get('users', [UserController::class, 'index']);
+            Route::resource('posts', PostController::class);
             Route::resource('events', EventController::class);
         });
 

@@ -56,6 +56,7 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event): Response
     {
+        // TODO update Request
         $event->update($request->all());
         return response($event);
     }

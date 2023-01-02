@@ -1,6 +1,16 @@
 # Internal Communications App
 
 -----
+
+## Server
+
+### Polymorphics to add
+
+- [ ] Report
+- [ ] Comment
+
+## Frontend
+
 Todos
 
 - [ ] API Errorhandling
@@ -22,6 +32,7 @@ Todos
 - [ ] adding accept / decline to events
 - [ ] fixing set times on add
 - [ ] add crud options
+- [ ] Add Update Request for EventController
 
 #### AddEventForm
 
@@ -39,7 +50,6 @@ Todos
 - [ ] create basic post with
     - UserAvatar
     - Image
-    - Like
-    - Comment
-    - Report
-    - Share / Repost
+    - Like (mtm)
+    - Comment (polymorphic mtm)
+    - Report (polymorphic mtm)
