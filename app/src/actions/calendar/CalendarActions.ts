@@ -1,5 +1,7 @@
 import { Dispatch } from 'redux'
 import {
+    CALENDAR_ADD_EVENT,
+    CALENDAR_ADD_EVENT_LOADING,
     CALENDAR_SET_ERROR,
     CALENDAR_SET_EVENTS,
     CALENDAR_SET_LOADING,
@@ -11,6 +13,8 @@ import { CalendarViewTypes, DEFAULT_FORMAT } from '../../reducers/CalendarReduce
 import { Moment } from 'moment'
 import { RootState } from '../../Store'
 import api from '../../lib/api'
+import { AddEventRequest, BaseEvent } from '../../interfaces/event'
+import { AxiosError } from 'axios'
 
 
 
@@ -41,4 +45,37 @@ export const CalendarSetEvents = () => async ( dispatch: Dispatch<CalendarDispat
         dispatch( { type: CALENDAR_SET_ERROR } )
     }
     dispatch( { type: CALENDAR_SET_LOADING } )
+}
+
+export const CalendarAddEvent = ( values: BaseEvent ) => async ( dispatch: Dispatch<CalendarDispatchTypes>, getState: () => RootState ) => {
+    console.log( 'Adding Event' )
+    dispatch( { type: CALENDAR_ADD_EVENT_LOADING } )
+    try {
+        AddEventRequest.parse( values )
+        console.log( 'Client Side Validation fine' )
+        const { apiToken } = getState().auth
+        const res = await api.post( '/events', values, {
+            headers: {
+                'Authorization': `Bearer ${apiToken}`,
+            },
+        } )
+        dispatch( {
+            type: CALENDAR_ADD_EVENT,
+            payload: { event: res.data },
+        } )
+    }
+    catch ( e ) {
+        console.log( 'ERROR : ', e )
+        if ( e instanceof AxiosError )
+            if ( e.response && e.response.status === 422 ) {
+                console.log( 'Validation Error' )
+                // TODO set validation Errors
+                dispatch( {
+                    type: CALENDAR_SET_ERROR,
+                    payload: { errors: e.response.data.errors },
+                } )
+
+            }
+    }
+    dispatch( { type: CALENDAR_ADD_EVENT_LOADING } )
 }

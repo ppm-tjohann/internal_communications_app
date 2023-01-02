@@ -1,27 +1,35 @@
 import { CalendarDispatchTypes } from '../actions/calendar/CalendarActionTypes'
 import moment from 'moment'
 import { Event } from '../interfaces/event'
+import { ValidationError } from '../interfaces/validationError'
 
 
 
 export type CalendarViewTypes = 'Day' | 'Week' | 'Month' | 'List'
 export const DEFAULT_FORMAT = 'YYYY-MM-DD'
 
+interface Error {
+    keyof
+    Event: ValidationError
+}
+
 interface DefaultState {
     loading: boolean
+    addEventLoading: boolean
     currentDate: string
     viewingDate: string
     view: CalendarViewTypes
-    error: boolean
+    error: Error
     events: Event[]
 }
 
 const defaultState: DefaultState = {
     loading: false,
+    addEventLoading: false,
     currentDate: moment().format( DEFAULT_FORMAT ),
     viewingDate: moment().format( DEFAULT_FORMAT ),
     view: 'Month',
-    error: false,
+    error: {},
     events: [],
 }
 
@@ -37,6 +45,8 @@ const CalendarReducer = ( state = defaultState, action: CalendarDispatchTypes ) 
             return { ...state, error: !state.error }
         case 'CALENDAR_SET_EVENTS':
             return { ...state, events: action.payload.events }
+        case 'CALENDAR_ADD_EVENT':
+            return { ...state, events: [ ...state.events, action.payload.event ].sort( ( a, b ) => ( Date.parse( a.start ) - Date.parse( b.start ) ) ) }
         default:
             return state
     }

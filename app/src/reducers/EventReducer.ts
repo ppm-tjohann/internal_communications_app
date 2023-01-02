@@ -33,7 +33,7 @@ const EventReducer = ( state: DefaultState = defaultState, action: EventDispatch
                 ...state,
                 events: [
                     ...state.events,
-                    action.payload,
+                    action.payload.event,
                 ],
             }
         case 'EVENT_REMOVE_EVENT':

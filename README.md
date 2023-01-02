@@ -12,7 +12,9 @@ Todos
 
 ### Calendar
 
-- [ ] events into cal
+- [X] events into cal
+- [ ] format events in cal
+- [ ] error display
 - [ ] add events from cal with pre set values
 
 #### AddEventForm

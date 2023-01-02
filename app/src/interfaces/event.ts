@@ -3,12 +3,16 @@ import { User } from './user'
 
 
 
+export const TIME_FORMAT = 'HH:mm'
+export const DATE_FORMAT = 'YYYY-MM-DD'
+export const DATE_TIME_FORMAT = `${DATE_FORMAT} ${TIME_FORMAT}:ss`
+
 export const AddEventRequest = z.object( {
     name: z.string(),
     description: z.optional( z.string() ),
-    start: z.date(),
-    end: z.date(),
-    owner: z.number(),
+    start: z.string(),
+    end: z.string(),
+
     participants: z.optional( z.array( z.number() ) ),
 } )
 export type AddEventRequest = z.infer<typeof AddEventRequest>
