@@ -4,6 +4,8 @@ import AuthRouter from './components/AuthRouter'
 import Dashboard from '../../pages/Dashboard'
 import Layout from '../Layout'
 import Calendar from '../../pages/Calendar'
+import Post from '../Post'
+import PostList from '../Post/PostList'
 
 
 
@@ -21,6 +23,9 @@ const Router = () => {
                   </Route>
                   <Route path={'/calendar'}>
                       <Calendar/>
+                  </Route>
+                  <Route path={'/post'}>
+                      <PostList/>
                   </Route>
               </Layout>
           </AuthRouter>
