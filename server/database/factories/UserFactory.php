@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => fake()->unique()->safeEmail(),
-            'avatar' => fake()->imageUrl(),
+            'avatar' => 'https://api.lorem.space/image/face?w=200&h=200',
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
