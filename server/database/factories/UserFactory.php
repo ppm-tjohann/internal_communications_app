@@ -21,13 +21,15 @@ class UserFactory extends Factory
 
         $firstname = fake()->firstName();
         $lastname = fake()->lastName();
+        $email = fake()->unique()->safeEmail();
+        $avatar = 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($email))).'?d=identicon';
 
         return [
-            'username' => $firstname[0].$lastname,
+            'username' => fake()->userName(),
             'firstname' => $firstname,
             'lastname' => $lastname,
-            'email' => fake()->unique()->safeEmail(),
-            'avatar' => 'https://api.lorem.space/image/face?w=200&h=200',
+            'email' => $email,
+            'avatar' => $avatar,
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
