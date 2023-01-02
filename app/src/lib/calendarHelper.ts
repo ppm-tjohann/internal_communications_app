@@ -23,21 +23,26 @@ export const getWeekDates = ( date: string ) => {
     return days
 }
 
-// always return 7*5 dates
 export const getCalendarDates = ( date: string ) => {
-    const RETURNING_DATES_COUNT = 35
-    const firstDay = parseInt( moment( date ).startOf( 'month' ).format( 'd' ) )
-    const daysInMonth = moment( date ).daysInMonth()
-    const preMonthDates = getMonthDates( moment( date ).subtract( 1, 'month' ).
-      format( DEFAULT_FORMAT ) ).
-      reverse().
-      slice( 0, firstDay - 1 ).
-      reverse()
 
+    let preMonthDates: Day[] = [],
+      nextMonthDates: Day[] = []
+
+    const daysInMonth = moment( date ).daysInMonth()
+
+    const RETURNING_DATES_COUNT = daysInMonth % 7
+    let firstDay = parseInt( moment( date ).startOf( 'month' ).format( 'd' ) )
+    if ( firstDay === 0 ) {
+        firstDay = 7
+    }
     const monthDates = getMonthDates( date )
-    const nextMonthDates = getMonthDates( moment( date ).add( 1, 'month' ).
+
+    preMonthDates = getMonthDates( moment( date ).subtract( 1, 'month' ).
+      format( DEFAULT_FORMAT ) ).reverse().slice( 0, firstDay - 1 ).reverse()
+    
+    nextMonthDates = getMonthDates( moment( date ).add( 1, 'month' ).
       format( DEFAULT_FORMAT ) ).
-      slice( 0, RETURNING_DATES_COUNT - ( firstDay - 1 + daysInMonth ) )
+      slice( 0, 7 - ( monthDates.length + preMonthDates.length ) % 7 )
 
     return [ ...preMonthDates, ...monthDates, ...nextMonthDates ]
 

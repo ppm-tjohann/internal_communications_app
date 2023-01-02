@@ -15,6 +15,8 @@ import { RootState } from '../../Store'
 import api from '../../lib/api'
 import { AddEventRequest, BaseEvent } from '../../interfaces/event'
 import { AxiosError } from 'axios'
+import { ValidationError } from '../../interfaces/validationError'
+import { ZodError } from 'zod'
 
 
 
@@ -42,16 +44,15 @@ export const CalendarSetEvents = () => async ( dispatch: Dispatch<CalendarDispat
         dispatch( { type: CALENDAR_SET_EVENTS, payload: { events } } )
     }
     catch ( e ) {
-        dispatch( { type: CALENDAR_SET_ERROR } )
+
     }
     dispatch( { type: CALENDAR_SET_LOADING } )
 }
 
 export const CalendarAddEvent = ( values: BaseEvent ) => async ( dispatch: Dispatch<CalendarDispatchTypes>, getState: () => RootState ) => {
-    console.log( 'Adding Event' )
     dispatch( { type: CALENDAR_ADD_EVENT_LOADING } )
     try {
-        AddEventRequest.parse( values )
+        //  AddEventRequest.parse( values )
         console.log( 'Client Side Validation fine' )
         const { apiToken } = getState().auth
         const res = await api.post( '/events', values, {
@@ -65,17 +66,27 @@ export const CalendarAddEvent = ( values: BaseEvent ) => async ( dispatch: Dispa
         } )
     }
     catch ( e ) {
-        console.log( 'ERROR : ', e )
-        if ( e instanceof AxiosError )
-            if ( e.response && e.response.status === 422 ) {
-                console.log( 'Validation Error' )
-                // TODO set validation Errors
-                dispatch( {
-                    type: CALENDAR_SET_ERROR,
-                    payload: { errors: e.response.data.errors },
-                } )
+        let errors: ValidationError<BaseEvent> = {}
+        if ( e instanceof ZodError ) {
 
+            let errors: ValidationError<BaseEvent> = {}
+            e.errors.forEach( zodError => {
+                errors[zodError.path[0] as keyof BaseEvent] = zodError.message
+            } )
+        }
+        else if ( e instanceof AxiosError )
+            if ( e.response && e.response.status === 422 ) {
+                const axiosErrors = e.response.data.errors
+
+                Object.keys( axiosErrors ).forEach( errorKey => {
+                    errors[errorKey as keyof BaseEvent] = axiosErrors[errorKey]
+                } )
             }
+            else {
+                console.error( 'Unknown Error : ', 500 )
+            }
+        dispatch( { type: CALENDAR_SET_ERROR, payload: { errors } } )
+        throw new Error( 'Adding Event failed' )
     }
     dispatch( { type: CALENDAR_ADD_EVENT_LOADING } )
 }

@@ -12,17 +12,34 @@ Todos
 
 ### Calendar
 
-- [X] events into cal
-- [ ] format events in cal
-- [ ] error display
-- [ ] add events from cal with pre set values
+- [x] events into cal
+- [x] format events in cal
+- [x] error display
+- [x] add events from cal with pre set values
+
+#### Events
+
+- [ ] adding accept / decline to events
+- [ ] fixing set times on add
+- [ ] add crud options
 
 #### AddEventForm
 
-- [ ] validation
-- [ ] autocompletes
-- [ ] adding loading states
+- [X] validation
+- [x] autocompletes
+- [x] adding loading states
 
 ## Extras:
 
 - [ ] Testings (Laravel | React )
+- [ ] Calendar Sync with Google / MS
+
+### SoM
+
+- [ ] create basic post with
+    - UserAvatar
+    - Image
+    - Like
+    - Comment
+    - Report
+    - Share / Repost

@@ -5,6 +5,7 @@ import Loader from '../utils/Loader'
 import { useEffect } from 'react'
 import { SetUsers } from '../../actions/user/UserActions'
 import MuiList from '@mui/material/List'
+import BoardCard from '../utils/BoardCard'
 
 
 
@@ -37,10 +38,9 @@ const UsersList = () => {
     }, [] )
 
     return (
-      <Paper>
-          <Typography variant={'h2'}>Users</Typography>
-          {loading ? <Loader/> : <List/>}
-      </Paper>
+      <BoardCard loading={loading} title={'Users'}>
+          <List/>
+      </BoardCard>
     )
 }
 export default UsersList

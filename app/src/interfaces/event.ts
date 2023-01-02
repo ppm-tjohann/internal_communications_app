@@ -8,7 +8,7 @@ export const DATE_FORMAT = 'YYYY-MM-DD'
 export const DATE_TIME_FORMAT = `${DATE_FORMAT} ${TIME_FORMAT}:ss`
 
 export const AddEventRequest = z.object( {
-    name: z.string(),
+    name: z.string().min( 1 ),
     description: z.optional( z.string() ),
     start: z.string(),
     end: z.string(),

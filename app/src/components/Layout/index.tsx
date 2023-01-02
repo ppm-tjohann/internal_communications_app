@@ -15,7 +15,7 @@ const Layout = ( { children }: LayoutProps ) => {
               <Sidebar/>
           </Grid>
           <Grid item xs={12} md>
-              <Container sx={{ my: 3 }}>
+              <Container sx={{ my: 3, maxHeight: '100vh', overflow: 'scroll' }}>
                   {children}
               </Container>
           </Grid>

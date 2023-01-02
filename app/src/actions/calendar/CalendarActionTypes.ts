@@ -1,5 +1,6 @@
 import { CalendarViewTypes } from '../../reducers/CalendarReducer'
 import { BaseEvent, Event } from '../../interfaces/event'
+import { ValidationError } from '../../interfaces/validationError'
 
 
 
@@ -41,7 +42,7 @@ export interface CalendarSetEvents {
 
 export interface CalendarError {
     type: typeof CALENDAR_SET_ERROR
-    payload: any
+    payload: { errors: ValidationError<Event> }
 }
 
 export type CalendarDispatchTypes =

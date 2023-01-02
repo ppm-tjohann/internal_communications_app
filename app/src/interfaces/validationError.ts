@@ -1,4 +1,4 @@
-export type ValidationError = {
-    label: string
-    message: string
+export type ValidationError<y> = {
+    [x in keyof y]?: string
 }
+

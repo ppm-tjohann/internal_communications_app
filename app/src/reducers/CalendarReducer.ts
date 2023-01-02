@@ -8,18 +8,13 @@ import { ValidationError } from '../interfaces/validationError'
 export type CalendarViewTypes = 'Day' | 'Week' | 'Month' | 'List'
 export const DEFAULT_FORMAT = 'YYYY-MM-DD'
 
-interface Error {
-    keyof
-    Event: ValidationError
-}
-
 interface DefaultState {
     loading: boolean
     addEventLoading: boolean
     currentDate: string
     viewingDate: string
     view: CalendarViewTypes
-    error: Error
+    errors: ValidationError<Event>
     events: Event[]
 }
 
@@ -29,7 +24,7 @@ const defaultState: DefaultState = {
     currentDate: moment().format( DEFAULT_FORMAT ),
     viewingDate: moment().format( DEFAULT_FORMAT ),
     view: 'Month',
-    error: {},
+    errors: {},
     events: [],
 }
 
@@ -42,7 +37,7 @@ const CalendarReducer = ( state = defaultState, action: CalendarDispatchTypes ) 
         case 'CALENDAR_SET_VIEWING_DATE':
             return { ...state, viewingDate: action.payload.date }
         case 'CALENDAR_SET_ERROR':
-            return { ...state, error: !state.error }
+            return { ...state, errors: action.payload.errors }
         case 'CALENDAR_SET_EVENTS':
             return { ...state, events: action.payload.events }
         case 'CALENDAR_ADD_EVENT':
