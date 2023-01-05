@@ -11,11 +11,14 @@ export const DEFAULT_FORMAT = 'YYYY-MM-DD'
 interface DefaultState {
     loading: boolean
     addEventLoading: boolean
+    popupEventLoading: boolean
     currentDate: string
     viewingDate: string
     view: CalendarViewTypes
     errors: ValidationError<Event>
     events: Event[]
+    popup: boolean
+    popupEvent: Event | null
 }
 
 const defaultState: DefaultState = {
@@ -26,10 +29,19 @@ const defaultState: DefaultState = {
     view: 'Month',
     errors: {},
     events: [],
+    popup: false,
+    popupEvent: null,
+    popupEventLoading: false,
 }
 
 const CalendarReducer = ( state = defaultState, action: CalendarDispatchTypes ) => {
     switch ( action.type ) {
+        case 'CALENDAR_SET_POPUP_EVENT_LOADING':
+            return { ...state, popupEventLoading: !state.popupEventLoading }
+        case 'CALENDAR_HANDLE_EVENT_POPUP':
+            return { ...state, popup: true, popupEvent: action.payload.event }
+        case 'CALENDAR_CLOSE_EVENT_POPUP':
+            return { ...state, popup: false, popupEvent: null }
         case 'CALENDAR_SET_VIEW':
             return { ...state, view: action.payload.view }
         case 'CALENDAR_SET_LOADING':

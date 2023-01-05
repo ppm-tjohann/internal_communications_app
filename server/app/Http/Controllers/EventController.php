@@ -26,7 +26,8 @@ class EventController extends Controller
 
         $events = QueryBuilder::for(Event::class)
             ->allowedIncludes(['user', 'participants'])
-            ->get();
+            ->paginate()
+            ->appends(request()->query());
 
         return response($events);
 
@@ -55,7 +56,8 @@ class EventController extends Controller
      */
     public function show(Event $event): Response
     {
-        $event = QueryBuilder::for($event)
+        $event = QueryBuilder::for(Event::class)
+            ->where('id', '=', $event->id)
             ->allowedIncludes(['user', 'participants'])
             ->first();
         return response($event);

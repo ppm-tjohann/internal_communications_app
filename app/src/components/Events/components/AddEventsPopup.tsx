@@ -5,6 +5,7 @@ import { Close } from '@mui/icons-material'
 import { DEFAULT_FORMAT } from '../../../reducers/CalendarReducer'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../interfaces/event'
+import CenteredModal from '../../utils/CenteredModal'
 
 
 
@@ -42,23 +43,19 @@ const AddEventsPopup = ( { children }: AddEventsPopupProps ) => {
       <AddEventPopupContext.Provider value={{
           toggleEventPopup, setInitialDate, open,
       }}>1
-          <Modal open={open} onClose={handleClose}>
-              <Container sx={{
-                  position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
-              }}>
-                  <Paper>
-                      <Container>
-                          <Stack justifyContent={'space-between'}>
-                              <Typography variant={'h3'}>Add Event</Typography>
-                              <Box>
-                                  <IconButton onClick={handleClose}><Close/></IconButton>
-                              </Box>
-                          </Stack>
-                      </Container>
-                      <AddEventForm initialDate={initDate}/>
-                  </Paper>
-              </Container>
-          </Modal>
+          <CenteredModal open={open} onClose={handleClose}>
+              <Paper>
+                  <Container>
+                      <Stack justifyContent={'space-between'}>
+                          <Typography variant={'h3'}>Add Event</Typography>
+                          <Box>
+                              <IconButton onClick={handleClose}><Close/></IconButton>
+                          </Box>
+                      </Stack>
+                  </Container>
+                  <AddEventForm initialDate={initDate} onSuccess={handleClose}/>
+              </Paper>
+          </CenteredModal>
           {children}
       </AddEventPopupContext.Provider>
     )

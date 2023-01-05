@@ -14,21 +14,24 @@ interface AuthRouterProps {
 
 export const AuthContext = createContext( {} )
 const AuthProvider = ( { children }: AuthRouterProps ) => {
-    const { loggedIn } = useSelector( ( state: RootStore ) => state.auth )
+    const { auth, calendar, users } = useSelector( ( state: RootStore ) => state )
     const dispatch = useAppDispatch()
     useEffect( () => {
+        console.log( 'Initial States: ', users.loading, users.usersData.length )
+        if ( auth.loggedIn ) {
+            // fetch initial States
+            if ( !users.loading && users.usersData.length === 0 )
+                console.log( 'Initial Users' )
+            dispatch( SetUsers() )
+            if ( !calendar.loading && calendar.events.length === 0 )
+                console.log( 'Initial Events' )
+            dispatch( CalendarSetEvents() )
+        }
+    }, [ auth.loggedIn ] )
 
-    }, [ loggedIn ] )
+    console.log( 'Rendering AuthRouter', auth.loggedIn )
 
-    if ( loggedIn ) {
-        // fetch initial States
-        dispatch( SetUsers() )
-        dispatch( CalendarSetEvents() )
-    }
-
-    console.log( 'Rendering AuthRouter', loggedIn )
-
-    if ( !loggedIn ) {
+    if ( !auth.loggedIn ) {
         return <Redirect to={'/login'}/>
     }
 

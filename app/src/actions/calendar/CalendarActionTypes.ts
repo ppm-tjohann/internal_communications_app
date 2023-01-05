@@ -11,6 +11,22 @@ export const CALENDAR_SET_EVENTS = 'CALENDAR_SET_EVENTS'
 export const CALENDAR_ADD_EVENT = 'CALENDAR_ADD_EVENT'
 export const CALENDAR_SET_ERROR = 'CALENDAR_SET_ERROR'
 export const CALENDAR_ADD_EVENT_LOADING = 'CALENDAR_ADD_EVENT_LOADING'
+export const CALENDAR_HANDLE_EVENT_POPUP = 'CALENDAR_HANDLE_EVENT_POPUP'
+export const CALENDAR_CLOSE_EVENT_POPUP = 'CALENDAR_CLOSE_EVENT_POPUP'
+export const CALENDAR_SET_POPUP_EVENT_LOADING = 'CALENDAR_SET_POPUP_EVENT_LOADING'
+
+export interface CalendarPopUpLoading {
+    type: typeof CALENDAR_SET_POPUP_EVENT_LOADING
+}
+
+export interface CalendarCloseEventPopUp {
+    type: typeof CALENDAR_CLOSE_EVENT_POPUP
+}
+
+export interface CalendarEventPopUp {
+    type: typeof CALENDAR_HANDLE_EVENT_POPUP,
+    payload: { event: Event }
+}
 
 export interface CalendarAddEventLoading {
     type: typeof CALENDAR_ADD_EVENT_LOADING
@@ -53,6 +69,9 @@ export type CalendarDispatchTypes =
   | CalendarSetEvents
   | CalendarAddEvent
   | CalendarAddEventLoading
+  | CalendarCloseEventPopUp
+  | CalendarEventPopUp
+  | CalendarPopUpLoading
 
 
 

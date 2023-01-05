@@ -35,6 +35,7 @@ const AuthReducer = ( state: DefaultState = defaultState, action: AuthDispatchTy
             return defaultState
         case AUTH_LOGIN_ERROR:
             return {
+                ...state,
                 loading: false,
                 loginError: true,
             }

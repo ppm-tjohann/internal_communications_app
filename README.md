@@ -13,6 +13,7 @@
 
 Todos
 
+- [ ] Add RichText Editor
 - [ ] API Errorhandling
 - [ ] Add 404 page
 - [ ] Add AddEventForm Request

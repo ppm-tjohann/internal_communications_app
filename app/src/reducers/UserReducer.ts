@@ -10,7 +10,7 @@ interface DefaultState {
 }
 
 const defaultState: DefaultState = {
-    loading: true,
+    loading: false,
     error: false,
     usersData: [],
 }

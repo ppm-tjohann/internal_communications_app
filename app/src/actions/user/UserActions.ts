@@ -22,6 +22,7 @@ export const SetUsers = () =>
               dispatch( { type: USER_ERROR } )
           }
       }
+      dispatch( { type: USER_LOADING } )
   }
 
 

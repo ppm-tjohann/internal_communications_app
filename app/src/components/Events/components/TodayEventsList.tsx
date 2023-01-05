@@ -5,6 +5,7 @@ import { useAppSelector } from '../../../Store'
 import EventDate from './EventDate'
 import Participants from './Participants'
 import Loader from '../../utils/Loader'
+import useCalendar from '../../../hooks/useCalendar'
 
 
 
@@ -12,7 +13,7 @@ const TodayEventsList = () => {
 
     const today = moment()
 
-    const { events, loading } = useAppSelector( state => state.calendar )
+    const { events, loading } = useCalendar()
 
     if ( loading ) {
         return <Loader/>

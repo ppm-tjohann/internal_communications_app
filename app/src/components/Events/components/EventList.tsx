@@ -1,6 +1,10 @@
-import { Box, List, ListItem, ListItemText, Stack, Tooltip, Typography } from '@mui/material'
+import { Box, List, ListItem, ListItemText, Stack, Tooltip, Typography, useTheme } from '@mui/material'
 import { useAppSelector } from '../../../Store'
 import moment from 'moment'
+import useCalendar from '../../../hooks/useCalendar'
+import Loader from '../../utils/Loader'
+import EventDate from './EventDate'
+import EventListItem from './EventListItem'
 
 
 
@@ -10,36 +14,21 @@ interface EventListProps {
 
 const EventList = ( { date }: EventListProps ) => {
 
-    const { events } = useAppSelector( state => state.calendar )
+    const { events, loading } = useCalendar()
 
+    if ( loading ) {
+        return <Loader/>
+    }
     let displayEvents = events
     if ( date !== undefined ) {
         displayEvents = events.filter( event => moment( date ).isSame( moment( event.start ), 'day' ) )
     }
 
-    const isCurrentDay = moment( date ).isSame( moment(), 'day' )
-
     return (
       <Box sx={{ maxHeight: '80%', overflowY: 'scroll' }}>
-          <Stack spacing={1} direction={'column'}>
+          <Stack spacing={.5} direction={'column'}>
               {displayEvents.map( event => (
-                <Box>
-                    <Tooltip title={event.name} key={event.id}>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Box sx={{
-                                mr: 1,
-                                width: 5,
-                                height: 5,
-                                backgroundColor: 'primary.dark',
-                                mixBlendMode: isCurrentDay ? 'multiply' : 'normal',
-                                borderRadius: '50%',
-                            }}/>
-                            <Typography variant={'body2'}>
-                                {event.name.substring( 0, 15 )}{event.name.length > 15 && '…'}
-                            </Typography>
-                        </Box>
-                    </Tooltip>
-                </Box>
+                <EventListItem date={date} event={event} key={event.id}/>
               ) )}
           </Stack>
       </Box>

@@ -1,3 +1,4 @@
+import React from 'react'
 import { createTheme } from '@mui/material'
 
 
@@ -9,7 +10,6 @@ let theme = createTheme( {
 } )
 
 // Theme –  DEFAULT PROPS
-
 theme = createTheme( theme, {
     components: {
         MuiGrid: {
