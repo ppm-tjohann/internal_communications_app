@@ -26,7 +26,7 @@ class AddPostRequest extends FormRequest
     {
         return [
             'text' => ['required'],
-            'image_path' => [
+            'image' => [
                 'required',
                 File::image()
                     ->max(65 * 1024)

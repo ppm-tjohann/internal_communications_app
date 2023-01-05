@@ -14,6 +14,7 @@
 Todos
 
 - [ ] API Errorhandling
+- [ ] Add 404 page
 - [ ] Add AddEventForm Request
 - [ ] Redirect Logout
 - [ ] global popup handler
@@ -47,6 +48,7 @@ Todos
 
 ### SoM
 
+- [ ] add DaD to AddPostForm
 - [ ] create basic post with
     - UserAvatar
     - Image

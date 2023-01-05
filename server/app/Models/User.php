@@ -48,6 +48,12 @@ class User extends Authenticatable
         return $this->role === 'ADMIN';
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+
     public function eventsHost()
     {
         return $this->hasMany(Event::class);

@@ -6,6 +6,7 @@ use App\Http\Requests\Post\AddPostRequest;
 use App\Models\Post;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -28,10 +29,18 @@ class PostController extends Controller
      */
     public function store(AddPostRequest $request): Response
     {
-        //TODO// create post
-        // store image
-        $post = [];
+        $file = $request->file('image')->store('public/uploaded_som_images');
+        $file_url = Storage::url($file);
 
+        $user = $request->user();
+
+
+        $post = new Post([
+            'text' => $request->text,
+            'image' => $file_url,
+        ]);
+
+        $user->posts()->save($post);
         return response($post, 201);
     }
 

@@ -17,6 +17,7 @@ import { AddEventRequest, BaseEvent } from '../../interfaces/event'
 import { AxiosError } from 'axios'
 import { ValidationError } from '../../interfaces/validationError'
 import { ZodError } from 'zod'
+import validationErrors from '../../lib/validationErrors'
 
 
 
@@ -66,26 +67,13 @@ export const CalendarAddEvent = ( values: BaseEvent ) => async ( dispatch: Dispa
         } )
     }
     catch ( e ) {
-        let errors: ValidationError<BaseEvent> = {}
-        if ( e instanceof ZodError ) {
-
-            let errors: ValidationError<BaseEvent> = {}
-            e.errors.forEach( zodError => {
-                errors[zodError.path[0] as keyof BaseEvent] = zodError.message
-            } )
+        let errors = validationErrors( e )
+        if ( errors !== undefined ) {
+            dispatch( { type: CALENDAR_SET_ERROR, payload: { errors } } )
         }
-        else if ( e instanceof AxiosError )
-            if ( e.response && e.response.status === 422 ) {
-                const axiosErrors = e.response.data.errors
-
-                Object.keys( axiosErrors ).forEach( errorKey => {
-                    errors[errorKey as keyof BaseEvent] = axiosErrors[errorKey]
-                } )
-            }
-            else {
-                console.error( 'Unknown Error : ', 500 )
-            }
-        dispatch( { type: CALENDAR_SET_ERROR, payload: { errors } } )
+        else {
+            console.error( 'Unknown Error : ', e )
+        }
         throw new Error( 'Adding Event failed' )
     }
     dispatch( { type: CALENDAR_ADD_EVENT_LOADING } )

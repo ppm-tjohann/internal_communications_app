@@ -2,6 +2,7 @@ import { Box, IconButton, Paper, Stack } from '@mui/material'
 import { Logout } from '@mui/icons-material'
 import { useAppDispatch } from '../../../Store'
 import { AuthLogout } from '../../../actions/auth/AuthActions'
+import { Redirect } from 'react-router'
 
 
 
@@ -10,15 +11,13 @@ const Sidebar = () => {
 
     const handleLogout = () => {
         dispatch( AuthLogout() )
+        return <Redirect to={'/login'}/>
     }
 
     return (
       <Paper sx={{ height: '100vh' }}>
           <Stack>
-              <Box>Hallo</Box>
-              <Box>Hallo</Box>
-              <Box>Hallo</Box>
-              <Box>Hallo</Box>
+
           </Stack>
           <Stack alignItems={'center'} justifyContent={'center'}>
               <Box>
