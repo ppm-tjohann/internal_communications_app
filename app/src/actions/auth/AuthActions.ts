@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import api from '../../lib/api'
+import * as auth from '../../lib/api/auth'
 import { AUTH_LOADING, AUTH_LOGIN, AUTH_LOGIN_ERROR, AUTH_LOGOUT, AuthDispatchTypes } from './AuthActionTypes'
 import { RootState } from '../../Store'
 
@@ -13,8 +13,7 @@ export interface credentials {
 export const AuthLogin = ( credentials: credentials ) => async ( dispatch: Dispatch<AuthDispatchTypes> ) => {
     try {
         dispatch( { type: AUTH_LOADING } )
-        const { data } = await api.post( 'auth/login', credentials )
-        console.log( 'Data : ', data, data.token.plainTextToken )
+        const { data } = await auth.login( credentials )
         localStorage.setItem( 'API_KEY', data.token.plainTextToken )
         dispatch( { type: AUTH_LOGIN, payload: { apiToken: data.token.plainTextToken } } )
     }
@@ -23,13 +22,10 @@ export const AuthLogin = ( credentials: credentials ) => async ( dispatch: Dispa
     }
 }
 
-export const AuthLogout = () => async ( dispatch: Dispatch<AuthDispatchTypes>, getState: () => RootState ) => {
+export const AuthLogout = () => async ( dispatch: Dispatch<AuthDispatchTypes> ) => {
     dispatch( { type: AUTH_LOADING } )
     localStorage.removeItem( 'API_KEY' )
-    const { apiToken } = getState().auth
-    await api.get( 'auth/logout', {
-        headers: { 'Authorization': `Bearer ${apiToken}` },
-    } )
+    await auth.logout()
     dispatch( { type: AUTH_LOGOUT } )
 }
 

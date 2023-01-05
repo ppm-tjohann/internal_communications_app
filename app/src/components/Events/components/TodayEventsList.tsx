@@ -4,6 +4,7 @@ import moment from 'moment'
 import { useAppSelector } from '../../../Store'
 import EventDate from './EventDate'
 import Participants from './Participants'
+import Loader from '../../utils/Loader'
 
 
 
@@ -12,6 +13,10 @@ const TodayEventsList = () => {
     const today = moment()
 
     const { events, loading } = useAppSelector( state => state.calendar )
+
+    if ( loading ) {
+        return <Loader/>
+    }
 
     const todaysEvents = events.filter( event => today.isSame( moment( event.start ), 'day' ) )
 

@@ -3,7 +3,6 @@ import { ChangeEvent, useState } from 'react'
 import { BasePost } from '../../interfaces/post'
 import { useAppDispatch, useAppSelector } from '../../Store'
 import { handlePostSubmit } from '../../actions/posts/PostActions'
-import api from '../../lib/api'
 import FileUpload from '../utils/FileUpload'
 
 

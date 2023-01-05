@@ -110,6 +110,8 @@
       <path value="$PROJECT_DIR$/server/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/server/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/server/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/server/vendor/spatie/laravel-package-tools" />
+      <path value="$PROJECT_DIR$/server/vendor/spatie/laravel-query-builder" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

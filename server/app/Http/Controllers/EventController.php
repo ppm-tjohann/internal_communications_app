@@ -7,13 +7,15 @@ use App\Models\Event;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class EventController extends Controller
 {
 
     public function __construct()
     {
-        $this->authorizeResource(Event::class, 'events');
+        // registering policy
+        //   $this->authorizeResource(Event::class, 'events');
     }
 
     /**
@@ -21,8 +23,13 @@ class EventController extends Controller
      */
     public function index(): Response
     {
-        $events = Event::with(['user', 'participants'])->get();
+
+        $events = QueryBuilder::for(Event::class)
+            ->allowedIncludes(['user', 'participants'])
+            ->get();
+
         return response($events);
+
     }
 
     /**
@@ -48,6 +55,9 @@ class EventController extends Controller
      */
     public function show(Event $event): Response
     {
+        $event = QueryBuilder::for($event)
+            ->allowedIncludes(['user', 'participants'])
+            ->first();
         return response($event);
     }
 

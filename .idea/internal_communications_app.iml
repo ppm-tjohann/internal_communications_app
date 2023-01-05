@@ -116,6 +116,8 @@
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/spatie/laravel-package-tools" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/spatie/laravel-query-builder" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

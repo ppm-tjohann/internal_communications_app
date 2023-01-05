@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PostController extends Controller
 {
@@ -17,7 +18,10 @@ class PostController extends Controller
      */
     public function index(): Response
     {
-        $posts = Post::all();
+        $posts = QueryBuilder::for(Post::class)
+            ->allowedIncludes(['user'])
+            ->paginate(5)
+            ->appends(request()->query());
         return response($posts);
     }
 

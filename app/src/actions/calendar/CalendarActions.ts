@@ -12,11 +12,8 @@ import {
 import { CalendarViewTypes, DEFAULT_FORMAT } from '../../reducers/CalendarReducer'
 import { Moment } from 'moment'
 import { RootState } from '../../Store'
-import api from '../../lib/api'
 import { AddEventRequest, BaseEvent } from '../../interfaces/event'
-import { AxiosError } from 'axios'
-import { ValidationError } from '../../interfaces/validationError'
-import { ZodError } from 'zod'
+import * as event from '../../lib/api/events'
 import validationErrors from '../../lib/validationErrors'
 
 
@@ -38,10 +35,7 @@ export const CalendarViewChange = ( view: CalendarViewTypes ) => ( dispatch: Dis
 export const CalendarSetEvents = () => async ( dispatch: Dispatch<CalendarDispatchTypes>, getState: () => RootState ) => {
     dispatch( { type: CALENDAR_SET_LOADING } )
     try {
-        const { apiToken } = getState().auth
-        const { data: events } = await api.get( 'events', {
-            headers: { 'Authorization': `Bearer ${apiToken}` },
-        } )
+        const { data: events } = await event.get()
         dispatch( { type: CALENDAR_SET_EVENTS, payload: { events } } )
     }
     catch ( e ) {
@@ -55,12 +49,8 @@ export const CalendarAddEvent = ( values: BaseEvent ) => async ( dispatch: Dispa
     try {
         //  AddEventRequest.parse( values )
         console.log( 'Client Side Validation fine' )
-        const { apiToken } = getState().auth
-        const res = await api.post( '/events', values, {
-            headers: {
-                'Authorization': `Bearer ${apiToken}`,
-            },
-        } )
+
+        const res = await event.store( values )
         dispatch( {
             type: CALENDAR_ADD_EVENT,
             payload: { event: res.data },
