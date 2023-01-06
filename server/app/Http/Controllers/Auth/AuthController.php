@@ -30,4 +30,10 @@ class AuthController extends Controller
         return response(['message' => 'User logged out']);
     }
 
+    public function getUser(Request $request)
+    {
+        return response($request->user());
+    }
+
+
 }
