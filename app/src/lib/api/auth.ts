@@ -14,4 +14,5 @@ type loginResponse = {
 }
 
 export const login = ( credentials: credentials ): ApiResponse<loginResponse> => api.post( 'auth/login', credentials )
-export const logout = async () => api.get( 'auth/logout' )
+export const logout = () => api.get( 'auth/logout' )
+export const getUser = (): ApiResponse<User> => api.get( 'auth/user' )

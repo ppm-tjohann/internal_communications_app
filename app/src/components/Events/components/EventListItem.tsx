@@ -3,6 +3,7 @@ import EventDate from './EventDate'
 import moment from 'moment'
 import { Event } from '../../../interfaces/event'
 import useCalendar from '../../../hooks/useCalendar'
+import { useAppSelector } from '../../../Store'
 
 
 
@@ -12,7 +13,7 @@ interface EventListItemProps {
 }
 
 const EventListItem = ( { event, date }: EventListItemProps ) => {
-
+    const { user } = useAppSelector( state => state.auth )
     const theme = useTheme()
     const { handlePopup } = useCalendar()
     const isCurrentDay = moment( date ).isSame( moment(), 'day' )
@@ -20,8 +21,22 @@ const EventListItem = ( { event, date }: EventListItemProps ) => {
         dFormat: ' ', displayEnd: false, hFormat: 'HH:mm',
     }
 
+    console.log( 'USER: ', user )
+
     const handleClick = () => {
         handlePopup( event.id )
+    }
+
+    const getCircleColor = () => {
+        if ( !user ) {
+            return 'primary.dark'
+        }
+        if ( event.user.id === user.id ) {
+            return 'secondary.dark'
+        }
+
+        console.log( 'Event :', event.user.id, user.id )
+        return 'primary.dark'
     }
 
     return (
@@ -40,7 +55,7 @@ const EventListItem = ( { event, date }: EventListItemProps ) => {
                       mr: 1,
                       width: 5,
                       height: 5,
-                      backgroundColor: 'primary.dark',
+                      backgroundColor: getCircleColor(),
                       mixBlendMode: isCurrentDay ? 'multiply' : 'normal',
                       borderRadius: '50%',
                   }}/>

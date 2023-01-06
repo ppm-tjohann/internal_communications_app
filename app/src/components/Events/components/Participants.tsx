@@ -10,7 +10,7 @@ interface ParticipantsProps {
 const Participants = ( { users }: ParticipantsProps ) => {
     return (
       <Stack spacing={-1} flexShrink={0}>
-          {users.map( user => <Avatar src={user.avatar ?? ''}>{user.username}</Avatar> )}
+          {users.map( user => <Avatar key={user.id} src={user.avatar ?? ''}>{user.username}</Avatar> )}
       </Stack>
     )
 }

@@ -27,6 +27,6 @@ export type BaseEvent = {
 
 export type Event = BaseEvent & {
     id: number,
-    owner: User,
+    user: User,
     participants: User[],
 }

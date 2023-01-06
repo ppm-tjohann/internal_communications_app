@@ -16,7 +16,7 @@ const LoginForm = () => {
 
     const [ credentials, setCredentials ] = useState<credentials>( { email: '', password: '' } )
     const dispatch = useAppDispatch()
-    const { loading, loginError, loggedIn, rememberMe } = useSelector( ( state: RootStore ) => state.auth )
+    const { loading, loginError, loggedIn } = useSelector( ( state: RootStore ) => state.auth )
 
     const handleChange = ( label: keyof credentials ) => ( event: ChangeEvent<HTMLInputElement> ) => {
         setCredentials( {
@@ -26,9 +26,6 @@ const LoginForm = () => {
     }
     const handleRemember = () => {
         dispatch( AuthRememberToggle() )
-    }
-    const handleLogout = () => {
-        dispatch( AuthLogout() )
     }
 
     const handleSubmit = () => {

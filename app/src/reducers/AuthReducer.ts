@@ -1,4 +1,5 @@
-import { AUTH_LOADING, AUTH_LOGIN, AUTH_LOGIN_ERROR, AUTH_LOGOUT, AUTH_REMEMBER, AuthDispatchTypes } from '../actions/auth/AuthActionTypes'
+import { AUTH_LOADING, AUTH_LOGIN, AUTH_LOGIN_ERROR, AUTH_LOGOUT, AUTH_REMEMBER, AUTH_SET_USER, AuthDispatchTypes } from '../actions/auth/AuthActionTypes'
+import { User } from '../interfaces/user'
 
 
 
@@ -8,11 +9,7 @@ interface DefaultState {
     loginError: boolean
     rememberMe: boolean
     apiToken: string
-    user?: {
-        username: string
-        role: 'ADMIN' | 'USER',
-        avatar: string
-    } | null
+    user?: User | null
 }
 
 const defaultState: DefaultState = {
@@ -30,7 +27,10 @@ const AuthReducer = ( state: DefaultState = defaultState, action: AuthDispatchTy
                 ...state,
                 loading: false, loginError: false, loggedIn: true,
                 apiToken: action.payload.apiToken,
+                user: action.payload.user,
             }
+        case AUTH_SET_USER:
+            return { ...state, user: action.payload.user }
         case AUTH_LOGOUT:
             return defaultState
         case AUTH_LOGIN_ERROR:
