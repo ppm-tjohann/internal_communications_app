@@ -1,19 +1,21 @@
 import { ReactNode } from 'react'
 import { Box, Container, IconButton, Modal, Paper, Stack, Typography } from '@mui/material'
-import { Close } from '@mui/icons-material'
+import { ArrowBack, Close } from '@mui/icons-material'
 
 
 
 interface CenteredModalProps {
     children: ReactNode
     open: boolean
-    onClose: () => any,
+    onClose: () => any
+    onBack?: () => any
+    displayBack?: boolean
     title?: string
 
     [x: string]: any
 }
 
-const CenteredModal = ( { open, children, onClose, title, ...props }: CenteredModalProps ) => {
+const CenteredModal = ( { open, children, onClose, title, onBack, displayBack, ...props }: CenteredModalProps ) => {
     return (
       <Modal open={open} {...props}>
           <Container sx={{
@@ -21,9 +23,10 @@ const CenteredModal = ( { open, children, onClose, title, ...props }: CenteredMo
           }}>
               <Paper>
                   <Container>
-                      <Stack justifyContent={'space-between'}>
+                      <Stack justifyContent={'space-between'} mb={3}>
+                          {displayBack && onBack && <Box><IconButton onClick={onBack}><ArrowBack/></IconButton></Box>}
                           <Box><Typography variant={'h3'}>{title}</Typography></Box>
-                          <IconButton onClick={onClose}><Close/></IconButton>
+                          <Box><IconButton onClick={onClose}><Close/></IconButton></Box>
                       </Stack>
                       {children}
                   </Container>

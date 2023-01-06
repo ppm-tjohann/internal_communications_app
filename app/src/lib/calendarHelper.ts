@@ -39,7 +39,7 @@ export const getCalendarDates = ( date: string ) => {
 
     preMonthDates = getMonthDates( moment( date ).subtract( 1, 'month' ).
       format( DEFAULT_FORMAT ) ).reverse().slice( 0, firstDay - 1 ).reverse()
-    
+
     nextMonthDates = getMonthDates( moment( date ).add( 1, 'month' ).
       format( DEFAULT_FORMAT ) ).
       slice( 0, 7 - ( monthDates.length + preMonthDates.length ) % 7 )
@@ -56,4 +56,11 @@ export const groupEventsByDate = ( events: Event[], property: keyof Event ) => {
         group.push( item )
         return groups
     }, {} )
+}
+export const getTimeValues = ( format: string, limitValue: string = '0:00' ) => {
+    let times = []
+    for ( let i = 0; i < ( 4 * 24 ); i++ ) {
+        times.push( moment().startOf( 'days' ).add( i * 15, 'minute' ).format( format ) )
+    }
+    return times
 }

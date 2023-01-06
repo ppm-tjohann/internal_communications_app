@@ -1,6 +1,6 @@
 import { ReactNode, useState, createContext } from 'react'
 import { Box, Container, IconButton, Modal, Paper, Stack, Typography } from '@mui/material'
-import AddEventForm from '../../Forms/AddEventForm'
+import AddEventForm from '../forms/AddEventForm'
 import { Close } from '@mui/icons-material'
 import { DEFAULT_FORMAT } from '../../../reducers/CalendarReducer'
 import moment from 'moment'

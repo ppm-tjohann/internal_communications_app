@@ -7,6 +7,9 @@ import Store from './Store'
 import Router from './components/Router'
 import { BrowserRouter } from 'react-router-dom'
 
+// Style for MD-Editor
+import 'react-markdown-editor-lite/lib/index.css'
+
 
 
 function App() {

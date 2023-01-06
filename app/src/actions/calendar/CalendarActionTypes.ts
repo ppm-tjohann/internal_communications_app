@@ -14,6 +14,12 @@ export const CALENDAR_ADD_EVENT_LOADING = 'CALENDAR_ADD_EVENT_LOADING'
 export const CALENDAR_HANDLE_EVENT_POPUP = 'CALENDAR_HANDLE_EVENT_POPUP'
 export const CALENDAR_CLOSE_EVENT_POPUP = 'CALENDAR_CLOSE_EVENT_POPUP'
 export const CALENDAR_SET_POPUP_EVENT_LOADING = 'CALENDAR_SET_POPUP_EVENT_LOADING'
+export const CALENDAR_DELETE_EVENT = 'CALENDAR_DELETE_EVENT'
+
+export interface CalendarDeleteEvent {
+    type: typeof CALENDAR_DELETE_EVENT,
+    payload: { eventId: number }
+}
 
 export interface CalendarPopUpLoading {
     type: typeof CALENDAR_SET_POPUP_EVENT_LOADING
@@ -72,6 +78,7 @@ export type CalendarDispatchTypes =
   | CalendarCloseEventPopUp
   | CalendarEventPopUp
   | CalendarPopUpLoading
+  | CalendarDeleteEvent
 
 
 

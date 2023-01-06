@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import AddEventForm from '../../components/Forms/AddEventForm'
+import AddEventForm from '../../components/Events/forms/AddEventForm'
 import CalendarView from '../../components/Calendar'
 import AddEvent from './AddEvent'
 import AddEventsPopup from '../../components/Events/components/AddEventsPopup'

@@ -1,5 +1,5 @@
 import { Box, Collapse, IconButton, Paper, Stack, Typography, useTheme } from '@mui/material'
-import AddEventForm from '../../components/Forms/AddEventForm'
+import AddEventForm from '../../components/Events/forms/AddEventForm'
 import { useState } from 'react'
 import { Check, CheckCircle, CheckOutlined, ExpandMore } from '@mui/icons-material'
 

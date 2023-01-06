@@ -54,6 +54,8 @@ const CalendarReducer = ( state = defaultState, action: CalendarDispatchTypes ) 
             return { ...state, events: action.payload.events }
         case 'CALENDAR_ADD_EVENT':
             return { ...state, events: [ ...state.events, action.payload.event ].sort( ( a, b ) => ( Date.parse( a.start ) - Date.parse( b.start ) ) ) }
+        case 'CALENDAR_DELETE_EVENT':
+            return { ...state, events: state.events.filter( event => event.id !== action.payload.eventId ) }
         default:
             return state
     }

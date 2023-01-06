@@ -3,6 +3,7 @@ import {
     CALENDAR_ADD_EVENT,
     CALENDAR_ADD_EVENT_LOADING,
     CALENDAR_CLOSE_EVENT_POPUP,
+    CALENDAR_DELETE_EVENT,
     CALENDAR_HANDLE_EVENT_POPUP,
     CALENDAR_SET_ERROR,
     CALENDAR_SET_EVENTS,
@@ -60,7 +61,10 @@ export const CalendarAddEvent = ( values: BaseEvent, successCb?: () => any ) => 
     }
     dispatch( { type: CALENDAR_ADD_EVENT_LOADING } )
 }
-
+export const CalendarDeleteEvent = ( id: number ) => async ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
+    await event.destroy( id )
+    dispatch( { type: CALENDAR_DELETE_EVENT, payload: { eventId: id } } )
+}
 export const CalendarHandleEventPopup = ( id: number ) => async ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
     dispatch( { type: CALENDAR_SET_POPUP_EVENT_LOADING } )
     const { data: eventRes } = await event.find( id )
