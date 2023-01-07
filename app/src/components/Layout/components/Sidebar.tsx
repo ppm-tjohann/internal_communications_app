@@ -1,20 +1,17 @@
 import * as React from 'react'
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 
 import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
 import { Button } from '@mui/material'
 import { ReactNode } from 'react'
 import { Chat, Close, Dashboard, DateRange, Newspaper, People } from '@mui/icons-material'
 import FlexBox from '../../utils/FlexBox'
+import { useHistory, useLocation } from 'react-router'
+import MenuItem from './MenuItem'
 
 
 
@@ -58,18 +55,13 @@ const Drawer = styled( MuiDrawer, { shouldForwardProp: ( prop ) => prop !== 'ope
   } ),
 )
 
-interface MenuItem {
+type MenuItems = {
     name: string
     link: string
     icon: ReactNode
-}
+}[]
 
-const MenuItems: MenuItem[] = [
-    {
-        name: 'Dashboard',
-        link: '/',
-        icon: <Dashboard/>,
-    },
+const MenuItems: MenuItems = [
     {
         name: 'Calendar',
         link: '/calendar',
@@ -89,11 +81,19 @@ const MenuItems: MenuItem[] = [
     },
 ]
 
-export default function MiniDrawer() {
-    const theme = useTheme()
+const Sidebar = () => {
     const [ open, setOpen ] = React.useState( false )
+    const history = useHistory()
+    const { pathname } = useLocation()
 
-    const handleClick = () => {
+    console.log( 'Router Location :', pathname )
+    MenuItems.forEach( item => {
+        console.log( 'Is Route Match:', item.link, pathname.includes( item.link ) )
+    } )
+
+    const handleClick = ( label: string ) => () => {
+        history.push( label )
+        setOpen( false )
     }
 
     const toggleDrawer = () => {
@@ -112,30 +112,13 @@ export default function MiniDrawer() {
           }
           <Divider/>
           <List>
+              <MenuItem active={pathname === '/'} onClick={handleClick} open={open} link={'/'} name={'Dashboard'} icon={<Dashboard/>}/>
               {MenuItems.map( ( item, index ) => (
-                <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                    <ListItemButton
-                      sx={{
-                          minHeight: 48,
-                          justifyContent: open ? 'initial' : 'center',
-                          px: 2.5,
-                      }}
-                    >
-                        <ListItemIcon
-                          sx={{
-                              minWidth: 0,
-                              mr: open ? 3 : 'auto',
-                              justifyContent: 'center',
-                          }}
-                        >
-                            {item.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }}/>
-                    </ListItemButton>
-                </ListItem>
+                <MenuItem key={index} open={open} onClick={handleClick} active={pathname.includes( item.link )} {...item}/>
               ) )}
           </List>
 
       </Drawer>
     )
 }
+export default Sidebar
