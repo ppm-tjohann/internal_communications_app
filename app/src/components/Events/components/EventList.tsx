@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemText, Stack, Tooltip, Typography, useTheme } from '@mui/material'
+import { Box, List, ListItem, ListItemText, Skeleton, Stack, Tooltip, Typography, useTheme } from '@mui/material'
 import { useAppSelector } from '../../../Store'
 import moment from 'moment'
 import useCalendar from '../../../hooks/useCalendar'
@@ -17,7 +17,7 @@ const EventList = ( { date }: EventListProps ) => {
     const { events, loading } = useCalendar()
 
     if ( loading ) {
-        return <Loader/>
+        return <Skeleton/>
     }
     let displayEvents = events
     if ( date !== undefined ) {

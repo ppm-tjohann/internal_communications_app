@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddEventRequest;
+use App\Http\Requests\EventRequest;
 use App\Models\Event;
 
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class EventController extends Controller
 
         $events = QueryBuilder::for(Event::class)
             ->allowedIncludes(['user', 'participants'])
-            ->paginate()
+            ->paginate(50)
             ->appends(request()->query());
 
         return response($events);
@@ -36,7 +36,7 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AddEventRequest $request): Response
+    public function store(EventRequest $request): Response
     {
         $user = $request->user();
         $event = new Event($request->all());
@@ -66,8 +66,9 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event): Response
+    public function update(EventRequest $request, Event $event): Response
     {
+        return response($request);
         // TODO update Request
         $event->update($request->all());
         return response($event);

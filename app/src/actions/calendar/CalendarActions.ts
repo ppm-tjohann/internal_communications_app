@@ -11,15 +11,20 @@ import {
     CALENDAR_SET_POPUP_EVENT_LOADING,
     CALENDAR_SET_VIEW,
     CALENDAR_SET_VIEWING_DATE,
+    CALENDAR_UPDATE_EVENT,
     CalendarDispatchTypes,
 } from './CalendarActionTypes'
 import { CalendarViewTypes, DEFAULT_FORMAT } from '../../reducers/CalendarReducer'
 import { Moment } from 'moment'
-import { AddEventRequest, BaseEvent } from '../../interfaces/event'
+import { AddEventRequest, BaseEvent, Event } from '../../interfaces/event'
 import * as event from '../../lib/api/events'
 import validationErrors from '../../lib/validationErrors'
 
 
+
+export const CalendarUpdateEvent = ( id: number, event: Event ) => ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
+    dispatch( { type: CALENDAR_UPDATE_EVENT, payload: { event, eventId: id } } )
+}
 
 export const CalendarViewingDate = ( date: Moment ) => ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
     dispatch( { type: CALENDAR_SET_VIEWING_DATE, payload: { date: date.format( DEFAULT_FORMAT ) } } )

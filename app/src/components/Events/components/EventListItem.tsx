@@ -28,7 +28,7 @@ const EventListItem = ( { event, date }: EventListItemProps ) => {
     }
 
     const getCircleColor = () => {
-        if ( !user ) {
+        if ( !user || user === undefined ) {
             return 'primary.dark'
         }
         if ( event.user.id === user.id ) {

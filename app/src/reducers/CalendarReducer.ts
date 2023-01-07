@@ -1,4 +1,4 @@
-import { CalendarDispatchTypes } from '../actions/calendar/CalendarActionTypes'
+import { CALENDAR_UPDATE_EVENT, CalendarDispatchTypes } from '../actions/calendar/CalendarActionTypes'
 import moment from 'moment'
 import { Event } from '../interfaces/event'
 import { ValidationError } from '../interfaces/validationError'
@@ -56,6 +56,8 @@ const CalendarReducer = ( state = defaultState, action: CalendarDispatchTypes ) 
             return { ...state, events: [ ...state.events, action.payload.event ].sort( ( a, b ) => ( Date.parse( a.start ) - Date.parse( b.start ) ) ) }
         case 'CALENDAR_DELETE_EVENT':
             return { ...state, events: state.events.filter( event => event.id !== action.payload.eventId ) }
+        case 'CALENDAR_UPDATE_EVENT':
+            return { ...state, events: [ ...state.events.filter( event => event.id !== action.payload.eventId ), action.payload.event ] }
         default:
             return state
     }

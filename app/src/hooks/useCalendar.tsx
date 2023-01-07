@@ -1,16 +1,14 @@
-import { RootState, useAppDispatch, useAppSelector } from '../Store'
+import { useAppDispatch, useAppSelector } from '../Store'
 import { CalendarViewTypes } from '../reducers/CalendarReducer'
 import {
     CalendarAddEvent, CalendarDeleteEvent,
     CalendarHandleEventPopup,
-    CalendarHandlePopupClose,
+    CalendarHandlePopupClose, CalendarUpdateEvent,
     CalendarViewChange,
     CalendarViewingDate,
 } from '../actions/calendar/CalendarActions'
-import moment, { Moment } from 'moment'
-import { BaseEvent, DATE_TIME_FORMAT } from '../interfaces/event'
-import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
-import { User } from '../interfaces/user'
+import { Moment } from 'moment'
+import { BaseEvent, Event } from '../interfaces/event'
 
 
 
@@ -27,6 +25,10 @@ const useCalendar = ( options?: useCalendarProps ) => {
     const handleView = ( view: CalendarViewTypes ) => dispatch( CalendarViewChange( view ) )
     const handleDate = ( date: Moment ) => dispatch( CalendarViewingDate( date ) )
     const handleEventDelete = ( id: number ) => dispatch( CalendarDeleteEvent( id ) )
+    const handleEventUpdate = ( id: number, event: Event ) => {
+        dispatch( CalendarUpdateEvent( id, event ) )
+        closePopup()
+    }
     const closePopup = () => dispatch( CalendarHandlePopupClose() )
     const handlePopup = ( id: number ) => dispatch( CalendarHandleEventPopup( id ) )
 
@@ -36,6 +38,7 @@ const useCalendar = ( options?: useCalendarProps ) => {
     }
 
     return {
+        handleEventUpdate,
         closePopup, handlePopup, handleEventDelete,
         handleView, handleDate, handleSubmit,
         ...calendar,

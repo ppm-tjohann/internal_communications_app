@@ -10,16 +10,12 @@ interface LayoutProps {
 
 const Layout = ( { children }: LayoutProps ) => {
     return (
-      <Grid container>
-          <Grid item xs={0} md={3} lg={2}>
-              <Sidebar/>
-          </Grid>
-          <Grid item xs={12} md>
-              <Container sx={{ my: 3, maxHeight: '100vh', overflow: 'scroll' }}>
-                  {children}
-              </Container>
-          </Grid>
-      </Grid>
+      <Box sx={{ display: 'flex' }}>
+          <Sidebar/>
+          <Box sx={{ flexGrow: 1, p: 3 }}>
+              {children}
+          </Box>
+      </Box>
     )
 }
 export default Layout
