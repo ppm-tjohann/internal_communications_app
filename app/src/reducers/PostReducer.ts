@@ -22,7 +22,7 @@ const defaultState: DefaultState = {
 const PostReducer = ( state: DefaultState = defaultState, action: PostDispatchTypes ) => {
     switch ( action.type ) {
         case 'POST_ADD_POST':
-            return { ...state, posts: [ ...state.posts, action.payload.post ] }
+            return { ...state, posts: [ action.payload.post, ...state.posts ] }
         case 'POST_ADD_POST_LOADING':
             return { ...state, addPostLoading: !state.addPostLoading }
       // case 'POST_HANDLE_LIKE':

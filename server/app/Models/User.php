@@ -65,4 +65,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Event::class)->as('participant');
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
 }

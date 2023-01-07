@@ -6,6 +6,7 @@ import { Redirect, useHistory } from 'react-router'
 import { CalendarSetEvents } from '../../../actions/calendar/CalendarActions'
 import { SetUsers } from '../../../actions/user/UserActions'
 import { AuthSetUser } from '../../../actions/auth/AuthActions'
+import { SetPosts } from '../../../actions/posts/PostActions'
 
 
 
@@ -25,6 +26,7 @@ const AuthProvider = ( { children }: AuthRouterProps ) => {
             dispatch( SetUsers() )
             dispatch( CalendarSetEvents() )
             dispatch( AuthSetUser() )
+            dispatch( SetPosts() )
         }
         else {
             history.push( '/login' )

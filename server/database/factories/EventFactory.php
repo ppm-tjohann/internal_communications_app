@@ -18,9 +18,8 @@ class EventFactory extends Factory
     public function definition()
     {
         $startingDate = fake()->dateTimeThisYear('+1 month');
-        $endingDate = date('Y-m-d H:i:s', strtotime('+1 hour', $startingDate->getTimestamp()));
-
-        $user = User::all()->random(1);
+        $endingDate = date('Y-m-d H:i:s',
+            strtotime('+1 hour', $startingDate->getTimestamp()));
 
 
         return [
@@ -28,7 +27,6 @@ class EventFactory extends Factory
             'description' => fake()->sentence(10),
             'start' => $startingDate,
             'end' => $endingDate,
-            'user_id' => $user[0]->id
         ];
     }
 }

@@ -22,8 +22,10 @@ use App\Http\Controllers\PostController;
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login']);
-        Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-        Route::get('user', [AuthController::class, 'getUser'])->middleware('auth:sanctum');
+        Route::get('logout',
+            [AuthController::class, 'logout'])->middleware('auth:sanctum');
+        Route::get('user',
+            [AuthController::class, 'getUser'])->middleware('auth:sanctum');
     });
 
     Route::group(
@@ -35,6 +37,10 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('logout', [AuthController::class, 'logout']);
             Route::get('users', [UserController::class, 'index']);
             Route::resource('posts', PostController::class);
+            Route::get('posts/{post}/like', [PostController::class, 'like']);
+            Route::get('posts/{post}/comment',
+                [PostController::class, 'comment']);
+
             Route::resource('events', EventController::class);
         });
 

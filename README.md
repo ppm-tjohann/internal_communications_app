@@ -4,16 +4,21 @@
 
 ## Server
 
+- Refactor / Add Seeders
+    - User:
+        - Posts
+        - Events
+
 ### User
 
 - tel / email / name on first login
 
 ### Dashboard
 
-- Sidebar
-- Next Events
-- Recent Posts
-- Notifications
+- [x] Sidebar
+- [x] Next Events
+- [ ] Recent Posts
+- [ ] Notifications
 
 ### POSTS
 

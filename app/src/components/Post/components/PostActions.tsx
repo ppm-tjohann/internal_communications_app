@@ -2,10 +2,13 @@ import { Box, Collapse, Container, IconButton, Slide, Stack } from '@mui/materia
 import { Bookmark, BookmarkBorder, BookmarkOutlined, Comment, CommentOutlined, Favorite, FavoriteBorder, HeartBroken, Save, Share } from '@mui/icons-material'
 import { useState } from 'react'
 import ToggleButton from '../../utils/ToggleButton'
+import { useAppDispatch } from '../../../Store'
 
 
 
-const PostActions = () => {
+const PostActions = ( { id }: { id: number } ) => {
+
+    const dispatch = useAppDispatch()
 
     const [ like, setLike ] = useState( false )
     const [ comment, setComment ] = useState( false )
@@ -13,12 +16,15 @@ const PostActions = () => {
 
     const handleLike = () => {
         setLike( l => !l )
+        dispatch()
     }
     const handleBookmark = () => {
         setBookmark( b => !b )
+        dispatch()
     }
     const handleComment = () => {
         setComment( c => !c )
+        dispatch()
     }
 
     return (

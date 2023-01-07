@@ -1,9 +1,12 @@
 import { Box, Button, Grid, TextField } from '@mui/material'
 import { ChangeEvent, useState } from 'react'
-import { BasePost } from '../../interfaces/post'
+import { AddPostRequest, BasePost } from '../../interfaces/post'
 import { useAppDispatch, useAppSelector } from '../../Store'
-import { handlePostSubmit } from '../../actions/posts/PostActions'
+import { handlePostSubmit, handlePostValidationError } from '../../actions/posts/PostActions'
 import FileUpload from '../utils/FileUpload'
+import PostForm from '../Post/forms/PostForm'
+import validationErrors from '../../lib/validationErrors'
+import Loader from '../utils/Loader'
 
 
 
@@ -14,31 +17,17 @@ const AddPostForm = () => {
         image: null,
     }
 
-    const { errors, loading } = useAppSelector( state => state.posts )
+    const { errors, addPostLoading: loading } = useAppSelector( state => state.posts )
     const dispatch = useAppDispatch()
-    const [ values, setValues ] = useState( defaultValues )
-    const [ fileKey, setFileKey ] = useState( 0 )
 
-    const handleChange = ( label: keyof BasePost ) => ( event: ChangeEvent<HTMLInputElement> ) => {
-        setValues( {
-            ...values,
-            [label]: event.target.value,
-        } )
-    }
-
-    const handleFile = ( file: File | null ) => {
-        setValues( {
-            ...values,
-            image: file,
-        } )
-    }
-
-    const handleSubmit = async () => {
-
-        console.log( 'Values: ', values )
-
+    const handleSubmit = async ( values: BasePost ) => {
         try {
+            console.log( 'Values: ', values )
+            AddPostRequest.parse( values )
             if ( values.image === null ) {
+                dispatch( handlePostValidationError( {
+                    image: 'Image Required',
+                } ) )
                 console.log( 'No Image' )
                 throw new Error( 'Image needed' )
             }
@@ -46,33 +35,22 @@ const AddPostForm = () => {
             formData.append( 'image', values.image )
             formData.append( 'text', values.text )
             dispatch( handlePostSubmit( values, formData ) )
-            setValues( defaultValues )
-            setFileKey( k => k + 1 )
+            dispatch( handlePostValidationError( {} ) )
         }
         catch ( e ) {
-
+            const errors = validationErrors( e )
+            console.log( 'ERRORS :', errors, values )
+            if ( errors === undefined ) {
+                console.error( 'Unknown Add Post Error : ', e )
+            }
+            else {
+                dispatch( handlePostValidationError( errors ) )
+            }
         }
     }
+    if ( loading ) return <Loader/>
 
-    console.log( 'ERRORS :', errors )
-
-    return (
-      <Box>
-          <Grid container>
-              <Grid item xs={12}>
-                  <TextField helperText={errors.text} value={values.text} error={'text' in errors} fullWidth label={'text'} name={'text'}
-                             onChange={handleChange( 'text' )}/>
-
-              </Grid>
-              <Grid item xs={12}>
-                  <FileUpload label={'image'} updateFilesCb={handleFile} key={fileKey}/>
-              </Grid>
-              <Grid item xs={12}>
-                  <Button onClick={handleSubmit} variant={'contained'}>Post</Button>
-              </Grid>
-          </Grid>
-      </Box>
-    )
+    return <PostForm onSubmit={handleSubmit} errors={errors}/>
 
 }
 export default AddPostForm

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\AddPostRequest;
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -19,9 +20,12 @@ class PostController extends Controller
     public function index(): Response
     {
         $posts = QueryBuilder::for(Post::class)
-            ->allowedIncludes(['user'])
-            ->paginate(5)
+            ->allowedIncludes(['user', 'likes'])
+            ->paginate(50)
             ->appends(request()->query());
+
+        $posts->loadCount('likes');
+
         return response($posts);
     }
 
@@ -56,6 +60,8 @@ class PostController extends Controller
      */
     public function show(Post $post): Response
     {
+        $post->load('likes');
+        $post->loadCount('likes');
         return response($post);
     }
 
@@ -82,5 +88,41 @@ class PostController extends Controller
     {
         $post->delete();
         return response(['message' => 'Event deleted'], 200);
+    }
+
+    /**
+     * Toggle likes from Post
+     *
+     * @param  Post  $post
+     * @return Response
+     */
+    public function like(Post $post, Request $request): Response
+    {
+
+        $post->load('likes');
+        foreach ($post->likes as $like) {
+            if ($like->user_id === $request->user()->id) {
+                $like->delete();
+                return response([
+                    'post' => $post, 'message' => 'Like has been removed'
+                ], 200);
+            }
+        }
+
+        $like = $request->user()->likes()->create();
+
+        $like->save();
+        $post->likes()->attach($like);
+        $post = $post->with('likes')->first();
+
+        return response(['post' => $post, 'message' => 'Like has been created'],
+            201);
+
+    }
+
+    public function comment(Post $post, Request $request): Response
+    {
+        $likes = $post->likes();
+        return response($likes);
     }
 }

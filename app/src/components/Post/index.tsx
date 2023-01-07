@@ -3,22 +3,23 @@ import PostWrapper from './components/PostWrapper'
 import PostImage from './components/PostImage'
 import PostHeader from './components/PostHeader'
 import PostActions from './components/PostActions'
+import { Post } from '../../interfaces/post'
 
 
 
-const Post = ( { rd }: { rd?: number } ) => {
+const PostView = ( { id, text, image }: Post ) => {
 
     return (
       <PostWrapper>
           <PostHeader/>
-          <PostImage src={`https://picsum.photos/800/800?random=${rd}`}/>
-          <PostActions/>
+          <PostImage src={image}/>
+          <PostActions id={id}/>
           <Container>
               <Typography variant={'h2'}>
-                  Im a Post
+                  {text}
               </Typography>
           </Container>
       </PostWrapper>
     )
 }
-export default Post
+export default PostView
