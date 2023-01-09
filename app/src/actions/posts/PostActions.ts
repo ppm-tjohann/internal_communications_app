@@ -1,9 +1,20 @@
 import { Dispatch } from 'redux'
-import { POST_ADD_POST, POST_ADD_POST_LOADING, POST_LOADING, POST_SET_ERRORS, POST_SET_POSTS, PostDispatchTypes } from './PostActionTypes'
-import { AddPostRequest, BasePost } from '../../interfaces/post'
+import {
+    POST_ADD_COMMENT,
+    POST_ADD_LIKE,
+    POST_ADD_POST,
+    POST_ADD_POST_LOADING,
+    POST_LOADING,
+    POST_REMOVE_LIKE,
+    POST_SET_ERRORS,
+    POST_SET_POSTS,
+    PostDispatchTypes,
+} from './PostActionTypes'
+import { AddPostRequest, BasePost, Comment } from '../../interfaces/post'
 import { RootState } from '../../Store'
 import validationErrors from '../../lib/validationErrors'
 import * as posts from '../../lib/api/post'
+import * as likes from '../../lib/api/likes'
 import { ValidationError } from '../../interfaces/validationError'
 
 
@@ -44,6 +55,19 @@ export const SetPosts = () => async ( dispatch: Dispatch<PostDispatchTypes> ) =>
 }
 
 export const handlePostLike = ( id: number ) => async ( dispatch: Dispatch<PostDispatchTypes> ) => {
+    try {
+        const res = await likes.post( id )
+        if ( res.status === 200 ) {
+            dispatch( { type: POST_REMOVE_LIKE, payload: { id } } )
+        }
+        else if ( res.status === 201 ) {
+            dispatch( { type: POST_ADD_LIKE, payload: { id } } )
+        }
+    }
+    catch ( e ) {
+        console.error( 'Handle Post Like failed :', e )
+    }
 }
-export const handlePostComment = ( id: number, comment: string ) => async ( dispatch: Dispatch<PostDispatchTypes> ) => {
+export const handlePostComment = ( id: number, comment: Comment ) => async ( dispatch: Dispatch<PostDispatchTypes> ) => {
+    dispatch( { type: POST_ADD_COMMENT, payload: { postId: id, comment } } )
 }

@@ -6,12 +6,15 @@ import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Button } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { ReactNode } from 'react'
-import { Chat, Close, Dashboard, DateRange, Newspaper, People } from '@mui/icons-material'
+import { Chat, Close, Dashboard, DateRange, LogoutOutlined, Newspaper, People } from '@mui/icons-material'
 import FlexBox from '../../utils/FlexBox'
 import { useHistory, useLocation } from 'react-router'
 import MenuItem from './MenuItem'
+import { AuthLogout } from '../../../actions/auth/AuthActions'
+import { useAppDispatch, useAppSelector } from '../../../Store'
+import UserAvatar from '../../Users/UserAvatar'
 
 
 
@@ -83,7 +86,9 @@ const MenuItems: MenuItems = [
 
 const Sidebar = () => {
     const [ open, setOpen ] = React.useState( false )
+    const { user } = useAppSelector( state => state.auth )
     const history = useHistory()
+    const dispatch = useAppDispatch()
     const { pathname } = useLocation()
 
     console.log( 'Router Location :', pathname )
@@ -100,7 +105,16 @@ const Sidebar = () => {
         setOpen( o => !o )
     }
 
-    return ( <Drawer variant="permanent" open={open}>
+    const handleLogout = () => {
+        dispatch( AuthLogout() )
+    }
+
+    return ( <Drawer variant="permanent" open={open} sx={{
+          '.MuiPaper-root': {
+              pb: 3,
+              justifyContent: 'space-between',
+          },
+      }}>
           {
               open ?
                 <Button onClick={toggleDrawer} startIcon={<Close/>}>Close</Button> :
@@ -110,14 +124,20 @@ const Sidebar = () => {
                     </IconButton>
                 </FlexBox>
           }
-          <Divider/>
           <List>
               <MenuItem active={pathname === '/'} onClick={handleClick} open={open} link={'/'} name={'Dashboard'} icon={<Dashboard/>}/>
               {MenuItems.map( ( item, index ) => (
                 <MenuItem key={index} open={open} onClick={handleClick} active={pathname.includes( item.link )} {...item}/>
               ) )}
           </List>
-
+          <FlexBox sx={{ justifySelf: 'flex-end', flexDirection: 'column' }}>
+              {user && <Box sx={{ mb: 1 }}>
+                <UserAvatar user={user}/>
+              </Box>}
+              <IconButton onClick={handleLogout}>
+                  <LogoutOutlined/>
+              </IconButton>
+          </FlexBox>
       </Drawer>
     )
 }

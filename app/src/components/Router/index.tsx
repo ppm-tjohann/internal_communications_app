@@ -24,7 +24,7 @@ const Router = () => {
                   <Route path={'/calendar'}>
                       <Calendar/>
                   </Route>
-                  <Route path={'/post'}>
+                  <Route path={'/social'}>
                       <PostList/>
                   </Route>
               </Layout>

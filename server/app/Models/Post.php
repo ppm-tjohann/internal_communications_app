@@ -19,10 +19,17 @@ class Post extends Model
     }
 
 
+    protected $withCount = ['likes'];
+
     protected $fillable = [
         'text', 'image',
     ];
 
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 
     public function user()
     {

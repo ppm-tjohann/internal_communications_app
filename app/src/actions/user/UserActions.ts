@@ -11,18 +11,14 @@ export const SetUsers = () =>
       dispatch( { type: USER_LOADING } )
       try {
           const { data: usersRes } = await users.get()
+          console.log( 'Setting UserS :', usersRes )
           dispatch( { type: USER_SET_USERS, payload: { usersData: usersRes } } )
       }
       catch ( e ) {
-          console.log( e )
-          if ( e instanceof AxiosError ) {
-              if ( e.response?.status === 401 ) {
-                  dispatch( { type: AUTH_LOGOUT } )
-              }
-              dispatch( { type: USER_ERROR } )
-          }
+          console.log( 'Setting Users Error :', e )
+          dispatch( { type: USER_LOADING } )
       }
-      dispatch( { type: USER_LOADING } )
+
   }
 
 

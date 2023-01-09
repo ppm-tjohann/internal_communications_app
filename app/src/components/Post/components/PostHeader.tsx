@@ -1,13 +1,15 @@
-import { Avatar, Box, Container, IconButton, Stack } from '@mui/material'
+import { Avatar, Box, Container, IconButton, Stack, Typography } from '@mui/material'
 import { MoreVert } from '@mui/icons-material'
+import { User } from '../../../interfaces/user'
+import UserAvatar from '../../Users/UserAvatar'
 
 
 
-const PostHeader = () => {
+const PostHeader = ( { user }: { user: User } ) => {
 
     return ( <Container sx={{ my: 1 }}>
         <Stack justifyContent={'space-between'}>
-            <Avatar src={'https://api.lorem.space/image/face?w=150&h=150'}>username</Avatar>
+            <UserAvatar user={user} showName/>
             <Box>
                 <IconButton>
                     <MoreVert/>

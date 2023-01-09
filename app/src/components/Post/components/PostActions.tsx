@@ -3,49 +3,34 @@ import { Bookmark, BookmarkBorder, BookmarkOutlined, Comment, CommentOutlined, F
 import { useState } from 'react'
 import ToggleButton from '../../utils/ToggleButton'
 import { useAppDispatch } from '../../../Store'
+import { handlePostLike } from '../../../actions/posts/PostActions'
+import PostLikes from './PostLikes'
 
 
 
-const PostActions = ( { id }: { id: number } ) => {
+const PostActions = ( { id, likes_count }: { id: number, likes_count: number } ) => {
 
     const dispatch = useAppDispatch()
 
-    const [ like, setLike ] = useState( false )
     const [ comment, setComment ] = useState( false )
     const [ bookmark, setBookmark ] = useState( false )
 
-    const handleLike = () => {
-        setLike( l => !l )
-        dispatch()
-    }
-    const handleBookmark = () => {
-        setBookmark( b => !b )
-        dispatch()
-    }
     const handleComment = () => {
         setComment( c => !c )
-        dispatch()
+        //dispatch()
     }
 
     return (
       <Container sx={{ my: 1 }}>
-          <Stack justifyContent={'space-between'}>
+          <Stack justifyContent={'space-between'} height={40} mx={-1}>
+
+              <PostLikes id={id} likes_count={likes_count}/>
+
               <Stack spacing={1}>
-                  <ToggleButton toggle={like} handleClick={handleLike}>
-                      <Favorite/>
-                      <FavoriteBorder/>
-                  </ToggleButton>
                   <ToggleButton toggle={comment} handleClick={handleComment}>
                       <Comment/>
                       <CommentOutlined/>
                   </ToggleButton>
-              </Stack>
-              <Stack spacing={1}>
-                  <IconButton onClick={handleBookmark}>
-                      {bookmark ?
-                        <Bookmark/> : <BookmarkBorder/>
-                      }
-                  </IconButton>
               </Stack>
           </Stack>
       </Container>
