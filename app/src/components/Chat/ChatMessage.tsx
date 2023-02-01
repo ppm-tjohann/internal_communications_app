@@ -3,17 +3,11 @@ import UserAvatar from '../Users/UserAvatar'
 import { User } from '../../interfaces/user'
 import { useAppSelector } from '../../Store'
 import moment from 'moment'
+import { Message } from '../../interfaces/chat'
 
 
 
-interface ChatMessageProps {
-    text: string
-    sender?: User
-    created_at: string
-    read: 0 | 1
-}
-
-const ChatMessage = ( { text, sender, created_at, read }: ChatMessageProps ) => {
+const ChatMessage = ( { text, user: sender, created_at }: Message ) => {
 
     const { user } = useAppSelector( state => state.auth )
 

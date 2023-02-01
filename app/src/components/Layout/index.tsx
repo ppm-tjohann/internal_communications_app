@@ -12,7 +12,7 @@ const Layout = ( { children }: LayoutProps ) => {
     return (
       <Box sx={{ display: 'flex' }}>
           <Sidebar/>
-          <Box sx={{ flexGrow: 1, p: 3 }}>
+          <Box sx={{ flexGrow: 1, py: 3, px: 2, maxHeight: '100vh', overflow: 'hidden' }}>
               {children}
           </Box>
       </Box>

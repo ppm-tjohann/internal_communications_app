@@ -31,7 +31,7 @@ const Router = () => {
                       <PostList/>
                   </Route>
                   <Route path={'/chat'} exact>
-                      <ChatDashboard/>
+                      <Chat/>
                   </Route>
                   <Route path={'/chat/:userId'}>
                       <Chat/>

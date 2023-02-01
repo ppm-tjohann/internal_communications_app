@@ -2,14 +2,25 @@ import { User } from './user'
 
 
 
-export type ChatMessage = {
+export type Message = {
     id: number
-    sender_id: number
-    recipient_id: number
+    user: User | null
+    user_id: number
     text: string
     created_at: string
-    recipient?: User
-    sender?: User
-    read: 0 | 1
+    updated_at: string
 }
-export type Chat = ChatMessage[]
+
+export type StoreChat = {
+    name: string | null | undefined
+    users: number[],
+}
+
+export type Chat = {
+    id: number
+    name: string | null
+    users: User[]
+    messages: Message[]
+    updated_at: string
+    created_at: string
+}

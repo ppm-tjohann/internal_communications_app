@@ -12,8 +12,7 @@ const SendMessage = () => {
 
     const dispatch = useAppDispatch()
 
-    const { sendLoading, recipientId } = useAppSelector( state => state.chat )
-    const { user } = useAppSelector( state => state.auth )
+    const { loadingSendingMessage: loading } = useAppSelector( state => state.chat )
     const [ value, setValue ] = useState( '' )
 
     const handleChange = ( event: ChangeEvent<HTMLInputElement> ) => {
@@ -22,7 +21,7 @@ const SendMessage = () => {
 
     const handleSubmit = () => {
         if ( value.length > 0 ) {
-            dispatch( sendMessage( recipientId, value ) )
+            dispatch( sendMessage( value ) )
             setValue( '' )
         }
     }
@@ -40,7 +39,7 @@ const SendMessage = () => {
                 value={value} onChange={handleChange}
                 placeholder={'message…'}
               />
-              <ToggleButton handleClick={handleSubmit} toggle={sendLoading}>
+              <ToggleButton handleClick={handleSubmit} toggle={loading}>
                   <CircularProgress size={24}/>
                   <Send/>
               </ToggleButton>

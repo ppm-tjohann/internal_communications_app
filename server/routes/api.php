@@ -32,24 +32,18 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(
-        [
-            'middleware' => 'auth:sanctum'
-        ],
+        ['middleware' => 'auth:sanctum'],
         function () {
-
             Route::get('logout', [AuthController::class, 'logout']);
             Route::get('users', [UserController::class, 'index']);
 
             Route::resource('posts', PostController::class);
-
-
             Route::group(['prefix' => 'likes'], function () {
                 Route::get('{post}', [LikeController::class, 'find']);
                 Route::get('/post/{post}', [LikeController::class, 'likePost']);
                 Route::get('/comment/{comment}',
                     [LikeController::class, 'likeComment']);
             });
-
             Route::group(['prefix' => 'comments'], function () {
                 Route::get('{post}', [CommentController::class, 'index']);
                 Route::post('post/{post}',
@@ -62,11 +56,12 @@ Route::group(['prefix' => 'v1'], function () {
                     [CommentController::class, 'destroy']);
             });
 
+
             Route::group(['prefix' => 'chat'], function () {
                 Route::get('', [ChatController::class, 'index']);
+                Route::get('{chat}', [ChatController::class, 'find']);
                 Route::post('', [ChatController::class, 'store']);
-                Route::get('/{chat]', [ChatController::class, 'find']);
-                Route::post('/{chat}/send', [ChatController::class, 'send']);
+                Route::post('{chat}/send', [ChatController::class, 'send']);
             });
 
             Route::resource('events', EventController::class);

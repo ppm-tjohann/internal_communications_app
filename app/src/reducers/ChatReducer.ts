@@ -5,36 +5,49 @@ import { User } from '../interfaces/user'
 
 
 interface DefaultState {
-    chat: Chat
-    users: { user: User, message: string }[]
-    loading: boolean
+    activeChat: Chat | null
+    chats: Chat[]
+    loadingSendingMessage: boolean
+    loadingGetActiveChat: boolean
+    loadingGetChats: boolean
     sendLoading: boolean
-    recipientId: number
 }
 
 const defaultState: DefaultState = {
-    loading: false,
+    loadingSendingMessage: false,
+    loadingGetActiveChat: false,
+    loadingGetChats: true,
     sendLoading: false,
-    recipientId: 0,
-    chat: [],
-    users: [],
+    activeChat: null,
+    chats: [],
 }
 
 const ChatReducer = ( state: DefaultState = defaultState, action: ChatDispatchTypes ) => {
     switch ( action.type ) {
-        case 'CHAT_GET_CHAT': {
-            return { ...state, chat: action.payload.chat, recipientId: action.payload.userId }
-        }
-        case 'CHAT_SEND_MESSAGE': {
-            return { ...state, chat: [ ...state.chat, action.payload.message ] }
-        }
-
-        case 'CHAT_LOADING': {
-            return { ...state, loading: !state.loading }
-        }
-        case 'CHAT_ADD_LOADING': {
-            return { ...state, sendLoading: !state.sendLoading }
-        }
+        case'CHAT_LOADING_GET_ACTIVE_CHAT':
+            return { ...state, loadingGetActiveChat: !state.loadingGetActiveChat }
+        case'CHAT_LOADING_GET_CHATS':
+            return { ...state, loadingGetChats: action.payload.loading }
+        case'CHAT_LOADING_SENDING_MESSAGE':
+            return { ...state, loadingSendingMessage: !state.loadingSendingMessage }
+        case 'CHAT_SET_ACTIVE_CHAT':
+            return { ...state, activeChat: action.payload.chat }
+        case 'CHAT_SET_CHATS':
+            return { ...state, chats: action.payload.chats }
+        case 'CHAT_SET_NEW_MESSAGE':
+            return !state.activeChat ?
+              state : {
+                  ...state, activeChat: { ...state.activeChat, messages: [ ...state.activeChat.messages, action.payload.message ] },
+              }
+        case 'CHAT_SET_NEW_PREVIEW_MESSAGE':
+            console.log( 'Setting new Preview' )
+            return {
+                ...state,
+                chats: state.chats.map( chat => chat.id !== action.payload.chatId ? chat : {
+                    ...chat,
+                    messages: [ action.payload.message ],
+                } ),
+            }
         default:
             return state
     }

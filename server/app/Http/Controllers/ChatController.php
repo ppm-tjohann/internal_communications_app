@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChatRequest;
+use App\Http\Requests\MessageRequest;
 use App\Models\Chat;
 use App\Models\Message;
 use App\Models\User;
@@ -52,25 +53,15 @@ class ChatController extends Controller
     }
 
 
-    public function send(Chat $chat, ChatRequest $request): Response
+    public function send(Chat $chat, MessageRequest $request): Response
     {
-
-        $chat->messages()->create([
+        $message = Message::create([
             'user_id' => $request->user()->id,
+            'chat_id' => $chat->id,
             'text' => $request->text,
         ]);
-        $chat->load('messages');
-        return response($chat, 201);
-    }
-
-
-    public function read(Message $message): Response
-    {
-        $message->update([
-            'read' => '1'
-        ]);
+        $message->load('user');
         return response($message, 201);
     }
-
 
 }
