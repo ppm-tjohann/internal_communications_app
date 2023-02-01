@@ -16,8 +16,7 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-        $count = 10;
-        $users = User::all()->random($count);
+        $users = User::all();
 
         foreach ($users as $user) {
             $participants_count = rand(0, 5);

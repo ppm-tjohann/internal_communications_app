@@ -16,15 +16,15 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        $users_count = rand(10, 20);
 
-        $users = User::all()->random($users_count);
+
+        $users = User::all();
 
 
         foreach ($users as $user) {
             $posts_count = rand(0, 3);
-            $likes_count = rand(0, 50);
-            $comments_count = rand(0, 5);
+            $likes_count = rand(0, 5);
+            $comments_count = rand(0, 3);
 
             $like_users = User::all()->random($likes_count);
 

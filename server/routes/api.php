@@ -63,9 +63,10 @@ Route::group(['prefix' => 'v1'], function () {
             });
 
             Route::group(['prefix' => 'chat'], function () {
-                Route::get('{user}', [ChatController::class, 'get']);
-                Route::post('{user}', [ChatController::class, 'store']);
-                Route::put('{message}', [ChatController::class, 'read']);
+                Route::get('', [ChatController::class, 'index']);
+                Route::post('', [ChatController::class, 'store']);
+                Route::get('/{chat]', [ChatController::class, 'find']);
+                Route::post('/{chat}/send', [ChatController::class, 'send']);
             });
 
             Route::resource('events', EventController::class);

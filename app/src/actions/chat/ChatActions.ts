@@ -4,6 +4,10 @@ import * as chatApi from '../../lib/api/chat'
 
 
 
+export const getUserList = () => async ( dispatch: Dispatch<ChatDispatchTypes> ) => {
+
+}
+
 export const getChat = ( userId: number ) => async ( dispatch: Dispatch<ChatDispatchTypes> ) => {
     dispatch( { type: CHAT_LOADING } )
     try {

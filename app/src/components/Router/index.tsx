@@ -8,6 +8,7 @@ import Post from '../Post'
 import PostList from '../Post/PostList'
 import ChatDashboard from '../Chat/ChatDashboard'
 import ChatList from '../Chat/ChatList'
+import Chat from '../../pages/Chat'
 
 
 
@@ -31,10 +32,9 @@ const Router = () => {
                   </Route>
                   <Route path={'/chat'} exact>
                       <ChatDashboard/>
-
                   </Route>
                   <Route path={'/chat/:userId'}>
-                      <ChatList/>
+                      <Chat/>
                   </Route>
               </Layout>
           </AuthRouter>

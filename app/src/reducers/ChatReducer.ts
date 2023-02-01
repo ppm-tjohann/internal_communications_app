@@ -1,10 +1,12 @@
 import { ChatDispatchTypes } from '../actions/chat/ChatActionTypes'
 import { Chat } from '../interfaces/chat'
+import { User } from '../interfaces/user'
 
 
 
 interface DefaultState {
     chat: Chat
+    users: { user: User, message: string }[]
     loading: boolean
     sendLoading: boolean
     recipientId: number
@@ -15,6 +17,7 @@ const defaultState: DefaultState = {
     sendLoading: false,
     recipientId: 0,
     chat: [],
+    users: [],
 }
 
 const ChatReducer = ( state: DefaultState = defaultState, action: ChatDispatchTypes ) => {

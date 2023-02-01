@@ -6,7 +6,9 @@ import { createTheme } from '@mui/material'
 let theme = createTheme( {
     palette: {
         mode: 'dark',
+        background: {},
     },
+
 } )
 
 // Theme –  DEFAULT PROPS

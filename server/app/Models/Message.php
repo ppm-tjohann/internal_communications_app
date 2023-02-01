@@ -10,7 +10,8 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sender_id', 'recipient_id', 'text', 'read'];
+    protected $fillable = ['user_id', 'text', 'read'];
+    protected $with = ['user'];
 
     public static function boot()
     {
@@ -22,14 +23,14 @@ class Message extends Model
     }
 
 
-    public function sender()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'sender_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function recipient()
+    public function chat()
     {
-        return $this->belongsTo(User::class, 'recipient_id');
+        return $this->belongsTo(Chat::class);
     }
 
 }
