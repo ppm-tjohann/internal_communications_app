@@ -4,12 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = ['text', 'user_id'];
+
+
+    protected static function booted()
+    {
+        static::addGlobalScope('withCounts', function (Builder $builder) {
+            $builder->withCount(['likes'])
+                ->with(['likes']);
+        });
+    }
 
 
     public function user()
@@ -26,10 +36,4 @@ class Comment extends Model
     {
         return $this->morphTo(Post::class);
     }
-
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
 }

@@ -6,6 +6,8 @@ import Layout from '../Layout'
 import Calendar from '../../pages/Calendar'
 import Post from '../Post'
 import PostList from '../Post/PostList'
+import ChatDashboard from '../Chat/ChatDashboard'
+import ChatList from '../Chat/ChatList'
 
 
 
@@ -26,6 +28,13 @@ const Router = () => {
                   </Route>
                   <Route path={'/social'}>
                       <PostList/>
+                  </Route>
+                  <Route path={'/chat'} exact>
+                      <ChatDashboard/>
+
+                  </Route>
+                  <Route path={'/chat/:userId'}>
+                      <ChatList/>
                   </Route>
               </Layout>
           </AuthRouter>

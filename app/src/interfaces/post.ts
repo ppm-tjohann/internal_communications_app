@@ -8,6 +8,12 @@ export const AddPostRequest = z.object( {
     image: z.instanceof( File ),
 } )
 
+export type Like = {
+    user_id: number
+    created_at: string
+    user?: User
+}
+
 export type BaseComment = {
     text: string
 }
@@ -16,6 +22,8 @@ export type Comment = BaseComment & {
     id: number
     created_at: string
     user_id: number
+    likes_count: number
+    likes?: Like[]
     user?: User
 }
 
@@ -23,6 +31,7 @@ export type BasePost = {
     text: string
     image: File | null
 }
+
 export type Post = BasePost & {
     id: number
     image: string

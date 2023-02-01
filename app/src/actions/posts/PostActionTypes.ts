@@ -1,5 +1,5 @@
 import { BasePost, Post } from '../../interfaces/post'
-import { Comment } from '../../interfaces/comment'
+import { Comment } from '../../interfaces/post'
 import { ValidationError } from '../../interfaces/validationError'
 
 

@@ -59,7 +59,6 @@ class User extends Authenticatable
         return $this->hasMany(Event::class);
     }
 
-
     public function events()
     {
         return $this->belongsToMany(Event::class)->as('participant');
@@ -70,9 +69,22 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
+
+    public function recivedMessages()
+    {
+        return $this->hasMany(Message::class, 'recipient_id');
+    }
+
+    public function sendMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
 
 }

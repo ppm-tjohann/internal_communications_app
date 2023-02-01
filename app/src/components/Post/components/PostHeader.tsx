@@ -2,14 +2,18 @@ import { Avatar, Box, Container, IconButton, Stack, Typography } from '@mui/mate
 import { MoreVert } from '@mui/icons-material'
 import { User } from '../../../interfaces/user'
 import UserAvatar from '../../Users/UserAvatar'
+import { useContext } from 'react'
+import { PostContext } from '../PostProvider'
 
 
 
-const PostHeader = ( { user }: { user: User } ) => {
+const PostHeader = () => {
 
+    const { post } = useContext( PostContext )
+    
     return ( <Container sx={{ my: 1 }}>
         <Stack justifyContent={'space-between'}>
-            <UserAvatar user={user} showName/>
+            <UserAvatar user={post.user} showName/>
             <Box>
                 <IconButton>
                     <MoreVert/>

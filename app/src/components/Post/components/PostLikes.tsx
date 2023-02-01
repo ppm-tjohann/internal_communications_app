@@ -1,12 +1,13 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material'
 import ToggleButton from '../../utils/ToggleButton'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
-import { useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { handlePostLike } from '../../../actions/posts/PostActions'
 import { useAppDispatch, useAppSelector } from '../../../Store'
 import * as likes from '../../../lib/api/likes'
 import useIntersecting from '../../../hooks/useIntersecting'
 import FlexBox from '../../utils/FlexBox'
+import { PostContext } from '../PostProvider'
 
 
 
@@ -15,8 +16,10 @@ interface PostLikesProps {
     likes_count: number
 }
 
-const PostLikes = ( { id, likes_count }: PostLikesProps ) => {
+const PostLikes = () => {
 
+    const { post } = useContext( PostContext )
+    const { id, likes_count } = post
     const [ like, setLike ] = useState( false )
     const [ loading, setLoading ] = useState( true )
     const { ref, visible } = useIntersecting()

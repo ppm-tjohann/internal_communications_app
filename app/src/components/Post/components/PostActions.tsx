@@ -8,12 +8,9 @@ import PostLikes from './PostLikes'
 
 
 
-const PostActions = ( { id, likes_count }: { id: number, likes_count: number } ) => {
-
-    const dispatch = useAppDispatch()
+const PostActions = () => {
 
     const [ comment, setComment ] = useState( false )
-    const [ bookmark, setBookmark ] = useState( false )
 
     const handleComment = () => {
         setComment( c => !c )
@@ -24,8 +21,7 @@ const PostActions = ( { id, likes_count }: { id: number, likes_count: number } )
       <Container sx={{ my: 1 }}>
           <Stack justifyContent={'space-between'} height={40} mx={-1}>
 
-              <PostLikes id={id} likes_count={likes_count}/>
-
+              <PostLikes/>
               <Stack spacing={1}>
                   <ToggleButton toggle={comment} handleClick={handleComment}>
                       <Comment/>

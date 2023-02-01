@@ -10,9 +10,11 @@ interface ToggleButtonProps {
     loading?: boolean
     children: ReactNode[]
 
+    [x: string]: any
+
 }
 
-const ToggleButton = ( { handleClick, toggle, children, loading }: ToggleButtonProps ) => {
+const ToggleButton = ( { handleClick, toggle, children, loading, ...props }: ToggleButtonProps ) => {
 
     if ( loading !== undefined && loading ) {
         return <IconButton sx={{ overflow: 'hidden', flexShrink: 0, flexGrow: 0, position: 'relative', width: 40 }}>
@@ -21,7 +23,7 @@ const ToggleButton = ( { handleClick, toggle, children, loading }: ToggleButtonP
     }
 
     return (
-      <IconButton onClick={handleClick} sx={{ overflow: 'hidden', flexShrink: 0, flexGrow: 0, position: 'relative', width: 40 }}>
+      <IconButton onClick={handleClick}{...props} sx={{ overflow: 'hidden', flexShrink: 0, flexGrow: 0, position: 'relative', width: 40, ...props.sx }}>
           <Slide mountOnEnter unmountOnExit in={toggle}>
               <Box sx={{ display: 'inline-block', height: 24, position: 'absolute' }}>
                   {children[0]}

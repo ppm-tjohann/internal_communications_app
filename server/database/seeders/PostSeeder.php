@@ -23,11 +23,14 @@ class PostSeeder extends Seeder
 
         foreach ($users as $user) {
             $posts_count = rand(0, 3);
-            $likes_count = rand(0, 5);
+            $likes_count = rand(0, 50);
+            $comments_count = rand(0, 5);
+
             $like_users = User::all()->random($likes_count);
 
             $post = Post::factory()
                 ->count($posts_count)
+                ->hasComments($comments_count)
                 ->for($user)
                 ->create();
 
@@ -39,19 +42,4 @@ class PostSeeder extends Seeder
         }
 
     }
-
-    protected function createLikes($post)
-    {
-
-
-        $likes_count = rand(0, 5);
-        $like_users = User::all()->random($likes_count);
-
-        foreach ($like_users as $user) {
-            Like::factory()
-                ->for($user)
-                ->for($post);
-        }
-    }
-
 }

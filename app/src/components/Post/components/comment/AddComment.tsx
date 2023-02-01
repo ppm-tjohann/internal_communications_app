@@ -1,19 +1,18 @@
 import { Box, CircularProgress, IconButton, InputBase, Paper, Skeleton, Stack, TextField, Typography } from '@mui/material'
 import { Send } from '@mui/icons-material'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
 import * as comments from '../../../../lib/api/comments'
 import { useAppDispatch } from '../../../../Store'
 import { handlePostComment } from '../../../../actions/posts/PostActions'
+import { PostContext } from '../../PostProvider'
+import { CommentsContext } from './CommentProvider'
 
 
 
-interface AddCommentProps {
-    id: number
-}
-
-const AddComment = ( { id }: AddCommentProps ) => {
+const AddComment = () => {
 
     const COMMENT_MAX_LENGTH = 128
+    const { handleAddComment } = useContext( CommentsContext )
 
     const dispatch = useAppDispatch()
 
@@ -30,15 +29,8 @@ const AddComment = ( { id }: AddCommentProps ) => {
 
     const handleSubmit = async () => {
         setLoading( true )
-        try {
-            const { data: comment } = await comments.post( { text: value }, id )
-            dispatch( handlePostComment( id, comment ) )
-            setValue( '' )
-        }
-        catch ( e ) {
-            console.error( 'Adding post comment failed', e )
-        }
-
+        handleAddComment( value )
+        setValue( '' )
         setLoading( false )
     }
 

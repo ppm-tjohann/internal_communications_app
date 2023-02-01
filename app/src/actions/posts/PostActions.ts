@@ -6,6 +6,7 @@ import {
     POST_ADD_POST_LOADING,
     POST_LOADING,
     POST_REMOVE_LIKE,
+    POST_SET_COMMENTS,
     POST_SET_ERRORS,
     POST_SET_POSTS,
     PostDispatchTypes,
@@ -70,4 +71,8 @@ export const handlePostLike = ( id: number ) => async ( dispatch: Dispatch<PostD
 }
 export const handlePostComment = ( id: number, comment: Comment ) => async ( dispatch: Dispatch<PostDispatchTypes> ) => {
     dispatch( { type: POST_ADD_COMMENT, payload: { postId: id, comment } } )
+}
+
+export const handlePostSetComments = ( id: number, comments: Comment[] ) => ( dispatch: Dispatch<PostDispatchTypes> ) => {
+    dispatch( { type: POST_SET_COMMENTS, payload: { postId: id, comments } } )
 }

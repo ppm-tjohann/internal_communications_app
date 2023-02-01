@@ -1,8 +1,9 @@
-import { BasePost, Post } from '../interfaces/post'
+import { BasePost, Post, Comment } from '../interfaces/post'
 import { Dispatch } from 'redux'
 import { PostDispatchTypes } from '../actions/posts/PostActionTypes'
 import { ValidationError } from '../interfaces/validationError'
 import { comment } from '../lib/api/likes'
+import { User } from '../interfaces/user'
 
 
 
@@ -19,6 +20,21 @@ const defaultState: DefaultState = {
     posts: [],
     errors: {},
 }
+
+const handleAddComment = ( posts: Post[], payload: { postId: number, comment: Comment } ): Post[] => posts.map( post => (
+  post.id !== payload.postId ? post : {
+      ...post,
+      comments: post.comments === undefined ?
+        [ payload.comment ] : [ ...post.comments, payload.comment ],
+  } ) )
+
+const handleSetComments = ( posts: Post[], payload: { postId: number, comments: Comment[] } ): Post[] => posts.map( post => (
+  post.id !== payload.postId ?
+    post : {
+        ...post,
+        comments: payload.comments,
+    }
+) )
 
 const PostReducer = ( state: DefaultState = defaultState, action: PostDispatchTypes ) => {
     switch ( action.type ) {
@@ -47,26 +63,13 @@ const PostReducer = ( state: DefaultState = defaultState, action: PostDispatchTy
         case 'POST_ADD_COMMENT':
             return {
                 ...state,
-                posts: state.posts.map( post => (
-                  post.id !== action.payload.postId ? post : {
-                      ...post,
-                      comments: post.comments === undefined ?
-                        [ action.payload.comment ] : [ ...post.comments, action.payload.comment ],
-                  }
-                ) ),
+                posts: handleAddComment( state.posts, action.payload ),
             }
 
         case 'POST_SET_COMMENTS':
             return {
                 ...state,
-                posts: state.posts.map( post => (
-                  post.id !== action.payload.postId ?
-                    post : {
-                        ...post,
-                        comments: action.payload.comments,
-                    }
-                ) ),
-
+                posts: handleSetComments( state.posts, action.payload ),
             }
         case 'POST_LOADING':
             return { ...state, loading: !state.loading }

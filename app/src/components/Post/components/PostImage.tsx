@@ -3,12 +3,9 @@ import Image from '../../utils/Image'
 
 
 
-interface PostImageProps {
-    src: string
-    addBaseUrl?: boolean
-}
+const PostImage = ( { addBaseUrl = false, src = 'https://picsum.photos/800/800' } ) => {
 
-const PostImage = ( { addBaseUrl = false, src = 'https://picsum.photos/800/800' }: PostImageProps ) => {
+    // TODO add real post image
 
     const {
         REACT_APP_SRC_BASE: SRC_BASE = 'http://localhost:8000',

@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,12 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::put('{comment}', [CommentController::class, 'update']);
                 Route::delete('{comment}',
                     [CommentController::class, 'destroy']);
+            });
+
+            Route::group(['prefix' => 'chat'], function () {
+                Route::get('{user}', [ChatController::class, 'get']);
+                Route::post('{user}', [ChatController::class, 'store']);
+                Route::put('{message}', [ChatController::class, 'read']);
             });
 
             Route::resource('events', EventController::class);
