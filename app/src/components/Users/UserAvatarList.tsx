@@ -7,6 +7,7 @@ import { useAppSelector } from '../../Store'
 
 interface options {
     showSelf?: boolean
+    spacing?: number
 }
 
 interface UserAvatarListProps {
@@ -20,6 +21,7 @@ const UserAvatarList = ( { users, options: inputOptions }: UserAvatarListProps )
 
     const options: options = {
         showSelf: true,
+        spacing: -1,
         ...inputOptions,
     }
 
@@ -28,7 +30,7 @@ const UserAvatarList = ( { users, options: inputOptions }: UserAvatarListProps )
     }
 
     return (
-      <Stack spacing={-1} flexShrink={0}>
+      <Stack spacing={options.spacing} flexShrink={0}>
           {users.map( user => <UserAvatar key={user.id} user={user} size={'medium'}/> )}
       </Stack>
     )

@@ -1,6 +1,8 @@
 import { ChatDispatchTypes } from '../actions/chat/ChatActionTypes'
 import { Chat } from '../interfaces/chat'
-import { User } from '../interfaces/user'
+import moment from 'moment'
+import { DEFAULT_FORMAT } from './CalendarReducer'
+import { DATE_TIME_FORMAT } from '../interfaces/event'
 
 
 
@@ -42,25 +44,37 @@ const ChatReducer = ( state: DefaultState = defaultState, action: ChatDispatchTy
         case 'CHAT_SET_CHATS':
             return { ...state, chats: action.payload.chats }
         case 'CHAT_ADD_CHAT':
-            return { ...state, chats: [ action.payload.chat, ...state.chats ] }
+            return { ...state, chats: [ action.payload.chat, ...state.chats.filter( chat => chat.id !== action.payload.chat.id ) ] }
         case 'CHAT_SET_NEW_MESSAGE':
             return !state.activeChat ?
               state : {
                   ...state,
                   activeChat: {
                       ...state.activeChat,
-                      messages: [ ...state.activeChat.messages.filter( msg => msg.id !== action.payload.message.id ), action.payload.message ],
+                      messages: [ action.payload.message, ...state.activeChat.messages.filter( msg => msg.id !== action.payload.message.id ) ],
                   },
               }
         case 'CHAT_SET_NEW_PREVIEW_MESSAGE':
-            console.log( 'Setting new Preview' )
+            let newChats = [
+                ...state.chats.filter( chat => chat.id == action.payload.chatId ),
+                ...state.chats.filter( chat => chat.id !== action.payload.chatId ),
+            ]
+            newChats[0] = {
+                ...newChats[0],
+                messages: [ action.payload.message ],
+                updated_at: moment().format( DATE_TIME_FORMAT ),
+            }
+            console.log( 'Setting New Chats :', newChats[0] )
             return {
                 ...state,
-                chats: state.chats.map( chat => chat.id !== action.payload.chatId ? chat : {
-                    ...chat,
-                    messages: [ action.payload.message ],
-                } ),
+                chats: newChats,
             }
+
+      // chats: state.chats.filter( chat => chat.id !== action.payload.chatId ? chat : {
+      //     ...chat,
+      //     messages: [ action.payload.message ],
+      // } ),
+
         default:
             return state
     }

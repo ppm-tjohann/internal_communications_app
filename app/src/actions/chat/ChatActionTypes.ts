@@ -2,20 +2,6 @@ import { Chat, Message } from '../../interfaces/chat'
 
 
 
-/**
- * loadings:
- *  - initial_chats
- *  - getting_active_chat
- *  - sending_message
- *  set:
- *  - set active chat
- *  - set chats
- *  - add new Message
- *
- *
- * */
-
-
 export const CHAT_LOADING_SENDING_MESSAGE = 'CHAT_LOADING_SENDING_MESSAGE'
 export const CHAT_LOADING_GET_ACTIVE_CHAT = 'CHAT_LOADING_GET_ACTIVE_CHAT'
 export const CHAT_LOADING_GET_CHATS = 'CHAT_LOADING_GET_CHATS'

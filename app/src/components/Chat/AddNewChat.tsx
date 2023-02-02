@@ -12,8 +12,9 @@ const AddNewChat = () => {
 
     const { usersData } = useAppSelector( state => state.users )
     const dispatch = useAppDispatch()
+    const initialValues: StoreChat = { name: null, users: [] }
 
-    const [ values, setValues ] = useState<StoreChat>( { name: null, users: [] } )
+    const [ values, setValues ] = useState<StoreChat>( initialValues )
 
     const handleUsers = ( event: SyntheticEvent, newValue: User[] ) => {
         setValues( { ...values, users: newValue.map( user => user.id ) } )
@@ -24,8 +25,11 @@ const AddNewChat = () => {
     }
 
     const handleSubmit = () => {
-        if ( values.users.length > 0 )
+        if ( values.users.length > 0 ) {
             dispatch( addChat( values ) )
+            setValues( initialValues )
+        }
+
         // TODO add message when no user selected
     }
 

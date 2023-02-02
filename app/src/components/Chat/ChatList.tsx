@@ -5,6 +5,7 @@ import { Box, Collapse, Container, Paper, Stack } from '@mui/material'
 import ChatMessage from './ChatMessage'
 import SendMessage from './SendMessage'
 import { TransitionGroup } from 'react-transition-group'
+import FlexBox from '../utils/FlexBox'
 
 
 
@@ -21,27 +22,37 @@ const ChatList = () => {
         ref.current?.scrollIntoView( { behavior: 'smooth' } )
     }
 
-    if ( loading || !chat ) {
-        return <Loader/>
+    const getContent = () => {
+        if ( loading ) {
+            return ( <FlexBox sx={{ height: '100%', width: '100%' }}>
+                <Loader/>
+            </FlexBox> )
+        }
+        if ( chat === null || chat === undefined ) {
+            return null
+        }
+        return ( <TransitionGroup>
+            <Stack direction={'column-reverse'}>
+                <Box ref={ref}/>
+                {chat.messages.map( message => <Collapse key={message.id} sx={{ width: '100%' }} in={true}>
+                    <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
+                        <ChatMessage {...message}/>
+                    </Box>
+                </Collapse> )}
+            </Stack>
+        </TransitionGroup> )
     }
 
     return (
 
       <Container maxWidth={'md'}>
           <Paper sx={{ height: '80vh', overflowY: 'scroll' }}>
-              <TransitionGroup>
-                  <Stack direction={'column'}>
-                      {chat.messages.map( message => <Collapse key={message.id} sx={{ width: '100%' }} in={true}>
-                          <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
-                              <ChatMessage {...message}/>
-                          </Box>
-                      </Collapse> )}
-                      <Box ref={ref}/>
-                  </Stack>
-              </TransitionGroup>
+              {getContent()}
           </Paper>
           <Box>
-              <SendMessage/>
+              <Collapse in={!( loading || chat === null || chat === undefined )}>
+                  <SendMessage/>
+              </Collapse>
           </Box>
       </Container>
     )

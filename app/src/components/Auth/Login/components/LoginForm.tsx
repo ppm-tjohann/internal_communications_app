@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, CircularProgress, Container, FormControlLabel, IconButton, Paper, Stack, TextField, Typography } from '@mui/material'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { KeyboardEvent, ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore, useAppDispatch } from '../../../../Store'
 import FlexBox from '../../../utils/FlexBox'
@@ -26,6 +26,12 @@ const LoginForm = () => {
     }
     const handleRemember = () => {
         dispatch( AuthRememberToggle() )
+    }
+
+    const handleKeyDown = ( event: KeyboardEvent<HTMLInputElement> ) => {
+        if ( event.key === 'Enter' ) {
+            handleSubmit()
+        }
     }
 
     const handleSubmit = () => {
@@ -62,12 +68,13 @@ const LoginForm = () => {
                         <Typography variant={'body2'} color={'error'}>Login failed, please try again</Typography>
                       </Paper>
                   }
-                  <TextField error={loginError} fullWidth value={credentials.email} onChange={handleChange( 'email' )} label={'Email'} type={'email'} required/>
-                  <TextField error={loginError} fullWidth value={credentials.password} onChange={handleChange( 'password' )} label={'Password'}
+                  <TextField error={loginError} onKeyDown={handleKeyDown} fullWidth value={credentials.email} onChange={handleChange( 'email' )} label={'Email'}
+                             type={'email'} required/>
+                  <TextField error={loginError} onKeyDown={handleKeyDown} fullWidth value={credentials.password} onChange={handleChange( 'password' )}
+                             label={'Password'}
                              type={'password'} required/>
                   <FormControlLabel control={<Checkbox/>} label={'Remember me'} onClick={handleRemember}/>
-                  <Stack>
-                      <Button>Ask for Registration</Button>
+                  <Stack justifyContent={'flex-end'}>
                       <Button sx={{ flexGrow: 1 }} variant={'contained'} onClick={handleSubmit}>Login</Button>
                   </Stack>
               </Stack>

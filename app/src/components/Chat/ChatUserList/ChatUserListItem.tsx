@@ -15,7 +15,7 @@ const ChatUserListItem = ( { users, updated_at, created_at, messages, name, id }
     const dispatch = useAppDispatch()
 
     const getMessage = () => {
-        if ( messages.length === 0 )
+        if ( messages === undefined || messages.length === 0 )
             return 'No Messages yet'
         return `${messages[0].user?.username}: ${messages[0].text}`
     }
@@ -41,7 +41,7 @@ const ChatUserListItem = ( { users, updated_at, created_at, messages, name, id }
 
     return ( <ListItemButton selected={activeChat !== null && activeChat.id === id} key={id} onClick={handleClick}>
           <ListItemAvatar>
-              <UserAvatarList users={users} options={{ showSelf: false }}/>
+              <UserAvatarList users={users} options={{ showSelf: false, spacing: -2 }}/>
           </ListItemAvatar>
           <ListItemText primary={getChatName()}
                         secondary={getMessage()}/>

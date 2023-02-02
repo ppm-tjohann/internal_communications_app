@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
+use App\Events\NewChatCreated;
 use App\Http\Requests\ChatRequest;
 use App\Http\Requests\MessageRequest;
 use App\Models\Chat;
@@ -32,19 +33,17 @@ class ChatController extends Controller
     public function store(ChatRequest $request): Response
     {
         $chat = Chat::create($request->all());
+//        $chat = new Chat($request->all());
         $request->user()->chats()->attach($chat->id);
-        $users = [];
         foreach ($request->users as $user_id) {
             $user = User::find($user_id);
             $users[] = $user;
             $user->chats()->attach($chat->id);
         }
         $chat->load(['users', 'messages']);
+        NewChatCreated::dispatch($chat);
 
-        return response([
-            'users' => $users, 'chat' => $chat,
-            'request' => $request->all()
-        ], 201);
+        return response($chat, 201);
     }
 
     public function find(Chat $chat): Response

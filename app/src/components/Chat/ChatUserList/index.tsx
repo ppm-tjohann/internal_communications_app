@@ -5,6 +5,7 @@ import { setChats } from '../../../actions/chat/ChatActions'
 import Loader from '../../utils/Loader'
 import ChatUserListItem from './ChatUserListItem'
 import AddNewChat from '../AddNewChat'
+import FlexBox from '../../utils/FlexBox'
 
 
 
@@ -19,13 +20,18 @@ const ChatUserList = () => {
         }
     }, [] )
 
-    if ( chats.length === 0 && !loadingGetChats ) {
-        return (
-          <Box>
-              <Typography variant={'h3'} mb={3}>No Chats yet</Typography>
-              <Button>Start Chatting</Button>
-          </Box>
-        )
+    const getContent = () => {
+        if ( loadingGetChats ) {
+            return <Loader/>
+        }
+        if ( chats.length === 0 ) {
+            return (
+              <FlexBox sx={{ height: '100%' }}>
+                  <Typography variant={'h5'} textAlign={'center'} mb={3}>No Chats yet</Typography>
+              </FlexBox>
+            )
+        }
+        return <List>{chats.map( chat => <ChatUserListItem {...chat} key={chat.id}/> )}</List>
     }
 
     return (
@@ -35,11 +41,8 @@ const ChatUserList = () => {
               <AddNewChat/>
               <Divider/>
           </Box>
-          <Box>
-              {loadingGetChats ?
-                <Loader/> :
-                <List>{chats.map( chat => <ChatUserListItem {...chat} key={chat.id}/> )}</List>
-              }
+          <Box sx={{ height: '80vh', position: 'relative', overflowY: 'scroll' }}>
+              {getContent()}
           </Box>
       </Box>
     )

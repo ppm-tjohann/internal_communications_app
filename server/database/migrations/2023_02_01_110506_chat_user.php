@@ -13,9 +13,10 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('chat_user', function (Blueprint $table) {
-            $table->id();
+            $table->primary(['user_id', 'chat_id']);
             $table->foreignId('chat_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->boolean('read')->default(0);
         });
     }
 

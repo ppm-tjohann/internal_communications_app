@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Chat;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MessageRequest extends FormRequest
@@ -13,9 +14,7 @@ class MessageRequest extends FormRequest
      */
     public function authorize()
     {
-
-        // Todo check if user is in Chat
-        return true;
+        return $this->route('chat')->users->contains($this->user()->id);
     }
 
     /**

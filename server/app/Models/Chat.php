@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\ChatObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,8 @@ class Chat extends Model
     public static function boot()
     {
         parent::boot();
+
+        Chat::observe(ChatObserver::class);
 
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('updated_at', 'DESC');
