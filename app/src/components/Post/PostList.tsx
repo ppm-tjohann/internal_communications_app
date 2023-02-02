@@ -1,4 +1,4 @@
-import { Box, Collapse, Container, Paper, Stack } from '@mui/material'
+import { Box, Container, Paper, Stack } from '@mui/material'
 import Post from './index'
 import AddPostForm from '../Forms/AddPostForm'
 import { useAppSelector } from '../../Store'
@@ -7,7 +7,6 @@ import Loader from '../utils/Loader'
 
 
 const PostList = () => {
-    const DUMMY_POST = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 19 ]
 
     const { posts, loading } = useAppSelector( state => state.posts )
 
@@ -17,14 +16,12 @@ const PostList = () => {
                 <AddPostForm/>
             </Paper>
         </Container>
-        <Container maxWidth={'sm'}>
+        <Container maxWidth={'sm'} sx={{ maxHeight: '60vh', overflowY: 'scroll' }}>
             {
                 loading ? <Loader/> :
-
                   <Stack direction={'column'}>
                       {posts.map( post => <Post key={post.id} {...post}/> )}
                   </Stack>
-                 
             }
         </Container>
     </Box> )

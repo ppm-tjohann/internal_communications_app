@@ -1,13 +1,10 @@
-import { Box, Stack, Typography, Button, List, ListItemButton, ListItemText, ListItemIcon, IconButton, ListItemAvatar } from '@mui/material'
+import { Box, Typography, Button, List, Divider } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../Store'
 import { useMemo } from 'react'
-import { setActiveChat, setChats } from '../../../actions/chat/ChatActions'
+import { setChats } from '../../../actions/chat/ChatActions'
 import Loader from '../../utils/Loader'
-import { Chat } from '../../../interfaces/chat'
-import moment from 'moment'
-import UserAvatarList from '../../Users/UserAvatarList'
-import { ArrowRight } from '@mui/icons-material'
 import ChatUserListItem from './ChatUserListItem'
+import AddNewChat from '../AddNewChat'
 
 
 
@@ -34,6 +31,10 @@ const ChatUserList = () => {
     return (
       <Box>
           <Typography textAlign={'center'} mt={6} variant={'h4'}>Chats</Typography>
+          <Box>
+              <AddNewChat/>
+              <Divider/>
+          </Box>
           <Box>
               {loadingGetChats ?
                 <Loader/> :

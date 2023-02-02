@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Requests\ChatRequest;
 use App\Http\Requests\MessageRequest;
 use App\Models\Chat;
@@ -38,7 +39,7 @@ class ChatController extends Controller
             $users[] = $user;
             $user->chats()->attach($chat->id);
         }
-        $chat->load('users');
+        $chat->load(['users', 'messages']);
 
         return response([
             'users' => $users, 'chat' => $chat,
@@ -61,6 +62,7 @@ class ChatController extends Controller
             'text' => $request->text,
         ]);
         $message->load('user');
+        MessageSent::dispatch($message);
         return response($message, 201);
     }
 

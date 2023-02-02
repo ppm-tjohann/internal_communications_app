@@ -11,6 +11,7 @@ import { ArrowRight } from '@mui/icons-material'
 const ChatUserListItem = ( { users, updated_at, created_at, messages, name, id }: Chat ) => {
     console.log( 'CHAT List Item' )
     const { activeChat } = useAppSelector( state => state.chat )
+    const { user } = useAppSelector( state => state.auth )
     const dispatch = useAppDispatch()
 
     const getMessage = () => {
@@ -19,15 +20,30 @@ const ChatUserListItem = ( { users, updated_at, created_at, messages, name, id }
         return `${messages[0].user?.username}: ${messages[0].text}`
     }
 
+    const getChatName = () => {
+        if ( name ) {
+            return name
+        }
+        if ( users.length === 2 ) {
+            if ( !user ) {
+                return users[1].username
+            }
+            return users[0].id === user.id ? users[1].username : users[0].username
+        }
+        else {
+            return `Chat from ${moment( created_at ).format( 'DD.MM.YYYY' )}`
+        }
+    }
+
     const handleClick = () => {
         dispatch( setActiveChat( id ) )
     }
 
     return ( <ListItemButton selected={activeChat !== null && activeChat.id === id} key={id} onClick={handleClick}>
           <ListItemAvatar>
-              <UserAvatarList users={users}/>
+              <UserAvatarList users={users} options={{ showSelf: false }}/>
           </ListItemAvatar>
-          <ListItemText primary={name ?? `Chat from ${moment( created_at ).format( 'DD.MM.YYYY' )}`}
+          <ListItemText primary={getChatName()}
                         secondary={getMessage()}/>
           <ListItemIcon>
               <Stack spacing={0} direction={'column'} alignItems={'flex-end'}>

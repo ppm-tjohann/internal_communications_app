@@ -21,11 +21,18 @@ const defaultState: DefaultState = {
     activeChat: null,
     chats: [],
 }
+let lastAction: ChatDispatchTypes
 
 const ChatReducer = ( state: DefaultState = defaultState, action: ChatDispatchTypes ) => {
+
+    if ( lastAction === action ) {
+        console.log( 'Same Action' )
+        return state
+    }
+    lastAction = action
     switch ( action.type ) {
         case'CHAT_LOADING_GET_ACTIVE_CHAT':
-            return { ...state, loadingGetActiveChat: !state.loadingGetActiveChat }
+            return { ...state, loadingGetActiveChat: action.payload.loading }
         case'CHAT_LOADING_GET_CHATS':
             return { ...state, loadingGetChats: action.payload.loading }
         case'CHAT_LOADING_SENDING_MESSAGE':
@@ -34,10 +41,16 @@ const ChatReducer = ( state: DefaultState = defaultState, action: ChatDispatchTy
             return { ...state, activeChat: action.payload.chat }
         case 'CHAT_SET_CHATS':
             return { ...state, chats: action.payload.chats }
+        case 'CHAT_ADD_CHAT':
+            return { ...state, chats: [ action.payload.chat, ...state.chats ] }
         case 'CHAT_SET_NEW_MESSAGE':
             return !state.activeChat ?
               state : {
-                  ...state, activeChat: { ...state.activeChat, messages: [ ...state.activeChat.messages, action.payload.message ] },
+                  ...state,
+                  activeChat: {
+                      ...state.activeChat,
+                      messages: [ ...state.activeChat.messages.filter( msg => msg.id !== action.payload.message.id ), action.payload.message ],
+                  },
               }
         case 'CHAT_SET_NEW_PREVIEW_MESSAGE':
             console.log( 'Setting new Preview' )

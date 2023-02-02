@@ -12,13 +12,14 @@ class Message extends Model
 
     protected $fillable = ['user_id', 'chat_id', 'text'];
     protected $with = ['user'];
+    protected $touches = ['chat'];
 
     public static function boot()
     {
         parent::boot();
 
         static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('created_at', 'ASC');
+            $builder->orderBy('created_at', 'DESC');
         });
     }
 

@@ -6,6 +6,7 @@ export type Message = {
     id: number
     user: User | null
     user_id: number
+    chat_id: number
     text: string
     created_at: string
     updated_at: string

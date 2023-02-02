@@ -39,4 +39,6 @@ export type Post = BasePost & {
     comments_count: number
     user: User
     comments?: Comment[]
+    created_at: string
+    updated_at: string
 }

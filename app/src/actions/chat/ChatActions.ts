@@ -1,19 +1,41 @@
 import { Dispatch } from 'redux'
 import {
+    CHAT_ADD_CHAT,
     CHAT_LOADING_GET_ACTIVE_CHAT,
     CHAT_LOADING_GET_CHATS,
     CHAT_LOADING_SENDING_MESSAGE,
     CHAT_SET_ACTIVE_CHAT,
-    CHAT_SET_CHATS, CHAT_SET_NEW_MESSAGE, CHAT_SET_NEW_PREVIEW_MESSAGE,
+    CHAT_SET_CHATS,
+    CHAT_SET_NEW_MESSAGE,
+    CHAT_SET_NEW_PREVIEW_MESSAGE,
     ChatDispatchTypes,
 } from './ChatActionTypes'
 import * as chatApi from '../../lib/api/chat'
 import { RootState } from '../../Store'
+import { Message, StoreChat } from '../../interfaces/chat'
+import { createSocketconnection } from '../../lib/socketService'
 
 
+
+export const registerChatSockets = () => ( dispatch: Dispatch<ChatDispatchTypes>, getState: () => RootState ) => {
+    console.log( 'Registering Chat Web Sockets' )
+    createSocketconnection()
+    window.Echo.channel( 'messages' ).listen( '.new-chat-message', ( { message }: { message: Message } ) => {
+        const { auth, chat } = getState()
+        console.log( 'New Message', message )
+        console.log( 'Is in Current chat :', chat.activeChat !== null && ( message.chat_id === chat.activeChat.id ), {
+            active: chat.activeChat, messageChat: message.chat_id,
+        } )
+        console.log( 'Current User Has Not sent Message', message.user_id !== auth.user?.id )
+        dispatch( { type: CHAT_SET_NEW_PREVIEW_MESSAGE, payload: { message, chatId: message.chat_id } } )
+        if ( chat.activeChat !== null && ( message.chat_id === chat.activeChat.id ) && message.user_id !== auth.user?.id ) {
+            dispatch( { type: CHAT_SET_NEW_MESSAGE, payload: { message } } )
+        }
+    } )
+}
 
 export const setActiveChat = ( chatId: number ) => async ( dispatch: Dispatch<ChatDispatchTypes> ) => {
-    dispatch( { type: CHAT_LOADING_GET_ACTIVE_CHAT } )
+    dispatch( { type: CHAT_LOADING_GET_ACTIVE_CHAT, payload: { loading: true } } )
     try {
         const { data: chat } = await chatApi.find( chatId )
         dispatch( { type: CHAT_SET_ACTIVE_CHAT, payload: { chat } } )
@@ -21,14 +43,22 @@ export const setActiveChat = ( chatId: number ) => async ( dispatch: Dispatch<Ch
     catch ( e ) {
         console.error( e )
     }
-    dispatch( { type: CHAT_LOADING_GET_ACTIVE_CHAT } )
+    dispatch( { type: CHAT_LOADING_GET_ACTIVE_CHAT, payload: { loading: false } } )
 }
-export const setChats = () => async ( dispatch: Dispatch<ChatDispatchTypes> ) => {
+export const setChats = () => async ( dispatch: Dispatch<ChatDispatchTypes>, getState: () => RootState ) => {
     console.log( 'Setting Chats Action' )
     dispatch( { type: CHAT_LOADING_GET_CHATS, payload: { loading: true } } )
     try {
         const { data: chats } = await chatApi.get()
         dispatch( { type: CHAT_SET_CHATS, payload: { chats } } )
+
+        const activeChat = getState().chat.activeChat
+        console.log( 'Active Chat :', activeChat )
+
+        if ( activeChat === null ) {
+            dispatch( { type: CHAT_SET_ACTIVE_CHAT, payload: { chat: chats[0] } } )
+            dispatch( { type: CHAT_LOADING_GET_ACTIVE_CHAT, payload: { loading: false } } )
+        }
     }
     catch ( e ) {
         console.error( e )
@@ -43,10 +73,27 @@ export const sendMessage = ( text: string ) => async ( dispatch: Dispatch<ChatDi
             throw new Error( 'No Active Chat' )
         const { data: message } = await chatApi.send( activeChat.id, text )
         dispatch( { type: CHAT_SET_NEW_MESSAGE, payload: { message } } )
-        dispatch( { type: CHAT_SET_NEW_PREVIEW_MESSAGE, payload: { message, chatId: activeChat.id } } )
     }
     catch ( e ) {
         console.error( e )
     }
     dispatch( { type: CHAT_LOADING_SENDING_MESSAGE } )
+}
+
+export const addChat = ( values: StoreChat ) => async ( dispatch: Dispatch<ChatDispatchTypes> ) => {
+    /*
+    * submit
+    * add to chats list
+    * make it active
+    * */
+    try {
+        // Submitting new Chat + Add To Chat List 
+        const { data: chat } = await chatApi.store( values )
+        dispatch( { type: CHAT_ADD_CHAT, payload: { chat } } )
+        // Make new Chat active
+        dispatch( { type: CHAT_SET_ACTIVE_CHAT, payload: { chat } } )
+    }
+    catch ( e ) {
+        console.error( 'Adding Chat Failed: ', e )
+    }
 }

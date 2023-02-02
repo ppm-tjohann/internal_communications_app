@@ -24,7 +24,7 @@ class ChatRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string'],
+            'name' => ['string', 'nullable'],
             'users' => ['required', 'array', 'min:1'],
             'users.*' => 'exists:users,id',
         ];
