@@ -20,7 +20,6 @@ const AuthProvider = ( { children }: AuthRouterProps ) => {
     const { auth } = useSelector( ( state: RootStore ) => state )
     const dispatch = useAppDispatch()
     useMemo( () => {
-        console.log( 'Auth Memo Running' )
         if ( auth.loggedIn ) {
             // fetch initial States
             dispatch( SetUsers() )

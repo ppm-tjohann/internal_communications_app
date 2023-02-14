@@ -17,6 +17,7 @@ const BoardCard = ( { children, title, loading = false }: BoardCardProps ) => {
     return (
       <Paper
         sx={{
+            height: '100%',
             borderRadius: theme.spacing( 3 ),
         }}>
           <Stack justifyContent={'space-between'}>

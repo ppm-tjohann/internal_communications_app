@@ -32,18 +32,11 @@ class ChatController extends Controller
 
     public function store(ChatRequest $request): Response
     {
-        $chat = Chat::create($request->all());
-//        $chat = new Chat($request->all());
-        $request->user()->chats()->attach($chat->id);
-        foreach ($request->users as $user_id) {
-            $user = User::find($user_id);
-            $users[] = $user;
-            $user->chats()->attach($chat->id);
-        }
-        $chat->load(['users', 'messages']);
-        NewChatCreated::dispatch($chat);
+        $chat = $request->user()->chats()->create($request->all());
+        $chat->users()->attach($request->users);
+        $chat->load('users');
 
-        return response($chat, 201);
+        return response([$chat, $request->user()], 201);
     }
 
     public function find(Chat $chat): Response
@@ -61,7 +54,6 @@ class ChatController extends Controller
             'text' => $request->text,
         ]);
         $message->load('user');
-        MessageSent::dispatch($message);
         return response($message, 201);
     }
 

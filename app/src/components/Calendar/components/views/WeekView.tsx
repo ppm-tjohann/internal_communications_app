@@ -14,10 +14,12 @@ const WeekView = () => {
     const datesInWeek: Day[] = getWeekDates( viewingDate )
 
     return (
-      <Grid container spacing={0} columns={7} alignItems={'stretch'}>
+      <>
           <WeekDaysGrid/>
-          {datesInWeek.map( day => ( <DayTile date={day}/> ) )}
-      </Grid>
+          <Grid container spacing={0} columns={7} alignItems={'stretch'} sx={{ flexGrow: 1 }}>
+              {datesInWeek.map( day => ( <DayTile date={day}/> ) )}
+          </Grid>
+      </>
     )
 }
 export default WeekView

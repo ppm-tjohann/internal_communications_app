@@ -45,7 +45,7 @@ const DayTile = ( { date, format = 'DD', monthFormat = 'DD. MMM', highlightCurre
           <Box onDoubleClick={handleClick}
                sx={{
                    opacity: isCurrentMonth ? 1 : .3,
-                   py: 1, px: 2, border: `1px solid ${theme.palette.grey['900']}`, height: 180, backgroundColor: isCurrentDay ? 'primary.dark' : 'default',
+                   py: 1, px: 2, border: `1px solid ${theme.palette.grey['900']}`, height: '100%', backgroundColor: isCurrentDay ? 'primary.dark' : 'default',
                }}>
               <Typography variant={'overline'} color={isCurrentDay ? 'primary' : 'default'}>{formattedDate}</Typography>
 

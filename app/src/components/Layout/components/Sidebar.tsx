@@ -10,7 +10,7 @@ import { Box, Button } from '@mui/material'
 import { ReactNode } from 'react'
 import { Chat, Close, Dashboard, DateRange, LogoutOutlined, Newspaper, People } from '@mui/icons-material'
 import FlexBox from '../../utils/FlexBox'
-import { useHistory, useLocation } from 'react-router'
+import { Redirect, useHistory, useLocation } from 'react-router'
 import MenuItem from './MenuItem'
 import { AuthLogout } from '../../../actions/auth/AuthActions'
 import { useAppDispatch, useAppSelector } from '../../../Store'
@@ -107,6 +107,7 @@ const Sidebar = () => {
 
     const handleLogout = () => {
         dispatch( AuthLogout() )
+        history.push( '/login' )
     }
 
     return ( <Drawer variant="permanent" open={open} sx={{

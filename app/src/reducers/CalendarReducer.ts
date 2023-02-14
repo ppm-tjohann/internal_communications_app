@@ -5,7 +5,7 @@ import { ValidationError } from '../interfaces/validationError'
 
 
 
-export type CalendarViewTypes = 'Day' | 'Week' | 'Month' | 'List'
+export type CalendarViewTypes = 'Week' | 'Month' | 'List'
 export const DEFAULT_FORMAT = 'YYYY-MM-DD'
 
 interface DefaultState {

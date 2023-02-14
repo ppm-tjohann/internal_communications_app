@@ -18,8 +18,6 @@ const CommentView = ( { comment, loading }: CommentProps ) => {
 
     const { user } = useAppSelector( state => state.auth )
 
-    console.log( 'Comment : ', comment )
-
     // TODO change to dbs
     const [ liked, setLiked ] = useState( false )
     const [ likeCount, setLikeCount ] = useState( comment?.likes_count ?? 0 )

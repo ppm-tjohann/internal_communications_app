@@ -14,7 +14,6 @@ export const AuthLogin = ( credentials: credentials ) => async ( dispatch: Dispa
     try {
         dispatch( { type: AUTH_LOADING } )
         const { data } = await auth.login( credentials )
-        console.log( 'Auth Login Response :', data )
         localStorage.setItem( 'API_KEY', data.token.plainTextToken )
         dispatch( { type: AUTH_LOGIN, payload: { apiToken: data.token.plainTextToken, user: data.user } } )
     }
@@ -44,9 +43,6 @@ export const AuthLogout = () => async ( dispatch: Dispatch<AuthDispatchTypes> ) 
     dispatch( { type: AUTH_LOGOUT } )
 }
 
-export const AuthRememberToggle = () => ( dispatch: Dispatch<AuthDispatchTypes> ) => {
-
-}
 
 
 

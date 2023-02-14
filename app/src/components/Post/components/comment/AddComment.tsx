@@ -1,10 +1,7 @@
 import { Box, CircularProgress, IconButton, InputBase, Paper, Skeleton, Stack, TextField, Typography } from '@mui/material'
 import { Send } from '@mui/icons-material'
 import { ChangeEvent, useContext, useState } from 'react'
-import * as comments from '../../../../lib/api/comments'
 import { useAppDispatch } from '../../../../Store'
-import { handlePostComment } from '../../../../actions/posts/PostActions'
-import { PostContext } from '../../PostProvider'
 import { CommentsContext } from './CommentProvider'
 
 
@@ -13,9 +10,6 @@ const AddComment = () => {
 
     const COMMENT_MAX_LENGTH = 128
     const { handleAddComment } = useContext( CommentsContext )
-
-    const dispatch = useAppDispatch()
-
     const [ value, setValue ] = useState( '' )
     const [ loading, setLoading ] = useState( false )
 

@@ -17,9 +17,6 @@ const Image = ( { src, alt }: ImageProps ) => {
     const handleLoad = () => {
         setLoading( false )
     }
-    if ( visible ) {
-        console.log( 'Image is Visible' )
-    }
 
     return <Box ref={ref}>
         <Fade in={loading} unmountOnExit>

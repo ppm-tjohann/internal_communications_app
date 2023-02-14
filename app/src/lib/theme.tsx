@@ -1,5 +1,5 @@
 import React from 'react'
-import { createTheme } from '@mui/material'
+import { createTheme, responsiveFontSizes } from '@mui/material'
 
 
 
@@ -14,7 +14,10 @@ let theme = createTheme( {
             paper: '#3a4257',
         },
     },
-
+    typography: {
+        subtitle1: { fontWeight: 700 },
+        h1: { fontWeight: 700 },
+    },
 } )
 
 // Theme –  DEFAULT PROPS
@@ -45,5 +48,7 @@ theme = createTheme( theme, {
         },
     },
 } )
+
+theme = responsiveFontSizes( theme )
 
 export default theme

@@ -18,9 +18,6 @@ class Chat extends Model
     public static function boot()
     {
         parent::boot();
-
-        Chat::observe(ChatObserver::class);
-
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('updated_at', 'DESC');
         });

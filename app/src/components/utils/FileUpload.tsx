@@ -12,11 +12,12 @@ interface FileUploadProps {
     label: string
     updateFilesCb: ( file: File | null ) => any
     error?: string
+    variant?: 'square' | 'landscape'
 
     [x: string]: any
 }
 
-const FileUpload = ( { label, error, updateFilesCb, ...props }: FileUploadProps ) => {
+const FileUpload = ( { label, variant, error, updateFilesCb, ...props }: FileUploadProps ) => {
 
     const theme = useTheme()
     const [ files, setFiles ] = useState<File | null>( null )
@@ -57,7 +58,7 @@ const FileUpload = ( { label, error, updateFilesCb, ...props }: FileUploadProps 
                       <input type={'file'} id={'fileUpload'} onChange={handleChange} {...props}/>
                   </FlexBox>
                   <Collapse in={files !== null}>
-                      <SquareBox sx={{
+                      <SquareBox variant={variant} sx={{
                           'img': { objectFit: 'cover' },
                       }}>
                           {files && <img src={URL.createObjectURL( files )} alt="Upload-Preview"/>}

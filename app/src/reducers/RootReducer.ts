@@ -4,6 +4,7 @@ import UserReducer from './UserReducer'
 import CalendarReducer from './CalendarReducer'
 import PostReducer from './PostReducer'
 import ChatReducer from './ChatReducer'
+import NewsReducer from './NewsReducer'
 
 
 
@@ -13,6 +14,7 @@ const RootReducer = combineReducers( {
     calendar: CalendarReducer,
     posts: PostReducer,
     chat: ChatReducer,
+    news: NewsReducer,
 } )
 
 export default RootReducer

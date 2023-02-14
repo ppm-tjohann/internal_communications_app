@@ -3,7 +3,7 @@ import { KeyboardEvent, ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore, useAppDispatch } from '../../../../Store'
 import FlexBox from '../../../utils/FlexBox'
-import { AuthLogin, AuthLogout, AuthRememberToggle } from '../../../../actions/auth/AuthActions'
+import { AuthLogin } from '../../../../actions/auth/AuthActions'
 import { credentials } from '../../../../actions/auth/AuthActions'
 import { log } from 'util'
 import { Check, Logout } from '@mui/icons-material'
@@ -24,10 +24,6 @@ const LoginForm = () => {
             [label]: event.target.value,
         } )
     }
-    const handleRemember = () => {
-        dispatch( AuthRememberToggle() )
-    }
-
     const handleKeyDown = ( event: KeyboardEvent<HTMLInputElement> ) => {
         if ( event.key === 'Enter' ) {
             handleSubmit()
@@ -73,7 +69,6 @@ const LoginForm = () => {
                   <TextField error={loginError} onKeyDown={handleKeyDown} fullWidth value={credentials.password} onChange={handleChange( 'password' )}
                              label={'Password'}
                              type={'password'} required/>
-                  <FormControlLabel control={<Checkbox/>} label={'Remember me'} onClick={handleRemember}/>
                   <Stack justifyContent={'flex-end'}>
                       <Button sx={{ flexGrow: 1 }} variant={'contained'} onClick={handleSubmit}>Login</Button>
                   </Stack>

@@ -3,7 +3,7 @@ import { MoreVert } from '@mui/icons-material'
 import { User } from '../../../interfaces/user'
 import UserAvatar from '../../Users/UserAvatar'
 import { useContext } from 'react'
-import { PostContext } from '../PostProvider'
+import { PostContext } from './PostWrapper'
 import moment from 'moment'
 
 

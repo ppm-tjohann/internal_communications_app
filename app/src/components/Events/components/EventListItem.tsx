@@ -34,8 +34,6 @@ const EventListItem = ( { event, date }: EventListItemProps ) => {
         if ( event.user.id === user.id ) {
             return 'secondary.dark'
         }
-
-        console.log( 'Event :', event.user.id, user.id )
         return 'primary.dark'
     }
 
@@ -61,8 +59,7 @@ const EventListItem = ( { event, date }: EventListItemProps ) => {
                   }}/>
                   <Typography variant={'body2'} sx={{ fontSize: '.6rem' }}>
                       <EventDate start={event.start} {...dateOptions}
-                                 end={event.end}/> {event.name.substring( 0,
-                    10 )}{event.name.length > 15 && '…'}
+                                 end={event.end}/> {event.name.substring( 0, 15 )}{event.name.length > 15 && '…'}
                   </Typography>
               </Box>
           </Tooltip>

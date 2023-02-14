@@ -17,12 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'firstname', 'lastname'
-        ,
-        'email',
-        'password',
-    ];
+    protected $fillable = ['firstname', 'lastname', 'email', 'password',];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,6 +41,11 @@ class User extends Authenticatable
     public function isAdministrator()
     {
         return $this->role === 'ADMIN';
+    }
+
+    public function score()
+    {
+        return $this->hasOne(Score::class);
     }
 
     public function posts()

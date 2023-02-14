@@ -62,9 +62,6 @@ class LikeController extends Controller
         return response([
             'comment' => $comment, 'message' => 'Like has been created'
         ], 201);
-
-
-        return response();
     }
 
 

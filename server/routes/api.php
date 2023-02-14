@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ScoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -63,6 +65,14 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('{chat}', [ChatController::class, 'find']);
                 Route::post('', [ChatController::class, 'store']);
                 Route::post('{chat}/send', [ChatController::class, 'send']);
+            });
+
+            Route::get('news/latest', [NewsController::class, 'latest']);
+            Route::apiResource('news', NewsController::class);
+
+            Route::group(['prefix' => 'score'], function () {
+                Route::get('', [ScoreController::class, 'index']);
+                Route::get('{user}', [ScoreController::class, 'show']);
             });
 
             Route::resource('events', EventController::class);

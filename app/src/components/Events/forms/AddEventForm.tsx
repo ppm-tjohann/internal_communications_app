@@ -15,8 +15,7 @@ interface AddEventProps {
 
 const AddEventForm = ( { displaySuccess = true, initialDate = moment().format( DATE_TIME_FORMAT ), onSuccess }: AddEventProps ) => {
 
-    const calendar = useCalendar( { initialDate, onSuccess } )
-    const { handleSubmit, errors } = calendar
+    const { handleSubmit, errors } = useCalendar( { initialDate, onSuccess } )
 
     return (
       <AddEventFormWrapper>

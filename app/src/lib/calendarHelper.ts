@@ -28,21 +28,23 @@ export const getCalendarDates = ( date: string ) => {
     let preMonthDates: Day[] = [],
       nextMonthDates: Day[] = []
 
-    const daysInMonth = moment( date ).daysInMonth()
-
-    const RETURNING_DATES_COUNT = daysInMonth % 7
     let firstDay = parseInt( moment( date ).startOf( 'month' ).format( 'd' ) )
-    if ( firstDay === 0 ) {
-        firstDay = 7
-    }
+
+    // returns all dates in month
     const monthDates = getMonthDates( date )
 
-    preMonthDates = getMonthDates( moment( date ).subtract( 1, 'month' ).
-      format( DEFAULT_FORMAT ) ).reverse().slice( 0, firstDay - 1 ).reverse()
+    console.log( moment( '12.02.2023' ).format( 'd' ) )
 
-    nextMonthDates = getMonthDates( moment( date ).add( 1, 'month' ).
-      format( DEFAULT_FORMAT ) ).
-      slice( 0, 7 - ( monthDates.length + preMonthDates.length ) % 7 )
+    if ( firstDay !== 0 ) {
+        preMonthDates = getMonthDates( moment( date ).subtract( 1, 'month' ).
+          format( DEFAULT_FORMAT ) ).reverse().slice( 0, firstDay - 1 ).reverse()
+    }
+
+    if ( ( preMonthDates.length + monthDates.length ) % 7 !== 0 ) {
+        nextMonthDates = getMonthDates( moment( date ).add( 1, 'month' ).
+          format( DEFAULT_FORMAT ) ).
+          slice( 0, 7 - ( monthDates.length + preMonthDates.length ) % 7 )
+    }
 
     return [ ...preMonthDates, ...monthDates, ...nextMonthDates ]
 

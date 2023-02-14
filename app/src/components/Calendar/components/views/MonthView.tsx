@@ -14,10 +14,12 @@ const MonthView = () => {
     const { viewingDate, currentDate } = useAppSelector( state => state.calendar )
     const daysArray = getCalendarDates( viewingDate )
     return (
-      <Grid container columns={7} spacing={0}>
+      <>
           <WeekDaysGrid/>
-          {daysArray.map( ( day, index ) => <DayTile key={index} date={day}/> )}
-      </Grid>
+          <Grid container columns={7} spacing={0} sx={{ flexGrow: 1 }}>
+              {daysArray.map( ( day, index ) => <DayTile key={index} date={day}/> )}
+          </Grid>
+      </>
     )
 
 }

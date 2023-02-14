@@ -42,7 +42,7 @@ const AddEventsPopup = ( { children }: AddEventsPopupProps ) => {
     return (
       <AddEventPopupContext.Provider value={{
           toggleEventPopup, setInitialDate, open,
-      }}>1
+      }}>
           <CenteredModal open={open} onClose={handleClose}>
               <Paper>
                   <Container>

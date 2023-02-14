@@ -1,7 +1,7 @@
-import { Avatar, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Avatar, Paper, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch, useAppSelector } from '../../Store'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { SetUsers } from '../../actions/user/UserActions'
 import MuiList from '@mui/material/List'
 import BoardCard from '../utils/BoardCard'
@@ -39,7 +39,9 @@ const UsersList = () => {
 
     return (
       <BoardCard loading={loading} title={'Users'}>
-          <List/>
+          <Paper elevation={4}>
+              <List/>
+          </Paper>
       </BoardCard>
     )
 }

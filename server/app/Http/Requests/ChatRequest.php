@@ -27,9 +27,7 @@ class ChatRequest extends FormRequest
 
         return [
             'name' => ['string', 'nullable'],
-            'users' => [
-                'required', 'array', 'min:1', new UniqueChat
-            ],
+            'users' => ['required', 'array', 'min:1', new UniqueChat],
             'users.*' => 'exists:users,id',
         ];
     }

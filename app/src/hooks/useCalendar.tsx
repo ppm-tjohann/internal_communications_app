@@ -34,7 +34,6 @@ const useCalendar = ( options?: useCalendarProps ) => {
 
     const handleSubmit = ( values: BaseEvent ) => {
         dispatch( CalendarAddEvent( values, options?.onSuccess ) )
-
     }
 
     return {

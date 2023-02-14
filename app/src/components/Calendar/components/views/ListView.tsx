@@ -14,8 +14,8 @@ const ListView = () => {
     //groupEventsByDate( events, 'start' )
     //console.log( 'Sorted Events :', sortedEvents )
 
-    return ( <Box>
-          <List>
+    return ( <Box sx={{ flexGrow: 1, flexShrink: 1, display: 'flex' }}>
+          <List sx={{ overflowY: 'scroll', flexGrow: 1, flexShrink: 1 }}>
               {events.map( event => (
                 <ListItem key={event.id} sx={{
                     opacity: moment().isAfter( moment( event.end ) ) ? .4 : 1,

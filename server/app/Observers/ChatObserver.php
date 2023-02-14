@@ -18,7 +18,7 @@ class ChatObserver
      */
     public function created(Chat $chat)
     {
-        //
+        NewChatCreated::dispatch($chat);
     }
 
     /**

@@ -13,8 +13,6 @@ const CalendarViewHandler = () => {
     switch ( view ) {
         case 'List':
             return <ListView/>
-        case 'Day':
-            return <DayView/>
         case 'Week':
             return <WeekView/>
         case 'Month':

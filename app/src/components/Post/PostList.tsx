@@ -10,13 +10,13 @@ const PostList = () => {
 
     const { posts, loading } = useAppSelector( state => state.posts )
 
-    return ( <Box>
+    return ( <Box sx={{ display: 'flex', flexDirection: 'column', maxHeight: '100%' }}>
         <Container maxWidth={'sm'} sx={{ mb: 3 }}>
             <Paper>
                 <AddPostForm/>
             </Paper>
         </Container>
-        <Container maxWidth={'sm'} sx={{ maxHeight: '60vh', overflowY: 'scroll' }}>
+        <Container maxWidth={'sm'} sx={{ flexGrow: 1, flexShrink: 1, overflowY: 'scroll' }}>
             {
                 loading ? <Loader/> :
                   <Stack direction={'column'}>

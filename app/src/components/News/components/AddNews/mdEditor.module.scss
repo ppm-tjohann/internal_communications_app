@@ -1,0 +1,48 @@
+
+.root {
+  .rc-md-editor, div {
+    background: #3a4257 !important;
+    color: #fff !important;
+    border: none;
+
+    span.button {
+      display: none;
+
+      &[title='Image'] {
+        display: none;
+      }
+    }
+
+    i::before {
+      color: #fff;
+    }
+
+    section {
+      border: 0 none !important;
+    }
+  }
+
+  textarea {
+    background: none !important;
+    color: #fff !important;
+    border-right: 1px solid #fff !important;
+  }
+
+  textarea::placeholder {
+    color: #fff;
+  }
+
+
+  .button-wrap span.button i::before {
+    content: 'Hallo';
+    color: #fff !important;
+  }
+
+  .rmel-iconfont::before {
+    color: #fff !important;
+  }
+}
+
+.root .rc-md-editor {
+  background: none;
+}

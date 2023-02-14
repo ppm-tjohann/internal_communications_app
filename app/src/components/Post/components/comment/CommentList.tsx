@@ -4,8 +4,8 @@ import { useContext } from 'react'
 import AddComment from './AddComment'
 import { ExpandMore } from '@mui/icons-material'
 import FlexBox from '../../../utils/FlexBox'
-import CommentsProvider, { CommentsContext } from './CommentProvider'
-import { PostContext } from '../../PostProvider'
+import { CommentsContext } from './CommentProvider'
+import { PostContext } from '../PostWrapper'
 
 
 
@@ -16,8 +16,6 @@ const CommentList = () => {
 
     const theme = useTheme()
 
-    console.log( 'CommentListProps :', loading, comments )
-    
     return (
       <>
           <Collapse in={expanded}>

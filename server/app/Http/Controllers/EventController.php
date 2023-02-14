@@ -12,12 +12,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 class EventController extends Controller
 {
 
-    public function __construct()
-    {
-        // registering policy
-        //   $this->authorizeResource(Event::class, 'events');
-    }
-
     /**
      * Display a listing of the resource.
      */

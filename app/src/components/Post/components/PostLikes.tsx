@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../Store'
 import * as likes from '../../../lib/api/likes'
 import useIntersecting from '../../../hooks/useIntersecting'
 import FlexBox from '../../utils/FlexBox'
-import { PostContext } from '../PostProvider'
+import { PostContext } from './PostWrapper'
 
 
 
@@ -25,10 +25,6 @@ const PostLikes = () => {
     const { ref, visible } = useIntersecting()
     const { user } = useAppSelector( state => state.auth )
     const dispatch = useAppDispatch()
-
-    useEffect( () => {
-        if ( visible ) console.log( 'Visible' )
-    }, [ visible ] )
 
     useMemo( () => {
         if ( visible ) {

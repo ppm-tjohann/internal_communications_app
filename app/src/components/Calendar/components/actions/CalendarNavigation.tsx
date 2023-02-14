@@ -18,8 +18,6 @@ const CalendarNavigation = () => {
     const handleNext = () => {
 
         switch ( view ) {
-            case 'Day':
-                return ( dispatch( CalendarViewingDate( moment( viewingDate ).add( 1, 'days' ) ) ) )
             case 'Month':
                 return ( dispatch( CalendarViewingDate( moment( viewingDate ).add( 1, 'month' ) ) ) )
             case 'Week':
@@ -29,8 +27,6 @@ const CalendarNavigation = () => {
     const handlePrev = () => {
         console.log( 'Handling Navigation' )
         switch ( view ) {
-            case 'Day':
-                return ( dispatch( CalendarViewingDate( moment( viewingDate ).subtract( 1, 'days' ) ) ) )
             case 'Month':
                 return ( dispatch( CalendarViewingDate( moment( viewingDate ).subtract( 1, 'month' ) ) ) )
             case 'Week':
