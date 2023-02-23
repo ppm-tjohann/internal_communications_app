@@ -3,16 +3,18 @@ import { useEffect, useMemo, useState } from 'react'
 import Score from '../../interfaces/score'
 import BoardCard from '../utils/BoardCard'
 import * as score from '../../lib/api/score'
-import { Grid, Paper, Stack, Typography } from '@mui/material'
+import { Grid, Paper, Stack, Typography, useTheme } from '@mui/material'
 import UserAvatar from '../Users/UserAvatar'
 
 
 
 const ScoreListItem = ( { id, count, user }: Score, index: number ) => {
-    console.log( 'INDEX: ', index )
+
+    const theme = useTheme()
+
     return (
       <Grid item xs={12} sm={4} key={id} mt={2}>
-          <Paper elevation={2}>
+          <Paper elevation={2} sx={{ borderRadius: theme.spacing( 2 ) }}>
               <Typography variant={'body2'}>Platz {index + 1}</Typography>
               <Stack direction={'column'} alignItems={'center'}>
                   <Typography variant={'h4'} component={'p'} textAlign={'center'}>{count}</Typography>

@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Badge;
 use App\Models\Chat;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
+use App\Observers\BadgeObserver;
 use App\Observers\ChatObserver;
 use App\Observers\CommentObserver;
 use App\Observers\LikeObserver;
@@ -42,6 +44,7 @@ class EventServiceProvider extends ServiceProvider
         Like::observe(LikeObserver::class);
         Comment::observe(CommentObserver::class);
         Post::observe(PostObserver::class);
+        Badge::observe(BadgeObserver::class);
     }
 
     /**

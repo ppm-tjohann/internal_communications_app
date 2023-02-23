@@ -42,9 +42,9 @@ const Router = () => {
                       <AddNews/>
                   </AdminRoute>
                   <Route path={'/news'} exact>
-                      <News/>
+                      <NewsView/>
                   </Route>
-                  <Route path={'/news/:id'} exact>
+                  <Route path={'/news/:id'}>
                       <NewsView/>
                   </Route>
 

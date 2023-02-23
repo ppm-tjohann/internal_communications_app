@@ -2,10 +2,18 @@ import { Box, IconButton, Paper, Stack, Typography } from '@mui/material'
 import { ArrowRight } from '@mui/icons-material'
 import Image from '../../../components/utils/Image'
 import { NewsTeaser } from '../../../interfaces/news'
+import { useHistory } from 'react-router'
 
 
 
-const SidebarItem = ( { headline, teaser, image }: NewsTeaser ) => {
+const SidebarItem = ( { headline, teaser, image, id }: NewsTeaser ) => {
+
+    const history = useHistory()
+
+    const handleClick = () => {
+        history.push( `news/${id}` )
+    }
+
     return (
       <Paper sx={{ p: 0, overflow: 'hidden', mb: 3 }}>
           <Box sx={{ height: 200, overflow: 'hidden' }}>
@@ -18,7 +26,7 @@ const SidebarItem = ( { headline, teaser, image }: NewsTeaser ) => {
                   </Typography>
               </Box>
               <Box>
-                  <IconButton><ArrowRight/></IconButton>
+                  <IconButton onClick={handleClick}><ArrowRight/></IconButton>
               </Box>
           </Stack>
       </Paper>

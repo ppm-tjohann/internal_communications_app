@@ -1,4 +1,4 @@
-import { Avatar, Paper, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from '@mui/material'
+import { Avatar, Paper, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, IconButton, Box } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch, useAppSelector } from '../../Store'
 import React, { useEffect } from 'react'
@@ -6,6 +6,8 @@ import { SetUsers } from '../../actions/user/UserActions'
 import MuiList from '@mui/material/List'
 import BoardCard from '../utils/BoardCard'
 import UserAvatar from './UserAvatar'
+import BadgeHandler from '../Badges/BadgeHandler'
+import { Mail, Phone } from '@mui/icons-material'
 
 
 
@@ -16,12 +18,21 @@ const List = () => {
       <MuiList sx={{ maxHeight: 400, overflowY: 'scroll' }}>
           {usersData.map( user => (
             <ListItem key={user.id}>
-                <ListItemIcon>
-                    <UserAvatar user={user} size={'large'}/>
-                </ListItemIcon>
                 <ListItemButton>
+                    <ListItemIcon>
+                        <UserAvatar user={user} size={'large'}/>
+                    </ListItemIcon>
+
                     <ListItemText primary={user.username} secondary={user.email}/>
+                    {user.badges && <BadgeHandler badges={user.badges}/>}
+                    <Box>
+                        <Stack spacing={1}>
+                            <IconButton><Phone/></IconButton>
+                            <IconButton><Mail/></IconButton>
+                        </Stack>
+                    </Box>
                 </ListItemButton>
+
             </ListItem>
           ) )}
       </MuiList>
@@ -39,9 +50,7 @@ const UsersList = () => {
 
     return (
       <BoardCard loading={loading} title={'Users'}>
-          <Paper elevation={4}>
-              <List/>
-          </Paper>
+          <List/>
       </BoardCard>
     )
 }

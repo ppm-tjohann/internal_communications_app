@@ -2,43 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e77975a7-5254-4e05-b337-c649fd3a7049" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/CalendarViewHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/CalendarViewHandler.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/DayTile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/DayTile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/WeekDaysGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/WeekDaysGrid.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/actions/CalendarNavigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/actions/CalendarNavigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/actions/CalendarViewToggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/actions/CalendarViewToggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/views/ListView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/views/ListView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/views/MonthView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/views/MonthView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar/components/views/WeekView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/components/views/WeekView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Events/components/AddEventsPopup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Events/components/AddEventsPopup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Forms/AddPostForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/AddPostForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/PostList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/PostList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/components/comment/CommentList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/components/comment/CommentList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/components/comment/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/components/comment/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/posts/PostActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/posts/PostActions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/News/AddNewsBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/News/AddNewsBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/News/NewsView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/News/NewsView.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Router/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ScoreList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ScoreList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Users/UserAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/UserAvatar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Users/UsersList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/UsersList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/utils/BoardCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/utils/BoardCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/utils/Image.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/utils/Image.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useSocket.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useSocket.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/theme.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/theme.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Calendar/AddEvent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Calendar/AddEvent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Calendar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Calendar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interfaces/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/user.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/CalendarReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/CalendarReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app/Http/Controllers/ChatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Http/Controllers/ChatController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/News/components/SidebarItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/News/components/SidebarItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/NewsReducer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/NewsReducer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/app/Http/Controllers/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Http/Controllers/EventController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app/Http/Controllers/LikeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Http/Controllers/LikeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app/Http/Requests/ChatRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Http/Requests/ChatRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app/Models/Chat.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Models/Chat.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Http/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app/Observers/ChatObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Observers/ChatObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/app/Observers/CommentObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Observers/CommentObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/app/Observers/PostObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Observers/PostObserver.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/Providers/EventServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/database/migrations/2023_02_12_172148_create_news_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/database/migrations/2023_02_12_172148_create_news_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +69,7 @@
       <updated>1671303873451</updated>
       <workItem from="1671303875160" duration="2753000" />
       <workItem from="1676031922746" duration="642000" />
+      <workItem from="1677161051195" duration="9000" />
     </task>
     <servers />
   </component>

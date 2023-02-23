@@ -41,6 +41,7 @@ class EventController extends Controller
             $event->participants()->attach($participant);
         }
 
+        $event->load(['user', 'participants']);
 
         return response($event, 201);
     }

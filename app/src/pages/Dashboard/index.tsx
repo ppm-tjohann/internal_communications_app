@@ -3,6 +3,7 @@ import UsersList from '../../components/Users/UsersList'
 import TodayEventsList from '../../components/Events/components/TodayEventsList'
 
 import ScoreList from '../../components/ScoreList'
+import DashboardNews from '../../components/News/components/DashboardNews'
 
 
 
@@ -18,6 +19,9 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12} md={12}>
               <ScoreList/>
+          </Grid>
+          <Grid item xs={12} md={12}>
+              <DashboardNews/>
           </Grid>
       </Grid>
     )

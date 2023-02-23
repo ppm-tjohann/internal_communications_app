@@ -13,7 +13,7 @@ const AddNewsBar = () => {
     }
 
     return (
-      <Paper sx={{ mb: 3, p: 2 }}>
+      <Paper sx={{ p: 2 }}>
           <Stack alignItems={'center'} justifyContent={'space-between'}>
               <Typography variant={'h3'}>Add News</Typography>
               <IconButton onClick={handleClick}>

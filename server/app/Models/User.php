@@ -82,5 +82,15 @@ class User extends Authenticatable
             'user_id');
     }
 
+    public function badges()
+    {
+        return $this->hasMany(Badge::class);
+    }
+
+    public function border()
+    {
+        return $this->hasOne(Border::class);
+    }
+
 
 }

@@ -4,15 +4,11 @@ import { NewsDispatchTypes } from '../actions/news/NewsActionTypes'
 
 
 interface DefaultState {
-    activeNews: number | null
     newsTeaser: NewsTeaser[]
-    test: NewsTeaser[]
 }
 
 const defaultState: DefaultState = {
-    activeNews: null,
     newsTeaser: [],
-    test: [],
 }
 
 const NewsReducer = ( state = defaultState, action: NewsDispatchTypes ) => {

@@ -54,6 +54,7 @@ class ChatController extends Controller
             'text' => $request->text,
         ]);
         $message->load('user');
+        MessageSent::dispatch($message);
         return response($message, 201);
     }
 

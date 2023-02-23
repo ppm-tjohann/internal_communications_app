@@ -3,11 +3,14 @@ import { USER_ERROR, USER_LOADING, USER_SET_USERS, UserDispatchTypes } from './U
 import * as users from '../../lib/api/user'
 import { AUTH_LOGOUT } from '../auth/AuthActionTypes'
 import { AxiosError } from 'axios'
+import { RootState } from '../../Store'
 
 
 
 export const SetUsers = () =>
-  async ( dispatch: Dispatch<UserDispatchTypes> ) => {
+  async ( dispatch: Dispatch<UserDispatchTypes>, getState: () => RootState ) => {
+      if ( getState().users.usersData.length > 0 )
+          return
       dispatch( { type: USER_LOADING } )
       try {
           const { data: usersRes } = await users.get()

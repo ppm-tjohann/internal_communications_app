@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Jobs\AdjustUserScore;
+use App\Jobs\Badges\HandleCommentBadge;
 use App\Models\Comment;
 use App\Models\Score;
 
@@ -17,6 +18,7 @@ class CommentObserver
     public function created(Comment $comment)
     {
         AdjustUserScore::dispatch($comment->user, Score::scoreFor('comment'));
+        HandleCommentBadge::dispatch($comment->user);
     }
 
     /**
@@ -39,6 +41,7 @@ class CommentObserver
     public function deleted(Comment $comment)
     {
         AdjustUserScore::dispatch($comment->user, -Score::scoreFor('comment'));
+        HandleCommentBadge::dispatch($comment->user);
     }
 
     /**

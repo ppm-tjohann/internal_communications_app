@@ -17,6 +17,7 @@ import validationErrors from '../../lib/validationErrors'
 import * as posts from '../../lib/api/post'
 import * as likes from '../../lib/api/likes'
 import { ValidationError } from '../../interfaces/validationError'
+import { AxiosError } from 'axios'
 
 
 
@@ -33,6 +34,9 @@ export const handlePostSubmit = ( values: BasePost, post: FormData ) => async ( 
             dispatch( { type: POST_SET_ERRORS, payload: { errors } } )
         }
         else {
+            if ( e instanceof AxiosError ) {
+                console.error( 'Creating Post Failed:', e?.response?.data )
+            }
             console.error( 'Unknown Error : ', e )
         }
     }
