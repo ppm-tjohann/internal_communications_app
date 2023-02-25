@@ -13,24 +13,23 @@ import {
 import * as chatApi from '../../lib/api/chat'
 import { RootState } from '../../Store'
 import { Chat, Message, StoreChat } from '../../interfaces/chat'
-import { createSocketconnection } from '../../lib/socketService'
 
 // TODO register new channel for each chat and listen to it
 
-export const registerChatSockets = () => ( dispatch: Dispatch<ChatDispatchTypes>, getState: () => RootState ) => {
-    console.log( 'Registering Chat Web Sockets' )
-    createSocketconnection()
-    window.Echo.channel( 'chat' ).listen( '.new-chat-message', ( { message }: { message: Message } ) => {
-        const { auth, chat } = getState()
-        dispatch( { type: CHAT_SET_NEW_PREVIEW_MESSAGE, payload: { message, chatId: message.chat_id } } )
+export const newChatMessage = ( message: Message ) => ( dispatch: Dispatch<ChatDispatchTypes>, getState: () => RootState ) => {
 
-        if ( chat.activeChat !== null && ( message.chat_id === chat.activeChat.id ) && message.user_id !== auth.user?.id ) {
-            dispatch( { type: CHAT_SET_NEW_MESSAGE, payload: { message } } )
-        }
-    } ).listen( '.new-chat-created', ( { chat }: { chat: Chat } ) => {
-        dispatch( { type: CHAT_ADD_CHAT, payload: { chat } } )
-    } )
+    const { auth, chat } = getState()
+    dispatch( { type: CHAT_SET_NEW_PREVIEW_MESSAGE, payload: { message, chatId: message.chat_id } } )
 
+    if ( chat.activeChat !== null && ( message.chat_id === chat.activeChat.id ) && message.user_id !== auth.user?.id ) {
+        dispatch( { type: CHAT_SET_NEW_MESSAGE, payload: { message } } )
+
+        // } ).listen( '.new-chat-created', ( { chat }: { chat: Chat } ) => {
+        //     dispatch( { type: CHAT_ADD_CHAT, payload: { chat } } )
+    }
+
+}
+export const newChatCreated = ( chat: Chat ) => async ( dispatch: Dispatch<ChatDispatchTypes> ) => {
 }
 
 export const setActiveChat = ( chatId: number ) => async ( dispatch: Dispatch<ChatDispatchTypes> ) => {
@@ -85,7 +84,7 @@ export const addChat = ( values: StoreChat ) => async ( dispatch: Dispatch<ChatD
     * make it active
     * */
     try {
-        // Submitting new Chat + Add To Chat List 
+        // Submitting new Chat + Add To Chat List
         const { data: chat } = await chatApi.store( values )
         dispatch( { type: CHAT_ADD_CHAT, payload: { chat } } )
         // Make new Chat active

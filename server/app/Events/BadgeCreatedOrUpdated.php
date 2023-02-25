@@ -5,8 +5,6 @@ namespace App\Events;
 use App\Models\Badge;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -41,6 +39,19 @@ class BadgeCreatedOrUpdated implements ShouldBroadcast
 
     public function broadcastAs()
     {
-
+        return 'badge.update';
     }
+
+    public function badge()
+    {
+        Badge::create([
+            'user_id' => 7,
+            'for' => 'TESTING',
+            'variant' => 2
+        ]);
+    }
+
 }
+
+
+

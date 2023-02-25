@@ -9,7 +9,7 @@ class Badge extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['for', 'variant'];
+    protected $fillable = ['for', 'variant', 'user_id'];
 
 
     public static $COMMENT_BADGE = [5, 10, 15, 25, 40];

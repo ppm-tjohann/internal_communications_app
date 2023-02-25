@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux'
-import { USER_ERROR, USER_LOADING, USER_SET_USERS, UserDispatchTypes } from './UserActionTypes'
+import { USER_ADD_BADGE, USER_LOADING, USER_SET_USERS, UserDispatchTypes } from './UserActionTypes'
 import * as users from '../../lib/api/user'
-import { AUTH_LOGOUT } from '../auth/AuthActionTypes'
-import { AxiosError } from 'axios'
 import { RootState } from '../../Store'
+import { Badge } from '../../interfaces/user'
 
 
 
@@ -23,5 +22,13 @@ export const SetUsers = () =>
       }
 
   }
+
+export const UserAddBadge = ( badge: Badge ) => ( dispatch: Dispatch<UserDispatchTypes>, getState: () => RootState ) => {
+    const { user } = getState().auth
+    if ( !user )
+        return
+    dispatch( { type: USER_ADD_BADGE, payload: { userId: user.id, badge } } )
+}
+  
 
 

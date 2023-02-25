@@ -13,7 +13,7 @@ function listen( callBack: ( payload: any ) => void, channel: string, event: str
 
 
 interface useSocketProps {
-    type: 'MessageSent' | 'NewScore'
+    type: 'MessageSent' | 'NewScore' | 'BadgeUpdate' | 'ChatMessage'
     callBack: ( payload: any ) => any
 }
 
@@ -22,14 +22,18 @@ const useSocket = ( { type, callBack }: useSocketProps ) => {
     const { user } = useAppSelector( state => state.auth )
 
     useEffect( () => {
+        if ( !user )
+            return
         createSocketconnection()
         switch ( type ) {
             case 'MessageSent':
                 return listen( callBack, 'messages', 'MessageSent' )
             case 'NewScore':
-                if ( user )
-                  // return null
-                    return listen( callBack, `score.${user.id}`, 'score.updated' )
+                return listen( callBack, `score.${user.id}`, 'score.updated' )
+            case 'BadgeUpdate':
+                return listen( callBack, `badge.${user.id}`, 'badge.update' )
+            case 'ChatMessage':
+                return listen( callBack, `chat.${user.id}`, 'new-chat-message' )
         }
     } )
 }

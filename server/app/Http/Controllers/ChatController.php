@@ -54,7 +54,11 @@ class ChatController extends Controller
             'text' => $request->text,
         ]);
         $message->load('user');
-        MessageSent::dispatch($message);
+        foreach ($chat->users as $user) {
+            if ($user->id !== $message->user->id) {
+                MessageSent::dispatch($message, $user);
+            }
+        }
         return response($message, 201);
     }
 

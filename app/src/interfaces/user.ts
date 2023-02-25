@@ -3,8 +3,12 @@ export type UserRole =
   | 'USER'
 
 export type Badge = {
-    for: 'COMMENT_BADGE' | 'POST_BADGE'
+    id: number,
+    for: 'COMMENT_BADGE' | 'POST_BADGE' | 'LIKES_BADGE' | 'TESTING'
     variant: 1 | 2 | 3 | 4 | 5
+    user_id: number
+    created_at: string
+    updated_at: string
 }
 
 export type User = {
