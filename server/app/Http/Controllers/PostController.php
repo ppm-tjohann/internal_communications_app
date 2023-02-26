@@ -19,11 +19,12 @@ class PostController extends Controller
      */
     public function index(): Response
     {
-        $posts = QueryBuilder::for(Post::class)
-            ->allowedIncludes(['user', 'likes'])
-            ->paginate(50)
-            ->appends(request()->query());
-        $posts->loadCount(['likes', 'comments']);
+        $posts = Post::select([
+            'updated_at', 'text', 'image', 'user_id', 'id'
+        ])
+            ->withCount(['likes', 'comments'])
+            ->paginate(20);
+
 
         return response($posts);
     }

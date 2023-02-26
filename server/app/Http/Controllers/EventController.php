@@ -28,6 +28,22 @@ class EventController extends Controller
 
     }
 
+    public function dates($startMonth, $endMonth): Response
+    {
+        $events = Event::whereMonth('start', '>=', $startMonth)
+            ->whereMonth('end', '<=', $endMonth)
+            ->orderBy('start', 'ASC')
+            ->with([
+                'participants' => function ($query) {
+                    $query->setEagerLoads([])->select(['id']);
+                }
+            ])
+            ->get(['id', 'name', 'description', 'end', 'start', 'user_id']);
+
+        return response($events);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */

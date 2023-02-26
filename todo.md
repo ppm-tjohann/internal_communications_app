@@ -1,9 +1,7 @@
-- Notifications
-- Badges
-    - Likes
-    - Comments
-    - Post
-    - Login
-    - Leaderboard
-- Navbar
-- Service-Worker
+- [ ] open event from todays event list
+- [ ] create news
+- [ ] scoreboard from user list
+- [ ] responsive
+- [ ] deploy
+- [ ] mobile navigation work
+- [ ] include ar / ur picture

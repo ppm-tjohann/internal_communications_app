@@ -76,6 +76,8 @@ Route::group(['prefix' => 'v1'], function () {
             });
 
             Route::resource('events', EventController::class);
+            Route::get('events/{startMonth}/{endMonth}',
+                [EventController::class, 'dates']);
         });
 
 });
