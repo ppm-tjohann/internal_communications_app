@@ -19,15 +19,18 @@ class EventSeeder extends Seeder
         $users = User::all();
 
         foreach ($users as $user) {
-            $participants_count = rand(0, 5);
-            $participants = User::all()->random($participants_count);
+            $events_count = rand(0, 10);
+            for ($i = 0; $i < $events_count; $i++) {
+                $participants_count = rand(0, 10);
 
-            $event = Event::factory()
-                ->for($user)
-                ->create();
+                $participants = User::all()->random($participants_count);
+                $event = Event::factory()
+                    ->for($user)
+                    ->create();
 
-            foreach ($participants as $user) {
-                $user->events()->attach($event);
+                foreach ($participants as $user) {
+                    $user->events()->attach($event);
+                }
             }
         }
     }

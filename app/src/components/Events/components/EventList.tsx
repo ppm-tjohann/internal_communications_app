@@ -25,8 +25,10 @@ const EventList = ( { date }: EventListProps ) => {
     }
 
     return (
-      <Box sx={{ maxHeight: '80%', overflowY: 'scroll' }}>
-          <Stack spacing={.5} direction={'column'}>
+      <Box sx={{ maxHeight: '100%', overflowY: 'scroll', flexGrow: 3, flexShrink: 1 }}>
+          <Stack spacing={.5} direction={'column'} sx={{
+              overflowY: 'scroll', maxHeight: '100%',
+          }}>
               {displayEvents.map( event => (
                 <EventListItem date={date} event={event} key={event.id}/>
               ) )}

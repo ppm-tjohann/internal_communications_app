@@ -17,7 +17,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['firstname', 'lastname', 'email', 'password',];
+    protected $fillable = [
+        'firstname', 'lastname', 'email', 'password', 'number', 'username',
+    ];
+    protected $with = ['border'];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -90,6 +94,11 @@ class User extends Authenticatable
     public function border()
     {
         return $this->hasOne(Border::class);
+    }
+
+    public function logins()
+    {
+        return $this->hasMany(Login::class);
     }
 
 

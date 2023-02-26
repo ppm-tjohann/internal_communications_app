@@ -3,6 +3,7 @@
 namespace App\Jobs\Badges;
 
 use App\Models\Badge;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,6 +24,7 @@ class HandleCommentBadge implements ShouldQueue
      */
     public function __construct(User $user)
     {
+        error_log('Checking Comment Badge');
         $this->user = $user;
     }
 
@@ -43,25 +45,13 @@ class HandleCommentBadge implements ShouldQueue
         for ($i = 1; $i < count(Badge::$COMMENT_BADGE); $i++) {
             if ($cc < Badge::$COMMENT_BADGE[$i]) {
                 error_log('Creating Badge: '.$i);
-                $this->updateOrCreateBadge($i);
-                error_log('Badge Variant: '.$badge_variant);
+                Badge::updateOrCreate($this->user, Badge::$COMMENT_BADGE_NAME,
+                    $i);
+                error_log('Old Badge Variant: '.$badge_variant);
                 return;
             }
         }
     }
 
 
-    protected function updateOrCreateBadge($badge_variant)
-    {
-        $badge = $this->user->badges->where('for', '=',
-            Badge::$COMMENT_BADGE_NAME)->first();
-        if ($badge !== null) {
-            $badge->update(['variant' => $badge_variant]);
-        } else {
-            $this->user->badges()->create([
-                'variant' => $badge_variant,
-                'for' => Badge::$COMMENT_BADGE_NAME
-            ]);
-        }
-    }
 }

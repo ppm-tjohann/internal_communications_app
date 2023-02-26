@@ -22,7 +22,7 @@ class Post extends Model
     protected $withCount = ['likes'];
 
     protected $fillable = [
-        'text', 'image',
+        'text', 'image', 'user_id',
     ];
 
 

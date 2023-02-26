@@ -27,6 +27,11 @@ theme = createTheme( theme, {
             defaultProps: {
                 spacing: 3,
             },
+            styleOverrides: {
+                root: {
+                    maxHeight: '100%',
+                },
+            },
         },
         MuiStack: {
             defaultProps: {
@@ -43,6 +48,7 @@ theme = createTheme( theme, {
             styleOverrides: {
                 root: {
                     padding: theme.spacing( 3 ),
+                    overflowY: 'scroll',
                 },
             },
         },

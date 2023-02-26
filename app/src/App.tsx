@@ -26,8 +26,8 @@ function App() {
           <ThemeProvider theme={theme}>
               <SnackbarProvider maxSnack={3}>
                   <CssBaseline/>
-                  <UiMessages/>
                   <BrowserRouter>
+                      <UiMessages/>
                       <Router/>
                   </BrowserRouter>
               </SnackbarProvider>

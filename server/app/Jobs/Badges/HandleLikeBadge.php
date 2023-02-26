@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class HandlePostBadge implements ShouldQueue
+class HandleLikeBadge implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -24,7 +24,7 @@ class HandlePostBadge implements ShouldQueue
      */
     public function __construct(User $user)
     {
-        error_log('Checking Post Badge');
+        error_log('Checking Like Badge');
         $this->user = $user;
     }
 
@@ -35,22 +35,17 @@ class HandlePostBadge implements ShouldQueue
      */
     public function handle()
     {
-        $pc = $this->user->loadCount('posts')->posts_count;
-        $badge_variant = 0;
-        error_log('POST COUNT : '.$pc);
-        if ($pc < Badge::$POST_BADGE[0]) {
-            error_log('Not Enough Posts for Batch');
+        $lc = $this->user->loadCount('likes')->likes_count;
+        if ($lc < Badge::$LIKE_BADGE[0]) {
+            error_log('Not Enough Likes for Batch');
             return;
         }
 
-        for ($i = 1; $i < count(Badge::$POST_BADGE); $i++) {
-            if ($pc < Badge::$POST_BADGE[$i]) {
-                error_log('Creating Badge: '.$i);
-                Badge::updateOrCreate($this->user, Badge::$POST_BADGE_NAME, $i);
-                error_log('Badge Variant: '.$badge_variant);
+        for ($i = 1; $i < count(Badge::$LIKE_BADGE); $i++) {
+            if ($lc < Badge::$LIKE_BADGE[$i]) {
+                Badge::updateOrCreate($this->user, Badge::$LIKE_BADGE_NAME, $i);
                 return;
             }
         }
-        error_log('FAIL');
     }
 }

@@ -133,7 +133,7 @@ const Sidebar = () => {
           </List>
           <FlexBox sx={{ justifySelf: 'flex-end', flexDirection: 'column' }}>
               {user && <Box sx={{ mb: 1 }}>
-                <UserAvatar user={user}/>
+                <UserAvatar user={user} size={'small'}/>
               </Box>}
               <IconButton onClick={handleLogout}>
                   <LogoutOutlined/>

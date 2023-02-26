@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -19,13 +21,16 @@ class UserFactory extends Factory
     public function definition()
     {
 
-        $firstname = fake()->firstName();
+        $firstname = fake()->firstName('female');
         $lastname = fake()->lastName();
         $email = fake()->unique()->safeEmail();
-        $avatar = 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($email))).'?d=identicon';
+
+
+        $avatar = 'https://api.lorem.space/image/face?w=400&h=400';
+        $username = fake()->userName();
 
         return [
-            'username' => fake()->userName(),
+            'username' => $username,
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => $email,

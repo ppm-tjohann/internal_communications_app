@@ -6,6 +6,7 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import { useLocation } from 'react-router'
 import exp from 'constants'
+import { Badge } from '@mui/material'
 
 
 
@@ -37,7 +38,9 @@ const MenuItem = ( { onClick, open, link, icon, name, active }: MenuItemProps ) 
                     justifyContent: 'center',
                 }}
               >
-                  {icon}
+                  <Badge badgeContent={name === 'Chat' ? 2 : 0} color={'secondary'} variant={'dot'}>
+                      {icon}
+                  </Badge>
               </ListItemIcon>
               <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }}/>
           </ListItemButton>

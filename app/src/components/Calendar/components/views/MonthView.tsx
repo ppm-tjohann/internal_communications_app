@@ -13,11 +13,14 @@ import DayTile from '../DayTile'
 const MonthView = () => {
     const { viewingDate, currentDate } = useAppSelector( state => state.calendar )
     const daysArray = getCalendarDates( viewingDate )
+
+    const height = daysArray.length / 7 === 4 ? '25%' : '20%'
+
     return (
       <>
           <WeekDaysGrid/>
           <Grid container columns={7} spacing={0} sx={{ flexGrow: 1 }}>
-              {daysArray.map( ( day, index ) => <DayTile key={index} date={day}/> )}
+              {daysArray.map( ( day, index ) => <DayTile key={index} date={day} height={height}/> )}
           </Grid>
       </>
     )

@@ -70,6 +70,11 @@ export const sendMessage = ( text: string ) => async ( dispatch: Dispatch<ChatDi
             throw new Error( 'No Active Chat' )
         const { data: message } = await chatApi.send( activeChat.id, text )
         dispatch( { type: CHAT_SET_NEW_MESSAGE, payload: { message } } )
+        dispatch( {
+            type: CHAT_SET_NEW_PREVIEW_MESSAGE, payload: {
+                message, chatId: activeChat.id,
+            },
+        } )
     }
     catch ( e ) {
         console.error( e )
@@ -85,7 +90,7 @@ export const addChat = ( values: StoreChat ) => async ( dispatch: Dispatch<ChatD
     * */
     try {
         // Submitting new Chat + Add To Chat List
-        const { data: chat } = await chatApi.store( values )
+        const { data: { chat, user } } = await chatApi.store( values )
         dispatch( { type: CHAT_ADD_CHAT, payload: { chat } } )
         // Make new Chat active
         dispatch( { type: CHAT_SET_ACTIVE_CHAT, payload: { chat } } )

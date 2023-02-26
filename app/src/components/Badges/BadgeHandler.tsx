@@ -8,7 +8,8 @@ interface BadgeHandler {
     badges: Badge[]
 }
 
-const BadgeWrapper = ( { children }: { children: ReactNode } ) => <Box sx={{ height: 30, width: 30 }}>{children}</Box>
+const BadgeWrapper = ( { children, size = { xs: 12, sm: 16, md: 24 } }: { children: ReactNode, size?: any } ) => <Box
+  sx={{ height: size, width: size }}>{children}</Box>
 
 const CommentBadge = ( { variant }: { variant: number } ) => {
     return <BadgeWrapper>
@@ -25,6 +26,16 @@ const PostBadge = ( { variant }: { variant: number } ) => {
     </BadgeWrapper> )
 }
 
+const LikeBadge = ( { variant }: { variant: number } ) => {
+    return (
+      <BadgeWrapper>
+          <Tooltip title={'Badge earned for liking posts and comments'}>
+              <img style={{ objectFit: 'contain' }} src={`/img/badges/likes/likes-${variant}.png`}/>
+          </Tooltip>
+      </BadgeWrapper>
+    )
+}
+
 const BadgeHandler = ( { badges }: BadgeHandler ) => {
     if ( badges.length === 0 ) return null
     console.log( 'Badges', badges )
@@ -36,6 +47,8 @@ const BadgeHandler = ( { badges }: BadgeHandler ) => {
                 return <CommentBadge variant={badge.variant} key={index}/>
             case 'POST_BADGE':
                 return <PostBadge variant={badge.variant} key={index}/>
+            case 'LIKE_BADGE':
+                return <LikeBadge variant={badge.variant} key={index}/>
         }
     }
 

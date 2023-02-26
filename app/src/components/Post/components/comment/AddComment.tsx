@@ -1,7 +1,6 @@
-import { Box, CircularProgress, IconButton, InputBase, Paper, Skeleton, Stack, TextField, Typography } from '@mui/material'
+import { Box, CircularProgress, IconButton, InputBase, Paper, Stack, Typography } from '@mui/material'
 import { Send } from '@mui/icons-material'
-import { ChangeEvent, useContext, useState } from 'react'
-import { useAppDispatch } from '../../../../Store'
+import { KeyboardEvent, ChangeEvent, useContext, useState } from 'react'
 import { CommentsContext } from './CommentProvider'
 
 
@@ -20,6 +19,11 @@ const AddComment = () => {
         else if ( event.target.value.length < value.length )
             setValue( event.target.value )
     }
+    const handleKeyDown = ( event: KeyboardEvent<HTMLInputElement> ) => {
+        if ( event.key === 'Enter' ) {
+            handleSubmit()
+        }
+    }
 
     const handleSubmit = async () => {
         setLoading( true )
@@ -31,7 +35,7 @@ const AddComment = () => {
     return ( <Paper elevation={4} sx={{ py: 2, mb: 1 }}>
         <Stack justifyContent={'space-between'} alignItems={'center'}>
             <InputBase placeholder={'comment…'} value={value} onChange={handleValue}
-                       sx={{ width: '100%' }}
+                       onKeyDown={handleKeyDown} sx={{ width: '100%' }}
             />
             <Box>
                 <IconButton onClick={handleSubmit}>

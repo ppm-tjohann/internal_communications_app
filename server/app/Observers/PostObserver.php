@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Events\PostCreated;
 use App\Jobs\AdjustUserScore;
 use App\Jobs\Badges\HandlePostBadge;
 use App\Models\Post;
@@ -19,6 +20,7 @@ class PostObserver
     {
         AdjustUserScore::dispatch($post->user, Score::scoreFor('post'));
         HandlePostBadge::dispatch($post->user);
+        PostCreated::dispatch($post);
     }
 
     /**
@@ -41,6 +43,7 @@ class PostObserver
     public function deleted(Post $post)
     {
         AdjustUserScore::dispatch($post->user, -Score::scoreFor('post'));
+        HandlePostBadge::dispatch($post->user);
     }
 
     /**

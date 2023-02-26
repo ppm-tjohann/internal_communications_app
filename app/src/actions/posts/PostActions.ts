@@ -11,7 +11,7 @@ import {
     POST_SET_POSTS,
     PostDispatchTypes,
 } from './PostActionTypes'
-import { AddPostRequest, BasePost, Comment } from '../../interfaces/post'
+import { AddPostRequest, BasePost, Comment, Post } from '../../interfaces/post'
 import { RootState } from '../../Store'
 import validationErrors from '../../lib/validationErrors'
 import * as posts from '../../lib/api/post'
@@ -26,7 +26,6 @@ export const handlePostSubmit = ( values: BasePost, post: FormData ) => async ( 
     try {
         AddPostRequest.parse( values )
         const { data } = await posts.store( post )
-        dispatch( { type: POST_ADD_POST, payload: { post: data } } )
     }
     catch ( e ) {
         const errors = validationErrors( e )
@@ -41,6 +40,10 @@ export const handlePostSubmit = ( values: BasePost, post: FormData ) => async ( 
         }
     }
     dispatch( { type: POST_ADD_POST_LOADING } )
+}
+
+export const PostAddedByUser = ( post: Post ) => ( dispatch: Dispatch<PostDispatchTypes> ) => {
+    dispatch( { type: POST_ADD_POST, payload: { post } } )
 }
 
 export const handlePostValidationError = ( errors: ValidationError<BasePost> ) => ( dispatch: Dispatch<PostDispatchTypes> ) => {

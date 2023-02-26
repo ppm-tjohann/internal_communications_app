@@ -43,15 +43,21 @@ export const CalendarSetEvents = () => async ( dispatch: Dispatch<CalendarDispat
     }
     dispatch( { type: CALENDAR_SET_LOADING } )
 }
+export const CalendarEventAddedByUser = ( event: Event ) => ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
+    console.log( 'Adding Event :', event )
+    dispatch( { type: CALENDAR_ADD_EVENT, payload: { event } } )
+}
+
 export const CalendarAddEvent = ( values: BaseEvent, successCb?: () => any ) => async ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
     dispatch( { type: CALENDAR_ADD_EVENT_LOADING } )
     try {
         AddEventRequest.parse( values )
         const res = await event.store( values )
-
         dispatch( { type: CALENDAR_ADD_EVENT, payload: { event: res.data } } )
-        if ( successCb )
+
+        if ( successCb ) {
             successCb()
+        }
         dispatch( { type: CALENDAR_SET_ERROR, payload: { errors: {} } } )
 
     }

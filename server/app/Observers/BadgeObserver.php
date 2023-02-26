@@ -26,7 +26,6 @@ class BadgeObserver
      */
     public function updated(Badge $badge)
     {
-        BadgeCreatedOrUpdated::dispatch($badge);
     }
 
     /**

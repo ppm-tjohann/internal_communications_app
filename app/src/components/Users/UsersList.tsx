@@ -15,25 +15,22 @@ const List = () => {
     const { usersData } = useSelector( ( state: RootState ) => state.users )
 
     return (
-      <MuiList sx={{ maxHeight: 400, overflowY: 'scroll' }}>
+      <MuiList sx={{ maxHeight: '100%', overflowY: 'scroll' }}>
           {usersData.map( user => (
-            <ListItem key={user.id}>
-                <ListItemButton>
-                    <ListItemIcon>
-                        <UserAvatar user={user} size={'large'}/>
-                    </ListItemIcon>
+            <ListItemButton key={user.id}>
+                <ListItemIcon>
+                    <UserAvatar user={user} size={'medium'} withBorder={true}/>
+                </ListItemIcon>
 
-                    <ListItemText primary={user.username} secondary={user.email}/>
-                    {user.badges && <BadgeHandler badges={user.badges}/>}
-                    <Box>
-                        <Stack spacing={1}>
-                            <IconButton><Phone/></IconButton>
-                            <IconButton><Mail/></IconButton>
-                        </Stack>
-                    </Box>
-                </ListItemButton>
-
-            </ListItem>
+                <ListItemText primary={user.username} secondary={user.email}/>
+                {user.badges && <BadgeHandler badges={user.badges}/>}
+                <Box>
+                    <Stack spacing={1}>
+                        <IconButton><Phone/></IconButton>
+                        <IconButton><Mail/></IconButton>
+                    </Stack>
+                </Box>
+            </ListItemButton>
           ) )}
       </MuiList>
     )

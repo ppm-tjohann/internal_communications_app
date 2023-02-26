@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserSeeder extends Seeder
 {
@@ -17,21 +18,46 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()
-            ->count(5)
-            ->create();
+//        User::factory()
+//            ->count(10)
+//            ->create();
+        $i = 1;
+        while ($i <= 25) {
+            User::create([
+                'firstname' => fake()->firstName('female'),
+                'lastname' => fake()->lastName(),
+                'email' => fake()->unique()->safeEmail(),
+                'username' => fake()->unique()->userName(),
+                'number' => fake()->unique()->phoneNumber(),
+                'avatar' => 'storage/users/female/avatar-'.$i.'.jpg',
+                'password' => Hash::make('password')
+            ]);
+            User::create([
+                'firstname' => fake()->firstName('male'),
+                'lastname' => fake()->lastName(),
+                'email' => fake()->unique()->safeEmail(),
+                'username' => fake()->unique()->userName(),
+                'number' => fake()->unique()->phoneNumber(),
+                'avatar' => 'storage/users/male/avatar-'.$i.'.jpg',
+                'password' => Hash::make('password')
+            ]);
+
+            $i++;
+        }
 
         // Dev Normal User
-        User::create([
-            'firstname' => 'User',
-            'lastname' => 'Root',
-            'username' => 'uroot',
-            'email' => 'user@root.de',
-            'password' => Hash::make('root')
-        ]);
+        {
+            User::firstOrcreate([
+                'firstname' => 'User',
+                'lastname' => 'Root',
+                'username' => 'uroot',
+                'email' => 'user@root.de',
+                'password' => Hash::make('root')
+            ]);
+        }
 
         // Dev Admin User
-        User::create([
+        $admin = User::firstOrcreate([
             'firstname' => 'Admin',
             'lastname' => 'Root',
             'username' => 'aroot',
@@ -39,5 +65,12 @@ class UserSeeder extends Seeder
             'email' => 'admin@root.de',
             'password' => Hash::make('root')
         ]);
+
+        $admin->logins()->create();
+        $admin->logins()->create();
+        $admin->logins()->create();
+        $admin->logins()->create();
+        $admin->logins()->create();
+
     }
 }

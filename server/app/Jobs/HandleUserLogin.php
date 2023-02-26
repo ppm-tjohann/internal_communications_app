@@ -2,7 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Events\UserScoreUpdated;
+use App\Jobs\Badges\HandleLoginBadge;
+use App\Models\Login;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -10,24 +11,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
-class AdjustUserScore implements ShouldQueue
+class HandleUserLogin implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public User $user;
-    public int $score_change;
 
+    public User $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $user, int $score_change)
+    public function __construct()
     {
-        $this->user = $user;
-        $this->score_change = $score_change;
+        $this->user = Auth::user();
     }
 
     /**
@@ -37,11 +38,7 @@ class AdjustUserScore implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->score()
-            ->update([
-                'count' => $this->user->score->count +
-                    $this->score_change
-            ]);
-        UserScoreUpdated::dispatch($this->user);
+        $this->user->logins()->firstOrCreate(['created_at' => Carbon::today()]);
+        HandleLoginBadge::dispatch($this->user);
     }
 }

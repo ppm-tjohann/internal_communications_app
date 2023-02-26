@@ -36,7 +36,7 @@ class ChatController extends Controller
         $chat->users()->attach($request->users);
         $chat->load('users');
 
-        return response([$chat, $request->user()], 201);
+        return response(['chat' => $chat, $request->user()], 201);
     }
 
     public function find(Chat $chat): Response

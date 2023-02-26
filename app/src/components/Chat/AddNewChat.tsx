@@ -11,6 +11,7 @@ import { addChat } from '../../actions/chat/ChatActions'
 const AddNewChat = () => {
 
     const { usersData } = useAppSelector( state => state.users )
+    const { user } = useAppSelector( state => state.auth )
     const dispatch = useAppDispatch()
     const initialValues: StoreChat = { name: null, users: [] }
 
@@ -33,13 +34,16 @@ const AddNewChat = () => {
         // TODO add message when no user selected
     }
 
+    if ( !user ) {
+        return null
+    }
     return (
       <Box my={1}>
           <Stack alignItems={'center'} spacing={1} justifyContent={'space-between'}>
               <Autocomplete limitTags={3} sx={{ width: '100%' }}
                             multiple onChange={handleUsers} value={usersData.filter( user => values.users.includes( user.id ) )}
                             renderInput={( params => <TextField {...params} label={'participants'} fullWidth sx={{ flexShrink: 0 }}/> )}
-                            options={usersData} getOptionLabel={( options: User ) => options.username}
+                            options={usersData.filter( u => u.id !== user.id )} getOptionLabel={( options: User ) => options.username}
               />
               <Collapse in={values.users.length > 1} unmountOnExit mountOnEnter>
                   <TextField value={values.name} label={'chatname'} onChange={handleChange( 'name' )}/>

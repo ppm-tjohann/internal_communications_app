@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewEventCreated;
 use App\Http\Requests\EventRequest;
 use App\Models\Event;
 
@@ -42,6 +43,12 @@ class EventController extends Controller
         }
 
         $event->load(['user', 'participants']);
+
+        error_log($event->participants()->get());
+        foreach ($event->participants()->get() as $user) {
+
+            NewEventCreated::dispatch($event, $user);
+        }
 
         return response($event, 201);
     }

@@ -19,6 +19,7 @@ class PostFactory extends Factory
 
         $randomNumber = rand(0, 200);
 
+
         return [
             'text' => fake()->sentence(1),
             'image' => 'https://picsum.photos/800/800?random='.$randomNumber,

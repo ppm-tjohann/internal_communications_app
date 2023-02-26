@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Jobs\HandleUserLogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,10 +14,12 @@ class AuthController extends Controller
     {
         $credentials = $request->only(['email', 'password']);
         if (!Auth::attempt($credentials)) {
-            return response(['message' => 'Login failed', 'credentials' => $credentials], 422);
+            return response([
+                'message' => 'Login failed', 'credentials' => $credentials
+            ], 422);
         }
         $token = $request->user()->createToken($request->email);
-
+        HandleUserLogin::dispatch();
         return response([
             'user' => $request->user(),
             'token' => $token

@@ -28,7 +28,7 @@ const ChatList = () => {
                 <Loader/>
             </FlexBox> )
         }
-        if ( chat === null || chat === undefined ) {
+        if ( chat === null || chat === undefined || !chat.messages ) {
             return null
         }
         return ( <TransitionGroup>
@@ -45,15 +45,17 @@ const ChatList = () => {
 
     return (
 
-      <Container maxWidth={'md'}>
-          <Paper sx={{ height: '80vh', overflowY: 'scroll' }}>
-              {getContent()}
-          </Paper>
-          <Box>
-              <Collapse in={!( loading || chat === null || chat === undefined )}>
-                  <SendMessage/>
-              </Collapse>
-          </Box>
+      <Container maxWidth={'md'} sx={{ maxHeight: '100%', height: '100%' }}>
+          <Stack direction={'column'} height={'100%'}>
+              <Paper sx={{ height: '100%', flexGrow: 3, flexShrink: 1, overflowY: 'scroll' }}>
+                  {getContent()}
+              </Paper>
+              <Box sx={{ flexGrow: 0, flexShrink: 0 }}>
+                  <Collapse in={!( loading || chat === null || chat === undefined )}>
+                      <SendMessage/>
+                  </Collapse>
+              </Box>
+          </Stack>
       </Container>
     )
 

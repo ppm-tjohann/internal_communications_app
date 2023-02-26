@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Events\UserScoreUpdated;
 use App\Jobs\AdjustUserScore;
+use App\Jobs\Badges\HandleLikeBadge;
 use App\Models\Like;
 use App\Models\Score;
 use App\Models\User;
@@ -19,6 +20,7 @@ class LikeObserver
     public function created(Like $like)
     {
         AdjustUserScore::dispatch($like->user, Score::scoreFor('like'));
+        HandleLikeBadge::dispatch($like->user);
     }
 
     /**
@@ -29,7 +31,7 @@ class LikeObserver
      */
     public function updated(Like $like)
     {
-        //
+        HandleLikeBadge::dispatch($like->user);
     }
 
     /**
@@ -41,6 +43,7 @@ class LikeObserver
     public function deleted(Like $like)
     {
         AdjustUserScore::dispatch($like->user, -Score::scoreFor('like'));
+        HandleLikeBadge::dispatch($like->user);
     }
 
     /**

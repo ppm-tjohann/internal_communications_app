@@ -7,9 +7,9 @@ import { useEffect } from 'react'
 
 
 const Chat = () => {
-    
+
     return (
-      <Grid container>
+      <Grid container sx={{ height: '100%', maxHeight: '100%' }}>
           <Grid item xs={12} md={5} xl={4}>
               <ChatUserList/>
           </Grid>

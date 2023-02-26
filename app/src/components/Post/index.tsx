@@ -14,7 +14,7 @@ const PostView = ( post: Post ) => {
     return (
       <PostWrapper post={post}>
           <PostHeader/>
-          <PostImage/>
+          <PostImage src={post.image}/>
           <PostActions/>
           <PostInfo/>
           <PostComments/>

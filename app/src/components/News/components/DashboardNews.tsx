@@ -1,11 +1,17 @@
-import { Grid, Paper, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { NewsTeaser } from '../../../interfaces/news'
 import Loader from '../../utils/Loader'
 import * as newsApi from '../../../lib/api/news'
 import DashboardNewsItem from './DashboardNewsItem'
+import MuiPaper from '@mui/material/Paper'
+import { styled } from '@mui/material/styles'
 
 
+
+const Paper = styled( MuiPaper )( ( { theme } ) => ( {
+    borderRadius: theme.spacing( 3 ),
+} ) )
 
 const DashboardNews = () => {
 
@@ -25,24 +31,15 @@ const DashboardNews = () => {
         }
     }, [] )
 
-    return ( <Grid container my={3} alignItems={'stretch'}>
-        <Grid item xs={12}>
-            <Typography variant={'h3'}>Recent News</Typography>
+    return ( <Grid container alignItems={'stretch'} sx={{ height: '100%' }}>
+        <Grid item xs={12} md={4}>
+            {loading ? <Loader/> : <DashboardNewsItem {...news[0]}/>}
         </Grid>
         <Grid item xs={12} md={4}>
-            <Paper sx={{ height: '100%' }}>
-                {loading ? <Loader/> : <DashboardNewsItem {...news[0]}/>}
-            </Paper>
+            {loading ? <Loader/> : <DashboardNewsItem {...news[1]}/>}
         </Grid>
         <Grid item xs={12} md={4}>
-            <Paper sx={{ height: '100%' }}>
-                {loading ? <Loader/> : <DashboardNewsItem {...news[1]}/>}
-            </Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
-            <Paper sx={{ height: '100%' }}>
-                {loading ? <Loader/> : <DashboardNewsItem {...news[2]}/>}
-            </Paper>
+            {loading ? <Loader/> : <DashboardNewsItem {...news[2]}/>}
         </Grid>
     </Grid> )
 

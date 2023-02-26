@@ -1,5 +1,5 @@
 import { Chat } from '../../../interfaces/chat'
-import { ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
+import { Badge, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../Store'
 import { setActiveChat } from '../../../actions/chat/ChatActions'
 import moment from 'moment'
@@ -41,7 +41,9 @@ const ChatUserListItem = ( { users, updated_at, created_at, messages, name, id }
 
     return ( <ListItemButton selected={activeChat !== null && activeChat.id === id} key={id} onClick={handleClick}>
           <ListItemAvatar>
-              <UserAvatarList users={users} options={{ showSelf: false, spacing: -2 }}/>
+              <Badge badgeContent={1} color={'secondary'} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                  <UserAvatarList users={users} options={{ showSelf: false, spacing: -2 }}/>
+              </Badge>
           </ListItemAvatar>
           <ListItemText primary={getChatName()}
                         secondary={getMessage()}/>

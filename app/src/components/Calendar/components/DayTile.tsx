@@ -16,6 +16,7 @@ interface DayProps {
     format?: string,
     monthFormat?: string,
     highlightCurrentDay?: boolean
+    height?: string | number
 }
 
 /**
@@ -24,7 +25,7 @@ interface DayProps {
  * open popup with date value
  * */
 
-const DayTile = ( { date, format = 'DD', monthFormat = 'DD. MMM', highlightCurrentDay = true }: DayProps ) => {
+const DayTile = ( { height = '100%', date, format = 'DD', monthFormat = 'DD. MMM', highlightCurrentDay = true }: DayProps ) => {
     const { toggleEventPopup, setInitialDate } = useContext( AddEventPopupContext )
     const { viewingDate } = useCalendar()
     const theme = useTheme()
@@ -41,16 +42,14 @@ const DayTile = ( { date, format = 'DD', monthFormat = 'DD. MMM', highlightCurre
         formattedDate = moment( date.date ).format( monthFormat )
     }
 
-    return ( <Grid item xs={1}>
+    return ( <Grid item xs={1} sx={{ height }}>
           <Box onDoubleClick={handleClick}
                sx={{
+                   display: 'flex', flexDirection: 'column',
                    opacity: isCurrentMonth ? 1 : .3,
                    py: 1, px: 2, border: `1px solid ${theme.palette.grey['900']}`, height: '100%', backgroundColor: isCurrentDay ? 'primary.dark' : 'default',
                }}>
-              <Typography variant={'overline'} color={isCurrentDay ? 'primary' : 'default'}>{formattedDate}</Typography>
-
-
-              {/*EventsList*/}
+              <Typography variant={'overline'} sx={{ flexShrink: 0, flexGrow: 0 }} color={isCurrentDay ? 'primary' : 'default'}>{formattedDate}</Typography>
               <EventList date={date.date}/>
           </Box>
       </Grid>
