@@ -1,4 +1,3 @@
-4
 import { KeyboardEvent, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../Store'
 import { Box, CircularProgress, IconButton, InputBase, Paper, Stack } from '@mui/material'
@@ -32,7 +31,7 @@ const SendMessage = () => {
     }
 
     return (
-      <Paper sx={{ mt: 3 }}>
+      <Paper sx={{ mt: 3 }} elevation={2}>
           <Stack justifyContent={'space-between'}>
               <InputBase
                 sx={{ width: '100%' }}

@@ -31,7 +31,7 @@ const EventListItem = ( { event, date }: EventListItemProps ) => {
         if ( !user || user === undefined ) {
             return 'primary.dark'
         }
-        if ( event.user.id === user.id ) {
+        if ( event.user_id === user.id ) {
             return 'secondary.dark'
         }
         return 'primary.dark'

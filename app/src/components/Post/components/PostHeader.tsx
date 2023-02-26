@@ -14,7 +14,7 @@ const PostHeader = () => {
 
     return ( <Container sx={{ my: 1 }}>
         <Stack justifyContent={'space-between'} alignItems={'center'}>
-            <UserAvatar user={post.user} showName/>
+            <UserAvatar userId={post.user_id} showName withBorder/>
             <Typography mb={0} sx={{ opacity: .8 }} variant={'body2'}>{moment( post.updated_at ).fromNow()}</Typography>
         </Stack>
     </Container> )

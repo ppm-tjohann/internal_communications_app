@@ -13,7 +13,6 @@ import { BaseEvent, Event } from '../interfaces/event'
 
 
 interface useCalendarProps {
-    initialDate?: string
     onSuccess?: () => any
 }
 

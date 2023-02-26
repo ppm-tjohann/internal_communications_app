@@ -1,5 +1,5 @@
 import { createContext, ReactNode } from 'react'
-import { Paper, Stack } from '@mui/material'
+import { Paper, Stack, useTheme } from '@mui/material'
 import { Post } from '../../../interfaces/post'
 
 
@@ -16,9 +16,11 @@ interface PostWrapperProps {
 }
 
 const PostWrapper = ( { children, post }: PostWrapperProps ) => {
+    const theme = useTheme()
+
     return (
       <PostContext.Provider value={{ post }}>
-          <Paper sx={{ p: 0 }}>
+          <Paper sx={{ p: 0, borderRadius: theme.spacing( 3 ), overflow: 'hidden' }}>
               {children}
           </Paper>
       </PostContext.Provider>

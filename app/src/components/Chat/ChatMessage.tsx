@@ -15,7 +15,7 @@ const ChatMessage = ( { text, user: sender, created_at }: Message ) => {
 
     return (
       <Paper sx={{ width: '90%', alignSelf: userIsSender ? 'flex-end' : 'flex-start' }}
-             elevation={2}>
+             elevation={3}>
 
           <Stack alignItems={'center'} direction={userIsSender ? 'row-reverse' : 'row'}>
               {sender && <UserAvatar user={sender}/>}

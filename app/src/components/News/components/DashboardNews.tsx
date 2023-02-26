@@ -32,13 +32,13 @@ const DashboardNews = () => {
     }, [] )
 
     return ( <Grid container alignItems={'stretch'} sx={{ height: '100%' }}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
             {loading ? <Loader/> : <DashboardNewsItem {...news[0]}/>}
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
             {loading ? <Loader/> : <DashboardNewsItem {...news[1]}/>}
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
             {loading ? <Loader/> : <DashboardNewsItem {...news[2]}/>}
         </Grid>
     </Grid> )

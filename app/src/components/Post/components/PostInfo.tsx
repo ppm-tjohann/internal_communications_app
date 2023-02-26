@@ -12,8 +12,7 @@ const PostInfo = () => {
     return (
       <Container sx={{ mb: 1 }}>
           <Stack spacing={1} alignItems={'center'}>
-              <UserAvatar user={post.user} size={'small'}/>
-              <Typography variant={'subtitle1'}>{post.user.username}</Typography>
+              <UserAvatar userId={post.user_id} size={'small'} showName/>
               <Divider orientation={'vertical'} flexItem/>
               <Typography variant={'body1'}>
                   {post.text}

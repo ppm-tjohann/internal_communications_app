@@ -48,19 +48,19 @@ const Layout = ( { children }: LayoutProps ) => {
                   flexGrow: 1, height: { md: '100vh' },
               }}>
 
-                  {currentLocation !== '/' &&
-                  < AppBar position={!mdBreakpoint ? 'fixed' : 'static'} sx={{ p: 0, '.MuiPaper-root': { padding: '0 !important' } }}>
-                    <Toolbar>
-                      <Stack justifyContent={'space-between'} width={'100%'}>
-                        <Box>
-                          <IconButton onClick={handleAppClickBack}>
-                            <ArrowBack/>
-                          </IconButton>
-                        </Box>
-                          {user && <UserAvatar user={user}/>}
-                      </Stack>
-                    </Toolbar>
-                  </AppBar>}
+
+                  < AppBar position={!mdBreakpoint ? 'fixed' : 'static'} sx={{ borderRadius: 0, p: 0, '.MuiPaper-root': { padding: '0 !important' } }}>
+                      <Toolbar>
+                          <Stack justifyContent={'space-between'} width={'100%'}>
+                              <Box>
+                                  {currentLocation !== '/' && <IconButton onClick={handleAppClickBack}>
+                                    <ArrowBack/>
+                                  </IconButton>}
+                              </Box>
+                              {user && <UserAvatar user={user}/>}
+                          </Stack>
+                      </Toolbar>
+                  </AppBar>
 
                   <Box flexGrow={1} flexShrink={1} maxHeight={'100%'} height={'100%'} sx={{
                       p: 2, overflowY: 'scroll',

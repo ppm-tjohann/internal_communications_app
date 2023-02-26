@@ -15,10 +15,11 @@ import {
     CalendarDispatchTypes,
 } from './CalendarActionTypes'
 import { CalendarViewTypes, DEFAULT_FORMAT } from '../../reducers/CalendarReducer'
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
 import { AddEventRequest, BaseEvent, Event } from '../../interfaces/event'
 import * as event from '../../lib/api/events'
 import validationErrors from '../../lib/validationErrors'
+import { RootState } from '../../Store'
 
 
 
@@ -32,17 +33,31 @@ export const CalendarViewingDate = ( date: Moment ) => ( dispatch: Dispatch<Cale
 export const CalendarViewChange = ( view: CalendarViewTypes ) => ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
     dispatch( { type: CALENDAR_SET_VIEW, payload: { view } } )
 }
-export const CalendarSetEvents = () => async ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
-    dispatch( { type: CALENDAR_SET_LOADING } )
-    try {
-        const { data: pagEvents } = await event.get()
-        dispatch( { type: CALENDAR_SET_EVENTS, payload: { events: pagEvents.data } } )
-    }
-    catch ( e ) {
-        console.error( 'Setting Events ERRORED' )
-    }
-    dispatch( { type: CALENDAR_SET_LOADING } )
+export const CalendarSetEvents = ( date: string = moment().format() ) =>
+  async ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
+      dispatch( { type: CALENDAR_SET_LOADING } )
+      try {
+          const { data: events } = await event.get()
+          dispatch( { type: CALENDAR_SET_EVENTS, payload: { events } } )
+      }
+      catch ( e ) {
+          console.error( 'Setting Events ERRORED' )
+      }
+      dispatch( { type: CALENDAR_SET_LOADING } )
+  }
+export const CalendarHandlePagination = ( date: string ) => async ( dispatch: Dispatch<CalendarDispatchTypes>, getSate: () => RootState ) => {
+    const today = moment()
+    const { events } = getSate().calendar
+    const eventIds = events.map( e => e.id )
+
+    const isPast = today.isAfter( date )
+    const start = parseInt( isPast ? moment( date ).subtract( 1, 'month' ).format( 'MM' ) : moment( date ).format( 'MM' ) )
+    const end = parseInt( isPast ? moment( date ).format( 'MM' ) : moment( date ).add( 1, 'month' ).format( 'MM' ) )
+    let { data: newEvents } = await event.add( { start, end } )
+    newEvents = newEvents.filter( e => !eventIds.includes( e.id ) )
+    dispatch( { type: CALENDAR_SET_EVENTS, payload: { events: [ ...events, ...newEvents ] } } )
 }
+
 export const CalendarEventAddedByUser = ( event: Event ) => ( dispatch: Dispatch<CalendarDispatchTypes> ) => {
     console.log( 'Adding Event :', event )
     dispatch( { type: CALENDAR_ADD_EVENT, payload: { event } } )

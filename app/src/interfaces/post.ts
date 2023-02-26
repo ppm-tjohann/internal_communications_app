@@ -37,8 +37,7 @@ export type Post = BasePost & {
     image: string
     likes_count: number
     comments_count: number
-    user: User
+    user_id: number
     comments?: Comment[]
-    created_at: string
     updated_at: string
 }

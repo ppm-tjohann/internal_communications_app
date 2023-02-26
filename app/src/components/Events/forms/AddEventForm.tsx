@@ -3,7 +3,7 @@ import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../interfaces/event'
 import useCalendar from '../../../hooks/useCalendar'
 import AddEventFormWrapper from './AddEventFormWrapper'
-import EventForm from './EventForm'
+import EventForm, { getAddEventDefaultState } from './EventForm'
 
 
 
@@ -13,13 +13,17 @@ interface AddEventProps {
     initialDate?: string
 }
 
-const AddEventForm = ( { displaySuccess = true, initialDate = moment().format( DATE_TIME_FORMAT ), onSuccess }: AddEventProps ) => {
+const AddEventForm = ( { displaySuccess = true, onSuccess, initialDate }: AddEventProps ) => {
 
-    const { handleSubmit, errors } = useCalendar( { initialDate, onSuccess } )
+    const { handleSubmit, errors } = useCalendar( { onSuccess } )
+    let initialValues = null
+    if ( initialDate ) {
+        initialValues = getAddEventDefaultState( { start: initialDate } )
+    }
 
     return (
       <AddEventFormWrapper>
-          <EventForm errors={errors} onSubmit={handleSubmit} context={'CREATE'}/>
+          <EventForm errors={errors} onSubmit={handleSubmit} context={'CREATE'} initialValues={initialValues}/>
       </AddEventFormWrapper>
     )
 

@@ -20,7 +20,7 @@ const CommentList = () => {
       <>
           <Collapse in={expanded}>
               <>
-                  <Stack direction={'column'} maxHeight={250} sx={{ overflowY: 'scroll' }}>
+                  <Stack direction={'column'} maxHeight={250} sx={{ overflowY: 'scroll' }} my={comments.length > 0 ? 2 : 0}>
                       {comments.map( ( comment, index ) => <CommentView key={index} comment={comment} loading={loading}/> )}
                   </Stack>
                   <AddComment/>

@@ -24,10 +24,10 @@ const TodayEventsList = () => {
     return (
       <BoardCard title={'Today\'s Events'} loading={loading}>
           {
-              !loading && todaysEvents.length === 0 && events.length !== 0 ?
+              todaysEvents.length === 0 && events.length !== 0 ?
                 <Typography variant={'subtitle1'}>No Events sheduled today</Typography>
                 :
-                <List>
+                <List sx={{ maxHeight: '54vh', overflowY: 'scroll' }}>
                     {todaysEvents.map( event => <ListItemButton key={event.id}>
                         <Box sx={{ mr: 3 }}>
                             {moment( event.start ).format( 'HH:mm' )} <br/>

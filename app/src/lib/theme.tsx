@@ -47,6 +47,7 @@ theme = createTheme( theme, {
         MuiPaper: {
             styleOverrides: {
                 root: {
+                    borderRadius: theme.spacing( 3 ),
                     padding: theme.spacing( 3 ),
                     overflowY: 'scroll',
                 },

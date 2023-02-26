@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Box, Fade, Skeleton } from '@mui/material'
+import { Box, CircularProgress, Fade, Skeleton, Zoom } from '@mui/material'
 import useIntersecting from '../../hooks/useIntersecting'
+import FlexBox from './FlexBox'
 
 
 
@@ -18,16 +19,16 @@ const Image = ( { src, alt }: ImageProps ) => {
         setLoading( false )
     }
 
-    return <Box ref={ref}>
-        <Fade in={loading} unmountOnExit>
-            <Box sx={{ width: '100%', height: '100%' }}>
-                <Skeleton variant={'rectangular'} sx={{ height: '100%' }}/>
-                {visible && <img src={src} onLoad={handleLoad}/>}
-            </Box>
-        </Fade>
-        <Fade in={!loading} mountOnEnter>
+    return <Box ref={ref} height={'100%'}>
+
+        {loading && <FlexBox sx={{ width: '100%', height: '100%' }}>
+          <Skeleton variant={'rectangular'} sx={{ height: '100%', width: '100%' }}/>
+            {visible && <img src={src} onLoad={handleLoad} style={{ display: 'none' }}/>}
+        </FlexBox>}
+
+        <Zoom in={!loading} mountOnEnter>
             <img src={src} alt={alt}/>
-        </Fade>
+        </Zoom>
     </Box>
 }
 export default Image

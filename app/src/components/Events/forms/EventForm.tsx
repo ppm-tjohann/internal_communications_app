@@ -14,24 +14,30 @@ import useCalendar from '../../../hooks/useCalendar'
 
 
 
-const getDefaultState = () => {
+interface initialValues {
+    start?: string
+    end?: string
+    name?: string
+    description?: string
+}
+
+export const getAddEventDefaultState = ( initialValues?: initialValues ) => {
     const initialDate = moment().format( DATE_TIME_FORMAT )
     const start = moment( initialDate ).minutes( Math.ceil( moment().minute() / 15 ) * 15 ).format( DATE_TIME_FORMAT )
     const end = moment( start ).add( 30, 'minutes' ).format( DATE_TIME_FORMAT )
-
-    return { name: '', description: '', participants: [], start, end }
+    return { name: '', description: '', participants: [], start, end, ...initialValues }
 }
 
 interface EventFormProps {
     context: 'UPDATE' | 'CREATE'
     onSubmit: ( values: AddEventRequest ) => any
     errors: ValidationError<BaseEvent>
-    initialValues?: BaseEvent | Event
+    initialValues?: BaseEvent | Event | null
 }
 
 const EventForm = ( { context, onSubmit, errors, initialValues }: EventFormProps ) => {
 
-    const [ values, setValues ] = useState( initialValues ?? getDefaultState() )
+    const [ values, setValues ] = useState( initialValues ?? getAddEventDefaultState() )
     const [ edited, setEdited ] = useState( false )
     const { usersData } = useAppSelector( state => state.users )
     const { handleEventDelete, closePopup } = useCalendar()

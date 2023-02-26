@@ -17,18 +17,20 @@ const BoardCard = ( { children, title, loading = false }: BoardCardProps ) => {
     return (
       <Paper
         sx={{
-            height: '100%', maxHeight: '100%', width: '100%', flexGrow: 1, flexShrink: 1,
+            height: '100%', maxHeight: '100%', width: '100%', flexGrow: 1, flexShrink: 1, overflow: 'hidden',
             borderRadius: theme.spacing( 3 ),
         }}>
-          <Stack justifyContent={'space-between'}>
-              <Typography variant={'h5'}>{title}</Typography>
-              {loading && <CircularProgress/>}
+          <Stack direction={'column'} height={'100%'} maxHeight={'100%'}>
+              <Stack justifyContent={'space-between'} sx={{ flexShrink: 0, flexGrow: 0 }}>
+                  <Typography variant={'h5'}>{title}</Typography>
+                  {loading && <CircularProgress/>}
+              </Stack>
+              <Collapse in={!loading} sx={{ flexGrow: 1, flexShrink: 1, overflowY: 'scroll' }}>
+                  <Box>
+                      {children}
+                  </Box>
+              </Collapse>
           </Stack>
-          <Collapse in={!loading}>
-              <Box>
-                  {children}
-              </Box>
-          </Collapse>
       </Paper>
     )
 }

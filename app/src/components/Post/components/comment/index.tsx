@@ -54,7 +54,7 @@ const CommentView = ( { comment, loading }: CommentProps ) => {
     }
 
     return (
-      <Paper sx={{ py: 1 }} elevation={2}>
+      <Paper sx={{ py: 1, flexShrink: 0 }} elevation={2}>
           <Box>
               <CommentHeader user={comment?.user} loading={loading} created={comment?.created_at}/>
               <Stack alignItems={'center'} justifyContent={'space-between'}>

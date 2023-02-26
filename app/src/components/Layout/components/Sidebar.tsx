@@ -113,7 +113,7 @@ const Sidebar = () => {
     return ( <Drawer variant="permanent" open={open} sx={{
           '.MuiPaper-root': {
               pb: 3,
-              justifyContent: 'space-between',
+              borderRadius: 0, justifyContent: 'space-between',
           },
       }}>
           {

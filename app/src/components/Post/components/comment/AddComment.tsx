@@ -1,4 +1,4 @@
-import { Box, CircularProgress, IconButton, InputBase, Paper, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, IconButton, InputBase, Paper, Stack, Typography, useTheme } from '@mui/material'
 import { Send } from '@mui/icons-material'
 import { KeyboardEvent, ChangeEvent, useContext, useState } from 'react'
 import { CommentsContext } from './CommentProvider'
@@ -8,6 +8,7 @@ import { CommentsContext } from './CommentProvider'
 const AddComment = () => {
 
     const COMMENT_MAX_LENGTH = 128
+    const theme = useTheme()
     const { handleAddComment } = useContext( CommentsContext )
     const [ value, setValue ] = useState( '' )
     const [ loading, setLoading ] = useState( false )
@@ -32,7 +33,7 @@ const AddComment = () => {
         setLoading( false )
     }
 
-    return ( <Paper elevation={4} sx={{ py: 2, mb: 1 }}>
+    return ( <Paper elevation={4} sx={{ py: 2, mb: 1, mt: 4, borderRadius: theme.spacing( 3 ) }}>
         <Stack justifyContent={'space-between'} alignItems={'center'}>
             <InputBase placeholder={'comment…'} value={value} onChange={handleValue}
                        onKeyDown={handleKeyDown} sx={{ width: '100%' }}

@@ -31,7 +31,7 @@ const UserAvatarList = ( { users, options: inputOptions }: UserAvatarListProps )
 
     return (
       <Stack spacing={options.spacing} flexShrink={0}>
-          {users.map( user => <UserAvatar key={user.id} user={user} size={'medium'}/> )}
+          {users.map( user => <UserAvatar key={user.id} userId={user.id} size={'medium'}/> )}
       </Stack>
     )
 }

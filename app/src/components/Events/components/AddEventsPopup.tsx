@@ -39,6 +39,8 @@ const AddEventsPopup = ( { children }: AddEventsPopupProps ) => {
         setInitDate( newDate.format( DATE_TIME_FORMAT ) )
     }
 
+    console.log( 'INIT DATE: ', initDate )
+
     return (
       <AddEventPopupContext.Provider value={{
           toggleEventPopup, setInitialDate, open,

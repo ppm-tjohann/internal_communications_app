@@ -43,7 +43,7 @@ const UiMessages = () => {
 
     const handleEvent = ( { event }: { event: Event } ) => {
         handleMessage( 'You have been invited', {
-            action: <UserAvatar user={event.user}/>,
+            action: <UserAvatar userId={event.user_id}/>,
         } )
         dispatch( CalendarEventAddedByUser( event ) )
     }
@@ -112,8 +112,10 @@ const UiMessages = () => {
         if ( !user )
             return null
         dispatch( PostAddedByUser( post ) )
-        if ( post.user.id !== user.id ) {
-            handleMessage( `New Post from ${post.user.username}` )
+        if ( post.user_id !== user.id ) {
+            handleMessage( `New Post!`, {
+                action: <UserAvatar size={'medium'} withBorder userId={post.user_id}/>,
+            } )
         }
     }
 
